@@ -126,9 +126,9 @@ function initForecastChart() {
   const foot = document.getElementById('forecast-footnote');
   if (foot) foot.style.display = 'block';
 
-  const palette = { GDP: '#009a44', MDD: '#c28a00' };
+  const palette = { GDP: '#009a44', 'GNI*': '#0e5c8a', MDD: '#c28a00' };
   const datasets = [];
-  for (const key of ['GDP', 'MDD']) {
+  for (const key of ['GDP', 'GNI*', 'MDD']) {
     const pts = FORECAST_DATA.series[key] || [];
     if (!pts.length) continue;
     datasets.push(
