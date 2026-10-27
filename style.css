@@ -388,3 +388,26 @@ body {
   color: var(--muted);
   font-size: 0.84rem;
 }
+
+.kpi-heading {
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 1rem 0 0.35rem;
+}
+
+.kpi-heading:first-child { margin-top: 0; }
+
+.kpi-wide { min-width: 300px; }
+
+.forecast-years {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 1.1rem;
+}
+
+.forecast-years .fy { white-space: nowrap; }

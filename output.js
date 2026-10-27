@@ -41,25 +41,29 @@ function initSummaryStrip() {
     tiles.push(stripKpi(def, rec, 'yoy'));
     tiles.push(stripKpi(def, rec, 'qoq'));
   }
+  let growthHtml = tiles.join('');
+
+  let forecastHtml = '';
   if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series) {
     const forecastTiles = [];
     for (const key of ['GDP', 'MDD']) {
-      const pts = FORECAST_DATA.series[key] || [];
-      for (const year of ['2026', '2027']) {
-        const pt = pts.find((p) => String(p.year) === year && p.forecast);
-        if (pt && pt.value !== null) {
-          const dir = pt.value >= 0 ? 'up' : 'down';
-          forecastTiles.push(
-            `<div class="kpi"><span class="label" title="Central Bank of Ireland forecast, annual growth">${key} — ${year} forecast</span><div class="value ${dir}">${pt.value >= 0 ? '+' : ''}${pt.value.toFixed(1)}%</div></div>`
-          );
-        }
-      }
+      const pts = (FORECAST_DATA.series[key] || []).filter((p) => p.forecast && p.value !== null);
+      if (!pts.length) continue;
+      const years = pts.slice(0, 3);
+      const dir = years.some((p) => p.value < 0) ? 'down' : 'up';
+      const cells = years
+        .map((p) => `<span class="fy ${p.value < 0 ? 'down' : 'up'}">${p.year}: ${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%</span>`)
+        .join('');
+      forecastTiles.push(
+        `<div class="kpi kpi-wide"><span class="label" title="Central Bank of Ireland Quarterly Bulletin forecasts, annual growth">${key} forecasts</span><div class="value ${dir} forecast-years">${cells}</div></div>`
+      );
     }
-    tiles.push('<div class="kpi-strip-divider"></div>');
-    tiles.push(...forecastTiles);
+    forecastHtml = forecastTiles.join('');
   }
 
-  host.innerHTML = tiles.join('');
+  host.innerHTML =
+    (growthHtml ? `<div class="kpi-heading">Growth rates</div><div class="kpis">${growthHtml}</div>` : '') +
+    (forecastHtml ? `<div class="kpi-heading">Annual growth forecasts</div><div class="kpis">${forecastHtml}</div>` : '');
 
   const badge = document.getElementById('strip-updated');
   if (badge && latestQuarter) badge.textContent = `Data through ${latestQuarter}`;
