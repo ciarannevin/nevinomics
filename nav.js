@@ -40,8 +40,6 @@
     footer.className = 'site-footer';
     footer.innerHTML =
       '<div class="inner">' +
-      '<span>Data: <a href="https://www.cso.ie/">Central Statistics Office, Ireland</a> · ' +
-      '<a href="about.html">Sources &amp; methodology</a></span>' +
       '<span>nevinomics — your window to the Irish economy</span>' +
       '</div>';
     document.body.append(footer);

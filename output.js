@@ -292,7 +292,7 @@ function initComponentsTable() {
   });
 
   host.innerHTML =
-    `<table class="data-table"><thead><tr>` +
+    `<div class="table-scroll"><table class="data-table"><thead><tr>` +
     `<th>Component</th><th>Latest quarter (€m)</th><th>Growth, QoQ (%)</th><th>Growth, YoY (%)</th><th>Contrib. to QoQ GDP growth (pp)</th><th>Contrib. to 4-qtr GDP growth (pp)</th>` +
     `</tr></thead><tbody>` +
     table
@@ -308,7 +308,7 @@ function initComponentsTable() {
           `</tr>`
       )
       .join('') +
-    `</tbody></table>`;
+    `</tbody></table></div>`;
 
   const badge = document.getElementById('components-updated');
   if (badge && latestQuarter) badge.textContent = latestQuarter;

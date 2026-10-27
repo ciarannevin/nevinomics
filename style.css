@@ -431,3 +431,26 @@ body {
 
 .fy-val.up { color: var(--accent-dark); }
 .fy-val.down { color: var(--negative); }
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+}
+
+.table-scroll .data-table { margin-top: 0; min-width: 640px; }
+
+.data-table th:first-child,
+.data-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--card);
+  z-index: 1;
+  min-width: 130px;
+}
+
+.data-table tr.strong td:first-child {
+  background: var(--accent-soft);
+}
+
+.data-table td:first-child { box-shadow: 1px 0 0 var(--border); }
