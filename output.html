@@ -27,29 +27,6 @@
       <p class="footnote">All figures: seasonally adjusted, constant prices (chain linked). GDP and GNP from CSO Quarterly National Accounts (NAQ04); MDD from NAQ05. Hover the labels for full indicator names.</p>
     </section>
 
-    <section class="card" id="gdp-card">
-      <div class="card-header">
-        <h2>GDP Growth — Ireland</h2>
-      </div>
-      <div class="chart-controls">
-        <label><input type="radio" name="gdp-metric" value="yoy" checked> Year-on-year growth (%)</label>
-        <label><input type="radio" name="gdp-metric" value="value"> GDP level (€m, chain-linked)</label>
-      </div>
-      <div class="chart-wrap"><canvas id="gdp-chart"></canvas></div>
-      <p class="footnote">Source: CSO Quarterly National Accounts (table NAQ04). Seasonally adjusted, constant prices, chain linked annually. Irish GDP is volatile due to multinational activity.</p>
-    </section>
-  </div>
-
-  <script src="nav.js"></script>
-  <script src="chart-theme.js"></script>
-  <script src="data/gdp.js"></script>
-  <script src="data/gnp.js"></script>
-  <script src="data/mdd.js"></script>
-  <script src="output.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
-
     <div class="chart-grid">
       <section class="card">
         <div class="card-header">
@@ -61,7 +38,7 @@
           <label><input type="radio" name="growth-metric" value="qoq"> Quarter-on-quarter</label>
         </div>
         <div class="chart-wrap"><canvas id="levels-chart"></canvas></div>
-        <p class="footnote">GDP, GNP and MDD growth, year-on-year, at constant prices (chain linked), seasonally adjusted. Source: CSO NAQ04, NAQ05.</p>
+        <p class="footnote">GDP, GNP and MDD growth, at constant prices (chain linked), seasonally adjusted. Source: CSO NAQ04, NAQ05.</p>
       </section>
 
       <section class="card">
@@ -75,3 +52,13 @@
         </div>
       </section>
     </div>
+  </div>
+
+  <script src="nav.js"></script>
+  <script src="chart-theme.js"></script>
+  <script src="data/gdp.js"></script>
+  <script src="data/gnp.js"></script>
+  <script src="data/mdd.js"></script>
+  <script src="output.js"></script>
+</body>
+</html>
