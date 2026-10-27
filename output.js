@@ -210,14 +210,18 @@ function initComponentsTable() {
   const fmtPct = (v) => (v === null || v === undefined ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`);
   const cls = (v) => (v === null || v === undefined ? '' : v >= 0 ? 'up' : 'down');
 
+  const gdpSeries = COMPONENT_DATA['GDP'] || [];
+  const gdpPrev = gdpSeries.length > 1 ? gdpSeries[gdpSeries.length - 2].value : null;
+  const gdpYearAgo = gdpSeries.length > 4 ? gdpSeries[gdpSeries.length - 5].value : null;
+
   let latestQuarter = null;
   const table = rows.map((r) => {
     const series = COMPONENT_DATA[r.key];
-    if (!series || !series.length) return { ...r, latest: null, avg4: null, yoy: null, qoq: null };
+    if (!series || !series.length) return { ...r, latest: null, total4: null, yoy: null, qoq: null, qoqC: null, yoyC: null };
     const latest = series[series.length - 1];
     if (!latestQuarter || latest.quarter > latestQuarter) latestQuarter = latest.quarter;
     const last4 = series.slice(-4);
-    const avg4 = last4.reduce((s, d) => s + (d.value || 0), 0) / (last4.length || 1);
+    const total4 = last4.reduce((s, d) => s + (d.value || 0), 0);
     // CSO stores imports as negative values; for the "Less: Imports" row use magnitudes
     const magnitude = r.sign === -1;
     const latestVal = magnitude ? Math.abs(latest.value) : latest.value;
@@ -228,12 +232,15 @@ function initComponentsTable() {
     const yoy = yoyRec ? Math.abs(yoyRec.yoy) * Math.sign(yoyRec.value || 1) * (yoyRec.yoy >= 0 ? 1 : -1) : null;
     const yoyFinal = yoyRec ? (magnitude ? Math.abs(yoyRec.yoy) : yoyRec.yoy) : null;
     const qoq = prevVal !== null && prevVal !== 0 ? ((latestVal - prevVal) / Math.abs(prevVal)) * 100 : null;
-    return { ...r, latest: latestVal, avg4: magnitude ? Math.abs(avg4) : avg4, yoy: yoyFinal, qoq };
+    const yearAgo = series.length > 4 ? series[series.length - 5].value : null;
+    const qoqC = prev !== null && gdpPrev ? ((latest.value - prev) / gdpPrev) * 100 : null;
+    const yoyC = yearAgo !== null && gdpYearAgo ? ((latest.value - yearAgo) / gdpYearAgo) * 100 : null;
+    return { ...r, latest: latestVal, total4: magnitude ? -total4 : total4, yoy: yoyFinal, qoq, qoqC, yoyC };
   });
 
   host.innerHTML =
     `<table class="data-table"><thead><tr>` +
-    `<th>Component</th><th>Latest quarter (€m)</th><th>Avg, last 4 quarters (€m)</th><th>QoQ</th><th>YoY</th>` +
+    `<th>Component</th><th>Latest quarter (€m)</th><th>Total, last 4 quarters (€m)</th><th>QoQ</th><th>YoY</th><th>QoQ contrib. (pp)</th><th>YoY contrib. (pp)</th>` +
     `</tr></thead><tbody>` +
     table
       .map(
@@ -241,9 +248,11 @@ function initComponentsTable() {
           `<tr${r.strong ? ' class="strong"' : ''}>` +
           `<td>${r.label}</td>` +
           `<td>${fmt(r.latest)}</td>` +
-          `<td>${fmt(r.avg4)}</td>` +
+          `<td>${fmt(r.total4)}</td>` +
           `<td class="${cls(r.qoq)}">${fmtPct(r.qoq)}</td>` +
           `<td class="${cls(r.yoy)}">${fmtPct(r.yoy)}</td>` +
+          `<td class="${cls(r.qoqC)}">${fmtPct(r.qoqC)}</td>` +
+          `<td class="${cls(r.yoyC)}">${fmtPct(r.yoyC)}</td>` +
           `</tr>`
       )
       .join('') +
