@@ -18,7 +18,29 @@
       <p>GDP, GNP and modified domestic demand — the headline measures of Irish economic activity.</p>
     </div>
 
-    <section class="card" id="summary-card">
+    <div class="chart-grid">
+      <section class="card">
+        <div class="card-header">
+          <h2>Output levels — past 5 years</h2>
+          <span class="badge">Quarterly, €m</span>
+        </div>
+        <div class="chart-wrap"><canvas id="levels-chart"></canvas></div>
+        <p class="footnote">GDP, GNP and MDD at constant prices (chain linked), seasonally adjusted. Source: CSO NAQ04, NAQ05.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Forecasts — GDP &amp; MDD</h2>
+          <span class="badge">Coming soon</span>
+        </div>
+        <div class="forecast-placeholder">
+          <h3>Forecast chart coming soon</h3>
+          <p>Official forecasts for GDP and MDD growth will appear here.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" id="summary-card" style="margin-top: 1.5rem;">
       <div class="card-header">
         <h2>Summary — latest quarter</h2>
         <span class="badge live" id="strip-updated"></span>

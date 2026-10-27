@@ -220,6 +220,37 @@ body {
 .chart-controls input { accent-color: var(--accent); }
 .chart-wrap { position: relative; height: 400px; }
 
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.chart-grid .card { margin-bottom: 0; }
+
+.chart-grid .chart-wrap { height: 320px; }
+
+@media (max-width: 900px) {
+  .chart-grid { grid-template-columns: 1fr; }
+  .chart-grid .card { margin-bottom: 1.5rem; }
+}
+
+.forecast-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 320px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  background: var(--bg);
+}
+
+.forecast-placeholder h3 { font-family: var(--font-head); color: var(--text); margin: 0 0 0.4rem; }
+.forecast-placeholder p { margin: 0.2rem 0; font-size: 0.85rem; }
+
 .footnote { font-size: 0.78rem; color: var(--muted); margin: 1rem 0 0; }
 
 .tiles {
