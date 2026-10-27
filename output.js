@@ -50,12 +50,14 @@ function initSummaryStrip() {
       const pts = (FORECAST_DATA.series[key] || []).filter((p) => p.forecast && p.value !== null);
       if (!pts.length) continue;
       const years = pts.slice(0, 3);
-      const dir = years.some((p) => p.value < 0) ? 'down' : 'up';
       const cells = years
-        .map((p) => `<span class="fy ${p.value < 0 ? 'down' : 'up'}">${p.year}: ${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%</span>`)
+        .map(
+          (p) =>
+            `<div class="fy-col"><span class="fy-year">${p.year}</span><span class="fy-val ${p.value < 0 ? 'down' : 'up'}">${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%</span></div>`
+        )
         .join('');
       forecastTiles.push(
-        `<div class="kpi kpi-wide"><span class="label" title="Central Bank of Ireland Quarterly Bulletin forecasts, annual growth">${key} forecasts</span><div class="value ${dir} forecast-years">${cells}</div></div>`
+        `<div class="kpi kpi-wide"><span class="label" title="Central Bank of Ireland Quarterly Bulletin forecasts, annual growth">${key} — forecast annual growth</span><div class="forecast-years">${cells}</div></div>`
       );
     }
     forecastHtml = forecastTiles.join('');

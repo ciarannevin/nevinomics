@@ -405,9 +405,29 @@ body {
 
 .forecast-years {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  font-size: 1.1rem;
+  gap: 1.25rem;
+  margin-top: 0.35rem;
 }
 
-.forecast-years .fy { white-space: nowrap; }
+.fy-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.fy-year {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.fy-val {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.fy-val.up { color: var(--accent-dark); }
+.fy-val.down { color: var(--negative); }
