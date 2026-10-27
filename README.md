@@ -1,6 +1,6 @@
-# Economic Indicators Dashboard
+# Nevinomics
 
-A web-based dashboard of economic indicators, starting with Irish GDP growth.
+A web-based dashboard of economic indicators ("Nevinomics"), starting with Irish GDP growth.
 Built to be simple to read and easy to extend — one indicator at a time.
 
 ## Current indicators
