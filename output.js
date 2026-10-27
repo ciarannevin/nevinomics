@@ -207,12 +207,13 @@ function initComponentsTable() {
   ];
 
   const fmt = (v) => (v === null || v === undefined ? '—' : `€${Math.round(v).toLocaleString('en-IE')}m`);
-  const fmtPct = (v) => (v === null || v === undefined ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`);
+  const fmtPct = (v) => (v === null || v === undefined ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(1)}`);
   const cls = (v) => (v === null || v === undefined ? '' : v >= 0 ? 'up' : 'down');
 
   const gdpSeries = COMPONENT_DATA['GDP'] || [];
-  const gdpPrev = gdpSeries.length > 1 ? gdpSeries[gdpSeries.length - 2].value : null;
-  const gdpYearAgo = gdpSeries.length > 4 ? gdpSeries[gdpSeries.length - 5].value : null;
+  const gdpByQuarter = {};
+  gdpSeries.forEach((d) => { gdpByQuarter[d.quarter] = d.value; });
+  const gdpHist = gdpSeries.map((d) => d.value);
 
   let latestQuarter = null;
   const table = rows.map((r) => {
@@ -220,8 +221,13 @@ function initComponentsTable() {
     if (!series || !series.length) return { ...r, latest: null, total4: null, yoy: null, qoq: null, qoqC: null, yoyC: null };
     const latest = series[series.length - 1];
     if (!latestQuarter || latest.quarter > latestQuarter) latestQuarter = latest.quarter;
-    const last4 = series.slice(-4);
-    const total4 = last4.reduce((s, d) => s + (d.value || 0), 0);
+    // quarterly contributions to GDP growth, pp; last 4 quarters kept for averaging
+    const contrib = (d, i) => {
+      if (i < 1 || !gdpHist.length) return null;
+      const prevVal = series[i - 1].value;
+      const gdpThen = gdpHist[i - 1];
+      return gdpThen ? ((d.value - prevVal) / gdpThen) * 100 : null;
+    };
     // CSO stores imports as negative values; for the "Less: Imports" row use magnitudes
     const magnitude = r.sign === -1;
     const latestVal = magnitude ? Math.abs(latest.value) : latest.value;
@@ -232,15 +238,23 @@ function initComponentsTable() {
     const yoy = yoyRec ? Math.abs(yoyRec.yoy) * Math.sign(yoyRec.value || 1) * (yoyRec.yoy >= 0 ? 1 : -1) : null;
     const yoyFinal = yoyRec ? (magnitude ? Math.abs(yoyRec.yoy) : yoyRec.yoy) : null;
     const qoq = prevVal !== null && prevVal !== 0 ? ((latestVal - prevVal) / Math.abs(prevVal)) * 100 : null;
-    const yearAgo = series.length > 4 ? series[series.length - 5].value : null;
-    const qoqC = prev !== null && gdpPrev ? ((latest.value - prev) / gdpPrev) * 100 : null;
-    const yoyC = yearAgo !== null && gdpYearAgo ? ((latest.value - yearAgo) / gdpYearAgo) * 100 : null;
-    return { ...r, latest: latestVal, total4: magnitude ? -total4 : total4, yoy: yoyFinal, qoq, qoqC, yoyC };
+    // per-quarter contributions over the last 4 quarters (aligned to component quarters)
+    const quarters = series.slice(-4).map((d) => d.quarter);
+    const contribs = quarters.map((q) => {
+      const idx = series.findIndex((d) => d.quarter === q);
+      return idx > 0 ? contrib(series[idx], idx) : null;
+    });
+    const valid = contribs.filter((c) => c !== null);
+    const avgContrib = valid.length ? valid.reduce((a, b) => a + b, 0) / valid.length : null;
+    const latestContrib = contribs[contribs.length - 1];
+    const qoqC = latestContrib;
+    const yoyC = avgContrib;
+    return { ...r, latest: latestVal, yoy: yoyFinal, qoq, qoqC, yoyC };
   });
 
   host.innerHTML =
     `<table class="data-table"><thead><tr>` +
-    `<th>Component</th><th>Latest quarter (€m)</th><th>Total, last 4 quarters (€m)</th><th>QoQ</th><th>YoY</th><th>QoQ contrib. (pp)</th><th>YoY contrib. (pp)</th>` +
+    `<th>Component</th><th>Latest quarter (€m)</th><th>Growth, QoQ (%)</th><th>Growth, YoY (%)</th><th>Contrib. to QoQ GDP growth (pp)</th><th>Contrib. to 4-qtr GDP growth (pp)</th>` +
     `</tr></thead><tbody>` +
     table
       .map(
@@ -248,7 +262,6 @@ function initComponentsTable() {
           `<tr${r.strong ? ' class="strong"' : ''}>` +
           `<td>${r.label}</td>` +
           `<td>${fmt(r.latest)}</td>` +
-          `<td>${fmt(r.total4)}</td>` +
           `<td class="${cls(r.qoq)}">${fmtPct(r.qoq)}</td>` +
           `<td class="${cls(r.yoy)}">${fmtPct(r.yoy)}</td>` +
           `<td class="${cls(r.qoqC)}">${fmtPct(r.qoqC)}</td>` +
