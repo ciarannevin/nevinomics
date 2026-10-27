@@ -104,8 +104,8 @@ function initHomeHero() {
   if (!el || typeof GDP_DATA === 'undefined') return;
   const latest = latestComplete(GDP_DATA);
   el.innerHTML =
-    `<span class="label">Irish GDP growth, year-on-year (${latest.quarter})</span>` +
-    `<div class="big ${latest.yoy >= 0 ? 'value up' : 'value down'}">${fmtPct(latest.yoy)}</div>` +
+    `<p class="eyebrow">Irish GDP growth, year-on-year (${latest.quarter})</p>` +
+    `<div class="big ${latest.yoy >= 0 ? 'up' : 'down'}">${fmtPct(latest.yoy)}</div>` +
     `<p class="sub">GDP of ${fmtMillions(latest.gdp)} in the latest quarter. ` +
     `<a href="output.html">See the Output page →</a></p>`;
 }

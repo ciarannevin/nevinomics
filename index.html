@@ -9,21 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
-  <div class="page">
-    <div class="page-head">
+  <header class="masthead">
+    <div class="inner">
+      <p class="eyebrow">Irish · European · Global economic indicators</p>
       <h1>Nevinomics</h1>
-      <p>Irish, European &amp; Global economic indicators — powered by official statistics.</p>
+      <div id="hero-gdp"><p class="sub">Loading latest data…</p></div>
     </div>
+  </header>
 
-    <section class="hero" id="hero-gdp">
-      <span class="label">Loading latest data…</span>
-    </section>
-
-    <h2 style="font-family: var(--font-head); font-size: 1.1rem;">Explore the themes</h2>
+  <div class="page">
+    <h2 class="section-label">Explore the themes</h2>
     <div class="tiles">
       <a class="tile" href="output.html">
         <h3>Economic Output</h3>
@@ -58,6 +55,8 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <script src="nav.js"></script>
   <script src="chart-theme.js"></script>
   <script src="data/gdp.js"></script>
