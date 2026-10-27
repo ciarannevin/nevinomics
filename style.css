@@ -58,16 +58,6 @@ body {
 
 .wordmark span { color: #ffffff; }
 
-.topbar-tagline {
-  color: #7fd7a5;
-  font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-@media (max-width: 900px) {
-  .topbar-tagline { display: none; }
-}
-
 .site-nav { display: flex; gap: 0.15rem; flex-wrap: wrap; }
 
 .site-nav a {

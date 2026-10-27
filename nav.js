@@ -24,7 +24,6 @@
     bar.innerHTML =
       '<div class="topbar-inner">' +
       '<a class="wordmark" href="index.html">nevin<span>omics</span></a>' +
-      '<span class="topbar-tagline"> | Your window to the Irish economy</span>' +
       '<nav class="site-nav">' +
       pages
         .map(
