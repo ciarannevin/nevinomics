@@ -25,12 +25,9 @@ COMPONENTS = [
     ("001", "Personal consumption"),
     ("0023", "Government consumption"),
     ("003", "Investment (GFCF)"),
-    ("0031", "Investment: Dwellings"),
-    ("0032", "Investment: Improvements"),
-    ("0033", "Investment: Other building & construction"),
-    ("0034", "Investment: Transfer costs"),
     ("0035", "Investment: Machinery & equipment"),
     ("0037", "Investment: Intangible assets"),
+    ("0038", "Investment: Building & construction"),
     ("004", "Stocks (changes in inventories)"),
     ("005", "Exports"),
     ("006", "Imports"),
@@ -46,21 +43,8 @@ def fetch_csv(url):
         return resp.read().decode("utf-8-sig")
 
 
-NON_SA_COMPONENTS = {
-    "Investment (GFCF)",
-    "Investment: Dwellings",
-    "Investment: Improvements",
-    "Investment: Other building & construction",
-    "Investment: Transfer costs",
-    "Investment: Machinery & equipment",
-    "Investment: Intangible assets",
-}
-
-
 def extract_best(text, sector, label):
-    """SA constant prices by default; the investment block uses non-SA for additivity."""
-    if label in NON_SA_COMPONENTS:
-        return extract(text, "NAQ04C02", sector), False
+    """SA constant prices; fall back to non-SA constant prices if unavailable."""
     series = extract(text, NAQ04_STAT, sector)
     if series:
         return series, True
