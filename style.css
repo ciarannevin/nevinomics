@@ -180,12 +180,12 @@ body {
 .kpis { display: flex; gap: 1rem; margin: 1.25rem 0; flex-wrap: wrap; }
 
 .kpi {
-  flex: 1;
-  min-width: 155px;
+  flex: 1 1 200px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 0.85rem 1.05rem;
+  box-sizing: border-box;
 }
 
 .kpi .label {
@@ -342,7 +342,6 @@ body {
   .masthead .big { font-size: 2.8rem; }
   .kpi .value { font-size: 1.2rem; }
   .kpis { gap: 0.6rem; }
-  .kpi-wide { min-width: 100%; flex-basis: 100%; }
   .fy-val { font-size: 1.1rem; }
 }
 
@@ -404,13 +403,14 @@ body {
 
 .kpi-heading:first-child { margin-top: 0; }
 
-.kpi-wide { min-width: 300px; }
+.kpi-wide { flex-basis: 300px; }
 
 .forecast-years,
 .mini-cols {
   display: flex;
   gap: 1.25rem;
   margin-top: 0.35rem;
+  flex-wrap: wrap;
 }
 
 .fy-col {
