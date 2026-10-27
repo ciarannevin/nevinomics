@@ -46,7 +46,7 @@ function initSummaryStrip() {
   let forecastHtml = '';
   if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series) {
     const forecastTiles = [];
-    for (const key of ['GDP', 'MDD']) {
+    for (const key of ['GDP', 'GNI*', 'MDD']) {
       const pts = (FORECAST_DATA.series[key] || []).filter((p) => p.forecast && p.value !== null);
       if (!pts.length) continue;
       const years = pts.slice(0, 3);
