@@ -335,3 +335,43 @@ body {
   .masthead .big { font-size: 2.8rem; }
   .kpi .value { font-size: 1.2rem; }
 }
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-top: 1rem;
+}
+
+.data-table th {
+  text-align: right;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.data-table th:first-child { text-align: left; }
+
+.data-table td {
+  text-align: right;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table td:first-child { text-align: left; color: var(--text); }
+
+.data-table td.up { color: var(--accent-dark); }
+.data-table td.down { color: var(--negative); }
+
+.data-table tr.strong td {
+  font-weight: 600;
+  font-family: var(--font-head);
+  border-top: 2px solid var(--border);
+  border-bottom: none;
+  background: var(--accent-soft);
+}

@@ -54,6 +54,16 @@
         <p class="footnote" style="display: none;" id="forecast-footnote">Annual growth, %; dashed lines indicate forecast years, solid lines are outturns/estimates. Source: Central Bank of Ireland Quarterly Bulletin.</p>
       </section>
     </div>
+
+
+    <section class="card" id="components-card">
+      <div class="card-header">
+        <h2>GDP by expenditure component</h2>
+        <span class="badge live" id="components-updated"></span>
+      </div>
+      <div id="components-table"></div>
+      <p class="footnote">Constant prices (chain linked), seasonally adjusted, € millions. Latest quarter and average of the last 4 quarters; QoQ and YoY growth of the latest quarter. Source: CSO Quarterly National Accounts (NAQ04).</p>
+    </section>
   </div>
 
   <script src="nav.js"></script>
@@ -62,6 +72,7 @@
   <script src="data/gnp.js"></script>
   <script src="data/mdd.js"></script>
   <script src="data/forecasts.js"></script>
+  <script src="data/components.js"></script>
   <script src="output.js"></script>
 </body>
 </html>

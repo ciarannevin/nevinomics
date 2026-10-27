@@ -189,4 +189,66 @@ document.addEventListener('DOMContentLoaded', () => {
   initSummaryStrip();
   initLevelsChart();
   initForecastChart();
+  initComponentsTable();
 });
+
+function initComponentsTable() {
+  const host = document.getElementById('components-table');
+  if (!host || typeof COMPONENT_DATA === 'undefined') return;
+
+  const rows = [
+    { label: 'Personal consumption', key: 'Personal consumption' },
+    { label: 'Government consumption', key: 'Government consumption' },
+    { label: 'Investment (gross fixed capital formation)', key: 'Investment (GFCF)' },
+    { label: 'Stocks (change in inventories)', key: 'Stocks (changes in inventories)' },
+    { label: 'Exports', key: 'Exports' },
+    { label: 'Less: Imports', key: 'Imports', sign: -1 },
+    { label: 'GDP', key: 'GDP', strong: true },
+  ];
+
+  const fmt = (v) => (v === null || v === undefined ? '—' : `€${Math.round(v).toLocaleString('en-IE')}m`);
+  const fmtPct = (v) => (v === null || v === undefined ? '—' : `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`);
+  const cls = (v) => (v === null || v === undefined ? '' : v >= 0 ? 'up' : 'down');
+
+  let latestQuarter = null;
+  const table = rows.map((r) => {
+    const series = COMPONENT_DATA[r.key];
+    if (!series || !series.length) return { ...r, latest: null, avg4: null, yoy: null, qoq: null };
+    const latest = series[series.length - 1];
+    if (!latestQuarter || latest.quarter > latestQuarter) latestQuarter = latest.quarter;
+    const last4 = series.slice(-4);
+    const avg4 = last4.reduce((s, d) => s + (d.value || 0), 0) / (last4.length || 1);
+    // CSO stores imports as negative values; for the "Less: Imports" row use magnitudes
+    const magnitude = r.sign === -1;
+    const latestVal = magnitude ? Math.abs(latest.value) : latest.value;
+    const prev = series.length > 1 ? series[series.length - 2].value : null;
+    const prevVal = prev === null ? null : magnitude ? Math.abs(prev) : prev;
+    const yoySeries = series.filter((d) => d.yoy !== null);
+    const yoyRec = yoySeries.length ? yoySeries[yoySeries.length - 1] : null;
+    const yoy = yoyRec ? Math.abs(yoyRec.yoy) * Math.sign(yoyRec.value || 1) * (yoyRec.yoy >= 0 ? 1 : -1) : null;
+    const yoyFinal = yoyRec ? (magnitude ? Math.abs(yoyRec.yoy) : yoyRec.yoy) : null;
+    const qoq = prevVal !== null && prevVal !== 0 ? ((latestVal - prevVal) / Math.abs(prevVal)) * 100 : null;
+    return { ...r, latest: latestVal, avg4: magnitude ? Math.abs(avg4) : avg4, yoy: yoyFinal, qoq };
+  });
+
+  host.innerHTML =
+    `<table class="data-table"><thead><tr>` +
+    `<th>Component</th><th>Latest quarter (€m)</th><th>Avg, last 4 quarters (€m)</th><th>QoQ</th><th>YoY</th>` +
+    `</tr></thead><tbody>` +
+    table
+      .map(
+        (r) =>
+          `<tr${r.strong ? ' class="strong"' : ''}>` +
+          `<td>${r.label}</td>` +
+          `<td>${fmt(r.latest)}</td>` +
+          `<td>${fmt(r.avg4)}</td>` +
+          `<td class="${cls(r.qoq)}">${fmtPct(r.qoq)}</td>` +
+          `<td class="${cls(r.yoy)}">${fmtPct(r.yoy)}</td>` +
+          `</tr>`
+      )
+      .join('') +
+    `</tbody></table>`;
+
+  const badge = document.getElementById('components-updated');
+  if (badge && latestQuarter) badge.textContent = latestQuarter;
+}
