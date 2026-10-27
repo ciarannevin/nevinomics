@@ -52,7 +52,7 @@ def parse_table(raw):
             if not cells:
                 continue
             if years is None and all(re.fullmatch(r"\d{4}f?", c) for c in cells[1:] if c):
-                years = [c.rstrip("f") for c in cells if c]
+                years = [(c.rstrip("f"), c.endswith("f")) for c in cells if c]
                 continue
             label = cells[0]
             if label in TRACKED_ROWS and label not in data:
@@ -99,7 +99,7 @@ def main():
     for label, short in TRACKED_ROWS.items():
         if label in table:
             series[short] = [
-                {"year": y, "value": v} for y, v in zip(years, table[label])
+                {"year": y, "forecast": f, "value": v} for (y, f), v in zip(years, table[label])
             ]
 
     out = ROOT / "data" / "forecasts.js"

@@ -92,7 +92,13 @@ function initLevelsChart() {
   };
   config.options.scales.x.time.unit = 'quarter';
   config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
-  config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+  config.options.plugins.legend = {
+    display: true,
+    position: 'bottom',
+    labels: { boxWidth: 12, usePointStyle: true },
+    onClick: () => {},
+  };
+  config.options.plugins.legend.labels.filter = (item) => item.datasetIndex % 2 === 0;
   config.options.plugins.tooltip.callbacks = {
     title: (items) => {
       const d = new Date(items[0].parsed.x);
@@ -127,17 +133,23 @@ function initForecastChart() {
   if (foot) foot.style.display = 'block';
 
   const palette = { GDP: '#009a44', 'GNI*': '#0e5c8a', MDD: '#c28a00' };
+  const points = (pts) => pts.filter((p) => p.value !== null).map((p) => ({ x: Date.UTC(Number(p.year), 0, 1), y: p.value }));
+  const actuals = (pts) => points(pts.filter((p) => !p.forecast));
+  const forecastFrom = (pts) => {
+    const firstForecast = pts.find((p) => p.forecast && p.value !== null);
+    if (!firstForecast) return [];
+    const anchor = pts.find((p) => !p.forecast && p.value !== null && Number(p.year) === Number(firstForecast.year) - 1);
+    const anchorPt = anchor ? [{ x: Date.UTC(Number(anchor.year), 0, 1), y: anchor.value }] : [];
+    return anchorPt.concat(points(pts.filter((p) => p.forecast)));
+  };
   const datasets = [];
   for (const key of ['GDP', 'GNI*', 'MDD']) {
     const pts = FORECAST_DATA.series[key] || [];
     if (!pts.length) continue;
-    datasets.push(
-      nvLineDataset(
-        key,
-        pts.filter((p) => p.value !== null).map((p) => ({ x: Date.UTC(Number(p.year), 0, 1), y: p.value })),
-        { color: palette[key], fill: false }
-      )
-    );
+    const actual = nvLineDataset(key, actuals(pts), { color: palette[key], fill: false });
+    const forecast = nvLineDataset(key, forecastFrom(pts), { color: palette[key], fill: false });
+    forecast.borderDash = [6, 4];
+    datasets.push(actual, forecast);
   }
 
   const config = {
@@ -148,7 +160,13 @@ function initForecastChart() {
   };
   config.options.scales.x.time.unit = 'year';
   config.options.scales.x.time.tooltipFormat = 'yyyy';
-  config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+  config.options.plugins.legend = {
+    display: true,
+    position: 'bottom',
+    labels: { boxWidth: 12, usePointStyle: true },
+    onClick: () => {},
+  };
+  config.options.plugins.legend.labels.filter = (item) => item.datasetIndex % 2 === 0;
   config.options.plugins.tooltip.callbacks = {
     title: (items) => String(new Date(items[0].parsed.x).getUTCFullYear()),
     label: (item) => {
