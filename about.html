@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Nevinomics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <h1>About Nevinomics</h1>
+      <p>What this site is, where the data comes from, and what's next.</p>
+    </div>
+    <section class="card">
+      <h2 style="font-family: var(--font-head); margin-top: 0;">What is Nevinomics?</h2>
+      <p>Nevinomics is a dashboard of economic indicators for Ireland, with European and global context planned. It is a personal learning project, built to make official statistics easy to read and share.</p>
+      <p>Every chart carries the nevinomics watermark, so shared screenshots are always traceable back to the site.</p>
+    </section>
+    <section class="card">
+      <h2 style="font-family: var(--font-head); margin-top: 0;">Data sources</h2>
+      <ul>
+        <li><strong>GDP growth</strong> — Central Statistics Office, Quarterly National Accounts (table NAQ04): seasonally adjusted, constant prices. Updated via the free <a href="https://www.cso.ie/">CSO API</a>.</li>
+      </ul>
+      <p style="font-size: 0.82rem; color: var(--muted);">Planned sources: CSO (labour market, CPI, government finance), Eurostat (European comparisons), World Bank &amp; IMF (global context), Central Bank of Ireland (rates).</p>
+    </section>
+    <section class="card">
+      <h2 style="font-family: var(--font-head); margin-top: 0;">Roadmap</h2>
+      <ol>
+        <li><strong>Live:</strong> GDP growth (Output page)</li>
+        <li>Output: GNI*, industrial production</li>
+        <li>Labour Market: unemployment rate, participation</li>
+        <li>Inflation: CPI/HICP, energy prices</li>
+        <li>Fiscal: exchequer returns, debt-to-GDP</li>
+        <li>Financial: ECB rates, mortgage rates</li>
+        <li>Global: Ireland vs Eurozone/OECD</li>
+      </ol>
+    </section>
+  </div>
+
+  <script src="nav.js"></script>
+</body>
+</html>

@@ -1,30 +1,45 @@
 # Nevinomics
 
-A web-based dashboard of economic indicators ("Nevinomics"), starting with Irish GDP growth.
-Built to be simple to read and easy to extend — one indicator at a time.
+A dashboard of economic indicators for Ireland, with European and global context planned.
+Personal learning project, built to make official statistics easy to read and share.
 
-## Current indicators
+**Live site:** https://ciarannevin.github.io/nevinomics/
 
-- **GDP Growth — Ireland**: quarterly GDP, seasonally adjusted, constant (chain-linked) prices,
-  with year-on-year growth. Source: CSO Quarterly National Accounts, table `NAQ04`.
+## Pages
 
-## Run it
+| Page | Contents | Status |
+|---|---|---|
+| `index.html` | Home — latest key indicator, theme tiles | Live |
+| `output.html` | Economic Output — GDP growth | Live (GNI*, industrial production planned) |
+| `labour.html` | Labour market | Coming soon |
+| `inflation.html` | Inflation & prices | Coming soon |
+| `fiscal.html` | Government finances | Coming soon |
+| `financial.html` | Rates & credit | Coming soon |
+| `global.html` | Ireland in global context | Coming soon |
+| `about.html` | Sources, methodology, roadmap | Live |
 
-No build tools or server needed:
+## Design
 
-1. Open `index.html` in a browser (double-click works).
-   - If charts don't render, serve locally instead: `python3 -m http.server` from this folder,
-     then visit `http://localhost:8000`.
+- Accent: `#009a44`; negative values in red; clean clinical layout
+- Fonts: Space Grotesk (headings) + Inter (body)
+- Every chart carries a `nevinomics` watermark (screenshot attribution)
+- Shared nav/footer injected by `nav.js`; chart styling in `chart-theme.js`
 
 ## Project structure
 
 ```
-index.html          Page layout
-style.css           Styling
-app.js              Dashboard logic (KPIs, chart, interactions)
-data/gdp.js         GDP data (generated — do not edit by hand)
-scripts/fetch_cso.py  Refreshes data/gdp.js from the live CSO API
+*.html            Pages (one per theme)
+style.css         Design system (colours, cards, layout)
+nav.js            Shared navigation bar + footer
+chart-theme.js    Chart.js defaults + watermark plugin
+app.js            Page logic (GDP chart, KPIs, home hero)
+data/gdp.js       GDP data (generated — do not edit by hand)
+scripts/fetch_cso.py  Refreshes data/gdp.js from the CSO API
 ```
+
+## Run locally
+
+Open `index.html` in a browser, or serve: `python3 -m http.server` → http://localhost:8000
 
 ## Refresh the data
 
@@ -33,10 +48,4 @@ python3 scripts/fetch_cso.py
 ```
 
 The CSO API (https://www.cso.ie/) is free and requires no API key.
-
-## Roadmap
-
-- [ ] Add more Irish indicators (inflation/CPI, unemployment, interest rates)
-- [ ] European indicators (Eurostat API)
-- [ ] Global indicators (World Bank / IMF APIs)
-- [ ] Consider a component framework (React) or backend once the scope grows
+Pushing to GitHub auto-deploys the site via GitHub Pages.

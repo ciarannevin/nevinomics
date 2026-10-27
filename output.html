@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economic Output — Nevinomics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+  <div class="page">
+    <div class="page-head">
+      <h1>Economic Output</h1>
+      <p>GDP and economic activity in Ireland, from the CSO Quarterly National Accounts.</p>
+    </div>
+
+    <section class="card" id="gdp-card">
+      <div class="card-header">
+        <h2>GDP Growth — Ireland</h2>
+        <span class="badge live" id="gdp-updated"></span>
+      </div>
+      <div class="kpis" id="gdp-kpis"></div>
+      <div class="chart-controls">
+        <label><input type="radio" name="gdp-metric" value="yoy" checked> Year-on-year growth (%)</label>
+        <label><input type="radio" name="gdp-metric" value="gdp"> GDP level (€m, chain-linked)</label>
+      </div>
+      <div class="chart-wrap"><canvas id="gdp-chart"></canvas></div>
+      <p class="footnote">Source: CSO Quarterly National Accounts (table NAQ04). Seasonally adjusted, constant prices, chain linked annually. Note: Irish GDP is volatile due to multinational activity; GNI* will be added as an alternative measure.</p>
+    </section>
+  </div>
+
+  <script src="nav.js"></script>
+  <script src="chart-theme.js"></script>
+  <script src="data/gdp.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

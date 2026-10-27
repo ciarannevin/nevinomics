@@ -3,37 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nevinomics</title>
+  <title>Nevinomics — Irish, European &amp; Global Economic Indicators</title>
+  <meta name="description" content="A dashboard of Irish, European and global economic indicators, powered by official statistics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Nevinomics</h1>
-    <p class="subtitle">Irish, European &amp; Global economic indicators — powered by official statistics</p>
-  </header>
+  <div class="page">
+    <div class="page-head">
+      <h1>Nevinomics</h1>
+      <p>Irish, European &amp; Global economic indicators — powered by official statistics.</p>
+    </div>
 
-  <main>
-    <section class="card" id="gdp-card">
-      <div class="card-header">
-        <h2>GDP Growth — Ireland</h2>
-        <span class="badge" id="gdp-updated"></span>
-      </div>
-      <div class="kpis" id="gdp-kpis"></div>
-      <div class="chart-controls">
-        <label><input type="radio" name="gdp-metric" value="yoy" checked> Year-on-year growth (%)</label>
-        <label><input type="radio" name="gdp-metric" value="gdp"> GDP level (€m, chain-linked)</label>
-      </div>
-      <div class="chart-wrap"><canvas id="gdp-chart"></canvas></div>
-      <p class="footnote">Source: CSO Quarterly National Accounts (table NAQ04). Seasonally adjusted, constant prices, chain linked annually.</p>
+    <section class="hero" id="hero-gdp">
+      <span class="label">Loading latest data…</span>
     </section>
-  </main>
 
-  <footer>
-    <p>Data: <a href="https://www.cso.ie/">Central Statistics Office, Ireland</a> · Built as a learning project</p>
-  </footer>
+    <h2 style="font-family: var(--font-head); font-size: 1.1rem;">Explore the themes</h2>
+    <div class="tiles">
+      <a class="tile" href="output.html">
+        <h3>Economic Output</h3>
+        <p>GDP, growth and economic activity in Ireland.</p>
+        <span class="badge live">Live — GDP growth</span>
+      </a>
+      <a class="tile" href="labour.html">
+        <h3>Labour Market</h3>
+        <p>Employment, unemployment and participation.</p>
+        <span class="badge">Coming soon</span>
+      </a>
+      <a class="tile" href="inflation.html">
+        <h3>Inflation</h3>
+        <p>Consumer prices, energy and cost of living.</p>
+        <span class="badge">Coming soon</span>
+      </a>
+      <a class="tile" href="fiscal.html">
+        <h3>Fiscal</h3>
+        <p>Government revenue, spending, deficit and debt.</p>
+        <span class="badge">Coming soon</span>
+      </a>
+      <a class="tile" href="financial.html">
+        <h3>Financial</h3>
+        <p>Interest rates, mortgages and credit conditions.</p>
+        <span class="badge">Coming soon</span>
+      </a>
+      <a class="tile" href="global.html">
+        <h3>Global</h3>
+        <p>Ireland in European and global context.</p>
+        <span class="badge">Coming soon</span>
+      </a>
+    </div>
+  </div>
 
+  <script src="nav.js"></script>
+  <script src="chart-theme.js"></script>
   <script src="data/gdp.js"></script>
   <script src="app.js"></script>
 </body>
