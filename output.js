@@ -1,5 +1,12 @@
 'use strict';
 
+function getSeriesData(varName) {
+  if (varName === 'GDP_DATA' && typeof GDP_DATA !== 'undefined') return GDP_DATA;
+  if (varName === 'GNP_DATA' && typeof GNP_DATA !== 'undefined') return GNP_DATA;
+  if (varName === 'MDD_DATA' && typeof MDD_DATA !== 'undefined') return MDD_DATA;
+  return null;
+}
+
 const OUTPUT_SERIES = [
   { varName: 'GDP_DATA', short: 'GDP', full: 'Gross Domestic Product' },
   { varName: 'GNP_DATA', short: 'GNP', full: 'Gross National Product' },
@@ -28,7 +35,7 @@ function initSummaryStrip() {
   let latestQuarter = null;
   const tiles = [];
   for (const def of OUTPUT_SERIES) {
-    const data = typeof window[def.varName] !== 'undefined' ? window[def.varName] : null;
+    const data = getSeriesData(def.varName);
     const rec = data && data.length ? pickLatest(data) : null;
     if (rec && (!latestQuarter || rec.quarter > latestQuarter)) latestQuarter = rec.quarter;
     tiles.push(stripKpi(def, rec, 'yoy'));
