@@ -25,7 +25,7 @@ function stripKpi(series, rec, growth) {
   const v = growth === 'yoy' ? rec.yoy : rec.qoq;
   if (v === null || v === undefined) return '';
   const dir = v >= 0 ? 'up' : 'down';
-  return `<div class="kpi"><span class="label" title="${series.full}">${series.short} — ${growth === 'yoy' ? 'YoY' : 'QoQ'}</span><div class="value ${dir}">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</div></div>`;
+  return `<div class="kpi" title="${series.full} — ${growth === 'yoy' ? 'year-on-year' : 'quarter-on-quarter'} growth"><span class="label">${series.short} — ${growth === 'yoy' ? 'YoY' : 'QoQ'}</span><div class="value ${dir}">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</div></div>`;
 }
 
 function initSummaryStrip() {
@@ -57,7 +57,7 @@ function initSummaryStrip() {
         )
         .join('');
       forecastTiles.push(
-        `<div class="kpi kpi-wide"><span class="label" title="Central Bank of Ireland Quarterly Bulletin forecasts, annual growth">${key} — forecast annual growth</span><div class="forecast-years">${cells}</div></div>`
+        `<div class="kpi kpi-wide" title="${key === 'GNI*' ? 'Modified Gross National Income' : key === 'GDP' ? 'Gross Domestic Product' : 'Modified Final Domestic Demand'} — Central Bank of Ireland Quarterly Bulletin forecast annual growth"><span class="label">${key} — forecast annual growth</span><div class="forecast-years">${cells}</div></div>`
       );
     }
     forecastHtml = forecastTiles.join('');
