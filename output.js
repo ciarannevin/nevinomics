@@ -114,7 +114,61 @@ function initLevelsChart() {
   });
 }
 
+
+function initForecastChart() {
+  const ctx = document.getElementById('forecast-chart');
+  const host = document.getElementById('forecast-placeholder');
+  if (!ctx || typeof Chart === 'undefined' || typeof FORECAST_DATA === 'undefined') return;
+
+  if (host) host.style.display = 'none';
+  const wrap = document.getElementById('forecast-chart-wrap');
+  if (wrap) wrap.style.display = 'block';
+  const foot = document.getElementById('forecast-footnote');
+  if (foot) foot.style.display = 'block';
+
+  const palette = { GDP: '#009a44', MDD: '#c28a00' };
+  const datasets = [];
+  for (const key of ['GDP', 'MDD']) {
+    const pts = FORECAST_DATA.series[key] || [];
+    if (!pts.length) continue;
+    datasets.push(
+      nvLineDataset(
+        key,
+        pts.filter((p) => p.value !== null).map((p) => ({ x: Date.UTC(Number(p.year), 0, 1), y: p.value })),
+        { color: palette[key], fill: false }
+      )
+    );
+  }
+
+  const config = {
+    type: 'line',
+    data: { datasets },
+    options: nvBaseOptions((v) => `${v}%`),
+    plugins: [nevinomicsWatermark],
+  };
+  config.options.scales.x.time.unit = 'year';
+  config.options.scales.x.time.tooltipFormat = 'yyyy';
+  config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+  config.options.plugins.tooltip.callbacks = {
+    title: (items) => String(new Date(items[0].parsed.x).getUTCFullYear()),
+    label: (item) => {
+      const v = item.parsed.y;
+      return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
+    },
+  };
+
+  new Chart(ctx, config);
+
+  const badge = document.getElementById('forecast-updated');
+  if (badge) {
+    const m = (FORECAST_DATA.title || '').match(/Q([1-4])\s*(\d{4})/);
+    badge.textContent = m ? `CBI Bulletin Q${m[1]} ${m[2]}` : 'CBI forecasts';
+    badge.classList.add('live');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSummaryStrip();
   initLevelsChart();
+  initForecastChart();
 });

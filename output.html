@@ -44,12 +44,14 @@
       <section class="card">
         <div class="card-header">
           <h2>Forecasts — GDP &amp; MDD</h2>
-          <span class="badge">Coming soon</span>
+          <span class="badge" id="forecast-updated"></span>
         </div>
-        <div class="forecast-placeholder">
+        <div class="forecast-placeholder" id="forecast-placeholder">
           <h3>Forecast chart coming soon</h3>
           <p>Official forecasts for GDP and MDD growth will appear here.</p>
         </div>
+        <div class="chart-wrap" id="forecast-chart-wrap" style="display: none;"><canvas id="forecast-chart"></canvas></div>
+        <p class="footnote" style="display: none;" id="forecast-footnote">Annual growth forecasts. Source: Central Bank of Ireland Quarterly Bulletin.</p>
       </section>
     </div>
   </div>
@@ -59,6 +61,7 @@
   <script src="data/gdp.js"></script>
   <script src="data/gnp.js"></script>
   <script src="data/mdd.js"></script>
+  <script src="data/forecasts.js"></script>
   <script src="output.js"></script>
 </body>
 </html>
