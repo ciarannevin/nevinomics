@@ -15,27 +15,37 @@
   <div class="page">
     <div class="page-head">
       <h1>Economic Output</h1>
-      <p>GDP and economic activity in Ireland, from the CSO Quarterly National Accounts.</p>
+      <p>GDP, GNP and modified domestic demand — the headline measures of Irish economic activity.</p>
     </div>
+
+    <section class="card" id="summary-card">
+      <div class="card-header">
+        <h2>Summary — latest quarter</h2>
+        <span class="badge live" id="strip-updated"></span>
+      </div>
+      <div class="kpis" id="summary-strip"></div>
+      <p class="footnote">All figures: seasonally adjusted, constant prices (chain linked). GDP and GNP from CSO Quarterly National Accounts (NAQ04); modified domestic demand from NAQ05. GNI* is published annually only.</p>
+    </section>
 
     <section class="card" id="gdp-card">
       <div class="card-header">
         <h2>GDP Growth — Ireland</h2>
-        <span class="badge live" id="gdp-updated"></span>
       </div>
-      <div class="kpis" id="gdp-kpis"></div>
       <div class="chart-controls">
         <label><input type="radio" name="gdp-metric" value="yoy" checked> Year-on-year growth (%)</label>
         <label><input type="radio" name="gdp-metric" value="gdp"> GDP level (€m, chain-linked)</label>
       </div>
       <div class="chart-wrap"><canvas id="gdp-chart"></canvas></div>
-      <p class="footnote">Source: CSO Quarterly National Accounts (table NAQ04). Seasonally adjusted, constant prices, chain linked annually. Note: Irish GDP is volatile due to multinational activity; GNI* will be added as an alternative measure.</p>
+      <p class="footnote">Source: CSO Quarterly National Accounts (table NAQ04). Seasonally adjusted, constant prices, chain linked annually. Irish GDP is volatile due to multinational activity.</p>
     </section>
   </div>
 
   <script src="nav.js"></script>
   <script src="chart-theme.js"></script>
   <script src="data/gdp.js"></script>
+  <script src="data/gnp.js"></script>
+  <script src="data/mdd.js"></script>
+  <script src="output.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
