@@ -86,9 +86,7 @@ def main():
 
     gdp_rec, gnp_rec, mdd_rec = build_records(gdp), build_records(gnp), build_records(mdd)
 
-    # gdp.js keeps the legacy field name for the existing chart, plus growth fields
-    legacy = [{"quarter": r["quarter"], "gdp": r["value"], "yoy": r["yoy"], "qoq": r["qoq"]} for r in gdp_rec]
-    write_js("GDP_DATA", legacy, out / "gdp.js")
+    write_js("GDP_DATA", gdp_rec, out / "gdp.js")
     write_js("GNP_DATA", gnp_rec, out / "gnp.js")
     write_js("MDD_DATA", mdd_rec, out / "mdd.js")
 

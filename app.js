@@ -23,11 +23,11 @@ function initKpis(data) {
   const prevQ = data.find((d) => d.quarter === `${Number(latest.quarter.slice(0, 4)) - 1}Q4`);
   const yearAvg =
     data
-      .filter((d) => d.quarter.startsWith(latest.quarter.slice(0, 4)) && d.gdp !== null)
-      .reduce((sum, d) => sum + d.gdp, 0) / 4;
+      .filter((d) => d.quarter.startsWith(latest.quarter.slice(0, 4)) && d.value !== null)
+      .reduce((sum, d) => sum + d.value, 0) / 4;
   const kpis = [
     { label: `YoY growth (${latest.quarter})`, value: fmtPct(latest.yoy), dir: latest.yoy >= 0 ? 'up' : 'down' },
-    { label: 'GDP, latest quarter', value: fmtMillions(latest.gdp), dir: '' },
+    { label: 'GDP, latest quarter', value: fmtMillions(latest.value), dir: '' },
     { label: `GDP avg ${latest.quarter.slice(0, 4)}`, value: fmtMillions(yearAvg), dir: '' },
   ];
   if (prevQ && prevQ.yoy !== null) {
@@ -84,7 +84,7 @@ function initChart(data) {
   document.querySelectorAll('input[name="gdp-metric"]').forEach((radio) => {
     radio.addEventListener('change', () => {
       chart.data = makeDataset(data, radio.value);
-      chart.options.scales.y.ticks.callback = radio.value === 'gdp' ? levelTicks : yoyTicks;
+      chart.options.scales.y.ticks.callback = radio.value === 'value' ? levelTicks : yoyTicks;
       chart.update();
     });
   });
@@ -106,7 +106,7 @@ function initHomeHero() {
   el.innerHTML =
     `<p class="eyebrow">Irish GDP growth, year-on-year (${latest.quarter})</p>` +
     `<div class="big ${latest.yoy >= 0 ? 'up' : 'down'}">${fmtPct(latest.yoy)}</div>` +
-    `<p class="sub">GDP of ${fmtMillions(latest.gdp)} in the latest quarter. ` +
+    `<p class="sub">GDP of ${fmtMillions(latest.value)} in the latest quarter. ` +
     `<a href="output.html">See the Output page →</a></p>`;
 }
 
