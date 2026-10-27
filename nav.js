@@ -23,7 +23,7 @@
     const current = currentPage();
     bar.innerHTML =
       '<div class="topbar-inner">' +
-      '<a class="wordmark" href="index.html">nevi<span>nomics</span></a>' +
+      '<a class="wordmark" href="index.html">nevin<span>omics</span></a>' +
       '<nav class="site-nav">' +
       pages
         .map(
@@ -42,7 +42,7 @@
       '<div class="inner">' +
       '<span>Data: <a href="https://www.cso.ie/">Central Statistics Office, Ireland</a> · ' +
       '<a href="about.html">Sources &amp; methodology</a></span>' +
-      '<span>nevinomics — Irish, European &amp; Global economic indicators</span>' +
+      '<span>nevinomics — your window to the Irish economy</span>' +
       '</div>';
     document.body.append(footer);
   }

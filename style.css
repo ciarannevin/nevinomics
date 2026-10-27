@@ -86,9 +86,8 @@ body {
 }
 
 .masthead .eyebrow {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
   color: #7fd7a5;
   font-weight: 600;
   margin: 0 0 0.6rem;
