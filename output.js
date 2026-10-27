@@ -63,27 +63,30 @@ function lastNYears(records, years) {
   return records.filter((r) => Number(r.quarter.slice(0, 4)) >= cutoffYear);
 }
 
-function initLevelsChart() {
-  const ctx = document.getElementById('levels-chart');
-  if (!ctx || typeof Chart === 'undefined') return;
-
+function buildGrowthDatasets(metric) {
   const palette = { GDP: '#009a44', GNP: '#0e5c8a', MDD: '#c28a00' };
   const datasets = [];
   for (const def of OUTPUT_SERIES) {
-    const data = lastNYears(getSeriesData(def.varName), 5).filter((d) => d.yoy !== null);
+    const data = lastNYears(getSeriesData(def.varName), 5).filter((d) => d[metric] !== null);
     if (!data.length) continue;
     datasets.push(
       nvLineDataset(
         def.short,
-        data.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.yoy })),
+        data.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d[metric] })),
         { color: palette[def.short], fill: false }
       )
     );
   }
+  return datasets;
+}
+
+function initLevelsChart() {
+  const ctx = document.getElementById('levels-chart');
+  if (!ctx || typeof Chart === 'undefined') return;
 
   const config = {
     type: 'line',
-    data: { datasets },
+    data: { datasets: buildGrowthDatasets('yoy') },
     options: nvBaseOptions((v) => `${v}%`),
     plugins: [nevinomicsWatermark],
   };
@@ -101,7 +104,14 @@ function initLevelsChart() {
     },
   };
 
-  new Chart(ctx, config);
+  const chart = new Chart(ctx, config);
+
+  document.querySelectorAll('input[name="growth-metric"]').forEach((radio) => {
+    radio.addEventListener('change', () => {
+      chart.data.datasets = buildGrowthDatasets(radio.value);
+      chart.update();
+    });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

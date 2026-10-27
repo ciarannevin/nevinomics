@@ -22,7 +22,11 @@
       <section class="card">
         <div class="card-header">
           <h2>Output growth — past 5 years</h2>
-          <span class="badge">Year-on-year, %</span>
+          <span class="badge">Quarterly, %</span>
+        </div>
+        <div class="chart-controls">
+          <label><input type="radio" name="growth-metric" value="yoy" checked> Year-on-year</label>
+          <label><input type="radio" name="growth-metric" value="qoq"> Quarter-on-quarter</label>
         </div>
         <div class="chart-wrap"><canvas id="levels-chart"></canvas></div>
         <p class="footnote">GDP, GNP and MDD growth, year-on-year, at constant prices (chain linked), seasonally adjusted. Source: CSO NAQ04, NAQ05.</p>
