@@ -199,7 +199,13 @@ function initComponentsTable() {
   const rows = [
     { label: 'Personal consumption', key: 'Personal consumption' },
     { label: 'Government consumption', key: 'Government consumption' },
-    { label: 'Investment (gross fixed capital formation)', key: 'Investment (GFCF)' },
+    { label: 'Investment (gross fixed capital formation)', key: 'Investment (GFCF)', group: true },
+    { label: 'Dwellings', key: 'Investment: Dwellings', indent: true, group: true },
+    { label: 'Improvements', key: 'Investment: Improvements', indent: true, group: true },
+    { label: 'Other building & construction', key: 'Investment: Other building & construction', indent: true, group: true },
+    { label: 'Transfer costs', key: 'Investment: Transfer costs', indent: true, group: true },
+    { label: 'Machinery & equipment', key: 'Investment: Machinery & equipment', indent: true, group: true },
+    { label: 'Intangible assets', key: 'Investment: Intangible assets', indent: true, group: true },
     { label: 'Stocks (change in inventories)', key: 'Stocks (changes in inventories)' },
     { label: 'Exports', key: 'Exports' },
     { label: 'Less: Imports', key: 'Imports', sign: -1 },
@@ -249,6 +255,9 @@ function initComponentsTable() {
     const latestContrib = contribs[contribs.length - 1];
     const qoqC = latestContrib;
     const yoyC = avgContrib;
+    if (r.group) {
+      return { ...r, latest: latestVal, yoy: yoyFinal, qoq, qoqC: null, yoyC: null };
+    }
     return { ...r, latest: latestVal, yoy: yoyFinal, qoq, qoqC, yoyC };
   });
 
@@ -259,8 +268,8 @@ function initComponentsTable() {
     table
       .map(
         (r) =>
-          `<tr${r.strong ? ' class="strong"' : ''}>` +
-          `<td>${r.label}</td>` +
+          `<tr${r.strong ? ' class="strong"' : ''}${r.indent ? ' class="indent"' : ''}>` +
+          `<td>${r.indent ? '· ' : ''}${r.label}</td>` +
           `<td>${fmt(r.latest)}</td>` +
           `<td class="${cls(r.qoq)}">${fmtPct(r.qoq)}</td>` +
           `<td class="${cls(r.yoy)}">${fmtPct(r.yoy)}</td>` +
