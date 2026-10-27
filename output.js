@@ -70,12 +70,12 @@ function initLevelsChart() {
   const palette = { GDP: '#009a44', GNP: '#0e5c8a', MDD: '#c28a00' };
   const datasets = [];
   for (const def of OUTPUT_SERIES) {
-    const data = lastNYears(getSeriesData(def.varName), 5);
+    const data = lastNYears(getSeriesData(def.varName), 5).filter((d) => d.yoy !== null);
     if (!data.length) continue;
     datasets.push(
       nvLineDataset(
         def.short,
-        data.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+        data.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.yoy })),
         { color: palette[def.short], fill: false }
       )
     );
@@ -84,7 +84,7 @@ function initLevelsChart() {
   const config = {
     type: 'line',
     data: { datasets },
-    options: nvBaseOptions((v) => (Math.abs(v) >= 1000 ? `€${v / 1000}bn` : v)),
+    options: nvBaseOptions((v) => `${v}%`),
     plugins: [nevinomicsWatermark],
   };
   config.options.scales.x.time.unit = 'quarter';
@@ -95,7 +95,10 @@ function initLevelsChart() {
       const d = new Date(items[0].parsed.x);
       return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
     },
-    label: (item) => `${item.dataset.label}: ${fmtMillions(item.parsed.y)}`,
+    label: (item) => {
+      const v = item.parsed.y;
+      return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
+    },
   };
 
   new Chart(ctx, config);
