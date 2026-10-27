@@ -1,0 +1,119 @@
+:root {
+  --bg: #f4f6f9;
+  --card: #ffffff;
+  --text: #1a2333;
+  --muted: #5c6b82;
+  --accent: #2b6cb0;
+  --positive: #2f855a;
+  --negative: #c53030;
+  --border: #dde3ec;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  padding: 1.5rem 2rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
+.subtitle { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+main {
+  max-width: 960px;
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.card-header h2 { margin: 0; font-size: 1.1rem; }
+
+.badge {
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+}
+
+.kpis {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.kpi {
+  flex: 1;
+  min-width: 140px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.kpi .label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kpi .value { font-size: 1.35rem; font-weight: 600; margin-top: 0.15rem; }
+
+.value.up { color: var(--positive); }
+.value.down { color: var(--negative); }
+
+.chart-controls {
+  display: flex;
+  gap: 1.25rem;
+  margin: 0.75rem 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.chart-controls label { cursor: pointer; }
+.chart-wrap { position: relative; height: 360px; }
+
+.footnote {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0.75rem 0 0;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+footer a { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .chart-wrap { height: 260px; }
+  .chart-controls { flex-direction: column; gap: 0.4rem; }
+}

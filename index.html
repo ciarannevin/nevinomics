@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economic Indicators Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Economic Indicators Dashboard</h1>
+    <p class="subtitle">Irish, European &amp; Global indicators — powered by official statistics</p>
+  </header>
+
+  <main>
+    <section class="card" id="gdp-card">
+      <div class="card-header">
+        <h2>GDP Growth — Ireland</h2>
+        <span class="badge" id="gdp-updated"></span>
+      </div>
+      <div class="kpis" id="gdp-kpis"></div>
+      <div class="chart-controls">
+        <label><input type="radio" name="gdp-metric" value="yoy" checked> Year-on-year growth (%)</label>
+        <label><input type="radio" name="gdp-metric" value="gdp"> GDP level (€m, chain-linked)</label>
+      </div>
+      <div class="chart-wrap"><canvas id="gdp-chart"></canvas></div>
+      <p class="footnote">Source: CSO Quarterly National Accounts (table NAQ04). Seasonally adjusted, constant prices, chain linked annually.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Data: <a href="https://www.cso.ie/">Central Statistics Office, Ireland</a> · Built as a learning project</p>
+  </footer>
+
+  <script src="data/gdp.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
