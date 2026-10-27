@@ -109,6 +109,13 @@ body {
   font-size: 1rem;
 }
 
+.masthead-suffix {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #7fd7a5;
+  letter-spacing: 0;
+}
+
 .masthead .big {
   font-family: var(--font-head);
   font-size: 4rem;
