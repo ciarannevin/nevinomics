@@ -20,12 +20,20 @@ function pickLatest(records) {
   return null;
 }
 
-function stripKpi(series, rec, growth) {
+function stripKpi(series, rec) {
   if (!rec) return '';
-  const v = growth === 'yoy' ? rec.yoy : rec.qoq;
-  if (v === null || v === undefined) return '';
-  const dir = v >= 0 ? 'up' : 'down';
-  return `<div class="kpi" title="${series.full} — ${growth === 'yoy' ? 'year-on-year' : 'quarter-on-quarter'} growth"><span class="label">${series.short} — ${growth === 'yoy' ? 'YoY' : 'QoQ'}</span><div class="value ${dir}">${v >= 0 ? '+' : ''}${v.toFixed(1)}%</div></div>`;
+  const cols = [
+    { label: 'QoQ', v: rec.qoq },
+    { label: 'YoY', v: rec.yoy },
+  ]
+    .filter((c) => c.v !== null && c.v !== undefined)
+    .map(
+      (c) =>
+        `<div class="fy-col"><span class="fy-year">${c.label}</span><span class="fy-val ${c.v < 0 ? 'down' : 'up'}">${c.v >= 0 ? '+' : ''}${c.v.toFixed(1)}%</span></div>`
+    )
+    .join('');
+  if (!cols) return '';
+  return `<div class="kpi kpi-wide" title="${series.full} — quarter-on-quarter and year-on-year growth, latest quarter"><span class="label">${series.short} — growth</span><div class="mini-cols">${cols}</div></div>`;
 }
 
 function initSummaryStrip() {
@@ -38,8 +46,7 @@ function initSummaryStrip() {
     const data = getSeriesData(def.varName);
     const rec = data && data.length ? pickLatest(data) : null;
     if (rec && (!latestQuarter || rec.quarter > latestQuarter)) latestQuarter = rec.quarter;
-    tiles.push(stripKpi(def, rec, 'yoy'));
-    tiles.push(stripKpi(def, rec, 'qoq'));
+    tiles.push(stripKpi(def, rec));
   }
   let growthHtml = tiles.join('');
 

@@ -341,9 +341,9 @@ body {
   .masthead h1 { font-size: 1.9rem; }
   .masthead .big { font-size: 2.8rem; }
   .kpi .value { font-size: 1.2rem; }
-  .kpis .kpi { min-width: calc(50% - 0.5rem); flex-basis: calc(50% - 0.5rem); }
-  .kpis { gap: 0.5rem; }
-  .kpi .value { font-size: 1.05rem; }
+  .kpis { gap: 0.6rem; }
+  .kpi-wide { min-width: 100%; flex-basis: 100%; }
+  .fy-val { font-size: 1.1rem; }
 }
 
 .data-table {
@@ -406,7 +406,8 @@ body {
 
 .kpi-wide { min-width: 300px; }
 
-.forecast-years {
+.forecast-years,
+.mini-cols {
   display: flex;
   gap: 1.25rem;
   margin-top: 0.35rem;
