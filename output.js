@@ -41,6 +41,24 @@ function initSummaryStrip() {
     tiles.push(stripKpi(def, rec, 'yoy'));
     tiles.push(stripKpi(def, rec, 'qoq'));
   }
+  if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series) {
+    const forecastTiles = [];
+    for (const key of ['GDP', 'MDD']) {
+      const pts = FORECAST_DATA.series[key] || [];
+      for (const year of ['2026', '2027']) {
+        const pt = pts.find((p) => String(p.year) === year && p.forecast);
+        if (pt && pt.value !== null) {
+          const dir = pt.value >= 0 ? 'up' : 'down';
+          forecastTiles.push(
+            `<div class="kpi"><span class="label" title="Central Bank of Ireland forecast, annual growth">${key} — ${year} forecast</span><div class="value ${dir}">${pt.value >= 0 ? '+' : ''}${pt.value.toFixed(1)}%</div></div>`
+          );
+        }
+      }
+    }
+    tiles.push('<div class="kpi-strip-divider"></div>');
+    tiles.push(...forecastTiles);
+  }
+
   host.innerHTML = tiles.join('');
 
   const badge = document.getElementById('strip-updated');
@@ -96,9 +114,7 @@ function initLevelsChart() {
     display: true,
     position: 'bottom',
     labels: { boxWidth: 12, usePointStyle: true },
-    onClick: () => {},
   };
-  config.options.plugins.legend.labels.filter = (item) => item.datasetIndex % 2 === 0;
   config.options.plugins.tooltip.callbacks = {
     title: (items) => {
       const d = new Date(items[0].parsed.x);
@@ -164,9 +180,20 @@ function initForecastChart() {
     display: true,
     position: 'bottom',
     labels: { boxWidth: 12, usePointStyle: true },
-    onClick: () => {},
+    onClick: (e, legendItem, legend) => {
+      const idx = legendItem.datasetIndex;
+      const chart = legend.chart;
+      const pair = [idx, idx + 1];
+      const hidden = !chart.isDatasetVisible(idx);
+      pair.forEach((i) => {
+        if (i < chart.data.datasets.length && chart.data.datasets[i].label === chart.data.datasets[idx].label) {
+          chart.setDatasetVisibility(i, hidden);
+        }
+      });
+      chart.update();
+    },
   };
-  config.options.plugins.legend.labels.filter = (item) => item.datasetIndex % 2 === 0;
+  config.options.plugins.legend.labels.filter = (item) => item.text !== undefined && item.datasetIndex % 2 === 0;
   config.options.plugins.tooltip.callbacks = {
     title: (items) => String(new Date(items[0].parsed.x).getUTCFullYear()),
     label: (item) => {
