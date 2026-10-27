@@ -21,7 +21,7 @@ GDP_SECTOR = "007"   # Gross Domestic Product at Market Prices
 GNP_SECTOR = "009"   # Gross National Product at Market Prices
 # NAQ05: seasonally adjusted, constant prices
 NAQ05_STAT = "NAQ05S02"
-MDD_SECTOR = "0165"  # Modified Total Domestic Demand
+MDD_SECTOR = "0155"  # Modified Final Domestic Demand
 
 
 def fetch_csv(url):
