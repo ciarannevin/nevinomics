@@ -252,7 +252,7 @@ function initComponentsTable() {
     const latestContrib = contribs[contribs.length - 1];
     const qoqC = latestContrib;
     const yoyC = avgContrib;
-    if (r.group) {
+    if (r.indent) {
       return { ...r, latest: latestVal, yoy: yoyFinal, qoq, qoqC: null, yoyC: null };
     }
     return { ...r, latest: latestVal, yoy: yoyFinal, qoq, qoqC, yoyC };
