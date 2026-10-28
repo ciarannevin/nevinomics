@@ -32,9 +32,9 @@ QLF02_UNEMP = "QLF02S2"
 QLF03_EMPLOYMENT = "QLF03S1"
 # QLF33: average usual hours worked per week (not seasonally adjusted)
 QLF33_HOURS = "QLF33C01"
-# QLF18: employment counts by age group (statistic 3); QLF24: employment by education (statistic 3)
-QLF18_EMPLOYMENT_AGE = "QLF18C03"
-QLF24_EMPLOYMENT_EDU = "QLF24C03"
+# QLF18: ILO unemployment rate by age (statistic 6); QLF24: ILO unemployment rate by education (statistic 6)
+QLF18_UNEMP_RATE_AGE = "QLF18C06"
+QLF24_UNEMP_RATE_EDU = "QLF24C06"
 
 AGE_MAP = {"15 - 74 years": "15-74", "15 - 24 years": "15-24", "25 - 74 years": "25-74"}
 SEX_MAP = {"Both sexes": "both", "Male": "male", "Female": "female"}
@@ -131,12 +131,12 @@ def build_employment_levels(rows, statistic):
     return series
 
 
-AGE_EMPLOYMENT_GROUPS = ["15 - 24 years", "25 - 34 years", "35 - 44 years", "45 - 54 years", "55 - 59 years", "60 - 64 years", "65 years and over"]
-EDU_EMPLOYMENT_GROUPS = ["Primary or below", "Lower secondary", "Higher secondary", "Post-secondary non-tertiary", "Third level non-honours degree", "Third level honours degree or higher"]
+AGE_UNEMPLOYMENT_GROUPS = ["15 - 24 years", "25 - 34 years", "35 - 44 years", "45 - 54 years", "55 - 59 years", "60 - 64 years", "65 years and over"]
+EDU_UNEMPLOYMENT_GROUPS = ["Primary or below", "Lower secondary", "Higher secondary", "Post-secondary non-tertiary", "Third level non-honours degree", "Third level honours degree or higher"]
 
 
-def build_breakdown_change(rows, statistic, group_labels, group_col, keep, years=5):
-    """Range plot data: latest quarterly change + 5-year range, per group. Non-SA counts."""
+def build_breakdown_rates(rows, statistic, group_labels, group_col, keep, years=5):
+    """Range plot data: latest unemployment rate + 5-year range of rates, per group."""
     series = {}
     for r in rows:
         if r["STATISTIC"] != statistic or not r["VALUE"]:
@@ -157,19 +157,17 @@ def build_breakdown_change(rows, statistic, group_labels, group_col, keep, years
     cutoff = latest_t - years * 4
     out = []
     for g, q in series.items():
-        if latest_t not in q or latest_t - 1 not in q:
+        if latest_t not in q:
             continue
-        latest_change = round(q[latest_t] - q[latest_t - 1], 1)
-        changes = [q[t] - q[t - 1] for t in sorted(q) if t > cutoff and t - 1 in q and t <= latest_t]
+        window = [v for t, v in q.items() if t > cutoff and t <= latest_t]
         out.append(
             {
                 "group": g,
-                "change": latest_change,
-                "min5": round(min(changes), 1) if changes else None,
-                "max5": round(max(changes), 1) if changes else None,
+                "rate": round(q[latest_t], 1),
+                "min5": round(min(window), 1) if window else None,
+                "max5": round(max(window), 1) if window else None,
             }
         )
-    # order by the requested group order
     order = {g: i for i, g in enumerate(group_labels)}
     out.sort(key=lambda x: order.get(x["group"], 99))
     return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "groups": out}
@@ -270,39 +268,18 @@ def main():
     if not hours:
         raise SystemExit("No hours data fetched")
 
-    # sex breakdown from QLF03 SA data (All NACE sectors)
-    sex_series = {}
-    for r in qlf3:
-        if r["STATISTIC"] != QLF03_EMPLOYMENT or not r["VALUE"]:
-            continue
-        if r["NACE Rev 2 Economic Sector"] != "All NACE economic sectors":
-            continue
-        sex = SEX_MAP.get(r["Sex"])
-        if not sex:
-            continue
-        m = re.match(r"(\d{4})Q(\d)", r["Quarter"])
-        if not m:
-            continue
-        t = int(m.group(1)) * 4 + int(m.group(2)) - 1
-        sex_series.setdefault(sex, {})[t] = float(r["VALUE"])
-
-    def range_from_levels(q, latest_t, cutoff):
-        latest_change = round(q[latest_t] - q[latest_t - 1], 1)
-        changes = [q[t] - q[t - 1] for t in sorted(q) if t > cutoff and t - 1 in q and t <= latest_t]
-        return latest_change, (round(min(changes), 1) if changes else None), (round(max(changes), 1) if changes else None)
-
-    latest_t = max(max(q.keys()) for q in sex_series.values() if q)
-    cutoff = latest_t - 5 * 4
-    sex_groups = []
-    for sex in ["male", "female"]:
-        q = sex_series.get(sex, {})
-        if latest_t not in q or latest_t - 1 not in q:
-            continue
-        ch, mn, mx = range_from_levels(q, latest_t, cutoff)
-        sex_groups.append({"group": "Male" if sex == "male" else "Female", "change": ch, "min5": mn, "max5": mx})
-    age_breakdown = build_breakdown_change(qlf18, QLF18_EMPLOYMENT_AGE, AGE_EMPLOYMENT_GROUPS, "Age Group", set(AGE_EMPLOYMENT_GROUPS))
-    edu_breakdown = build_breakdown_change(qlf24, QLF24_EMPLOYMENT_EDU, EDU_EMPLOYMENT_GROUPS, "Level of Education", set(EDU_EMPLOYMENT_GROUPS))
-    for label, d in [("sex breakdown", sex_groups), ("age breakdown", age_breakdown), ("education breakdown", edu_breakdown)]:
+    # unemployment rate ranges: sex from QLF02 (SA); age from QLF18C06; education from QLF24C06
+    sex_rows = [r for r in qlf if r["STATISTIC"] == QLF02_UNEMP and r["Sex"] in ("Male", "Female") and r["VALUE"]]
+    sex_breakdown = build_breakdown_rates(
+        [{**r, "Sex": "Both sexes", "Group": r["Sex"]} | {"SexKey": r["Sex"]} for r in sex_rows],
+        QLF02_UNEMP,
+        ["Male", "Female"],
+        "SexKey",
+        {"Male", "Female"},
+    )
+    age_breakdown = build_breakdown_rates(qlf18, QLF18_UNEMP_RATE_AGE, AGE_UNEMPLOYMENT_GROUPS, "Age Group", set(AGE_UNEMPLOYMENT_GROUPS))
+    edu_breakdown = build_breakdown_rates(qlf24, QLF24_UNEMP_RATE_EDU, EDU_UNEMPLOYMENT_GROUPS, "Level of Education", set(EDU_UNEMPLOYMENT_GROUPS))
+    for label, d in [("sex breakdown", sex_breakdown), ("age breakdown", age_breakdown), ("education breakdown", edu_breakdown)]:
         if not d:
             raise SystemExit(f"No {label} data fetched")
 
@@ -316,7 +293,7 @@ def main():
         "employment_levels": employment_levels,
         "hours": hours,
         "demographics": {
-            "sex": {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "groups": sex_groups},
+            "sex": sex_breakdown,
             "age": age_breakdown,
             "education": edu_breakdown,
         },
@@ -338,9 +315,9 @@ def main():
     print(f"Employment levels (both): {len(el)} quarters, last: {el[-1]}")
     h = hours["both"]
     print(f"Hours (both): {len(h)} quarters, last: {h[-1]}")
-    print(f"Sex breakdown ({sex_groups[0]['change']}): male {sex_groups[0]['change']:+.1f}k, female {sex_groups[1]['change']:+.1f}k")
-    print(f"Age breakdown: {len(age_breakdown['groups'])} groups")
-    print(f"Education breakdown: {len(edu_breakdown['groups'])} groups")
+    print(f"Sex rates: male {sex_breakdown['groups'][0]['rate']}%, female {sex_breakdown['groups'][1]['rate']}%")
+    print(f"Age rates: {len(age_breakdown['groups'])} groups, first: {age_breakdown['groups'][0]['group']} {age_breakdown['groups'][0]['rate']}%")
+    print(f"Education rates: {len(edu_breakdown['groups'])} groups")
 
 
 if __name__ == "__main__":

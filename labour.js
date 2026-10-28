@@ -461,7 +461,7 @@ function rangePlotConfig(breakdown, labelFmt) {
     labels,
     datasets: [
       {
-        label: '5-year range of quarterly changes',
+        label: 'Range of rates, past 5 years',
         data: groups.map((g) =>
           g.min5 === null || g.max5 === null ? null : { x: [g.min5, g.max5], y: labelFmt(g.group) }
         ),
@@ -472,10 +472,10 @@ function rangePlotConfig(breakdown, labelFmt) {
         borderSkipped: false,
       },
       {
-        label: `Latest quarter (${breakdown.quarter})`,
+        label: `Unemployment rate, ${breakdown.quarter}`,
         type: 'scatter',
-        data: groups.map((g) => ({ x: g.change, y: labelFmt(g.group) })),
-        backgroundColor: groups.map((g) => (g.change >= 0 ? '#009a44' : '#c0392b')),
+        data: groups.map((g) => ({ x: g.rate, y: labelFmt(g.group) })),
+        backgroundColor: '#009a44',
         pointRadius: 5,
         pointHoverRadius: 7,
       },
@@ -491,9 +491,9 @@ function rangePlotConfig(breakdown, labelFmt) {
       interaction: { mode: 'nearest', intersect: false },
       scales: {
         x: {
-          ticks: { callback: (v) => v.toLocaleString('en-IE'), color: NEVINOMICS.muted },
+          ticks: { color: NEVINOMICS.muted },
           grid: { color: 'rgba(0,0,0,0.05)' },
-          title: { display: true, text: 'Thousands of persons' },
+          title: { display: true, text: '%' },
         },
         y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
       },
@@ -503,11 +503,10 @@ function rangePlotConfig(breakdown, labelFmt) {
           callbacks: {
             label: (item) => {
               if (item.dataset.type === 'scatter') {
-                const v = item.parsed.x;
-                return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toLocaleString('en-IE', { maximumFractionDigits: 1 })} thousand`;
+                return `${item.dataset.label}: ${item.parsed.x.toFixed(1)}%`;
               }
               const r = item.raw.x;
-              return `${item.dataset.label}: ${r[0].toLocaleString('en-IE', { maximumFractionDigits: 1 })} to +${r[1].toLocaleString('en-IE', { maximumFractionDigits: 1 })}`;
+              return `${item.dataset.label}: ${r[0].toFixed(1)}% to ${r[1].toFixed(1)}%`;
             },
           },
         },

@@ -25650,15 +25650,15 @@
    "groups": [
     {
      "group": "Male",
-     "change": 3.6,
-     "min5": -13.8,
-     "max5": 48.3
+     "rate": 4.7,
+     "min5": 4.0,
+     "max5": 5.5
     },
     {
      "group": "Female",
-     "change": 3.9,
-     "min5": -20.0,
-     "max5": 83.9
+     "rate": 5.2,
+     "min5": 3.9,
+     "max5": 5.3
     }
    ]
   },
@@ -25667,45 +25667,45 @@
    "groups": [
     {
      "group": "15 - 24 years",
-     "change": 18.8,
-     "min5": -31.9,
-     "max5": 69.7
+     "rate": 13.2,
+     "min5": 7.4,
+     "max5": 14.1
     },
     {
      "group": "25 - 34 years",
-     "change": 4.6,
-     "min5": -11.0,
-     "max5": 25.6
+     "rate": 5.4,
+     "min5": 4.5,
+     "max5": 6.5
     },
     {
      "group": "35 - 44 years",
-     "change": 4.3,
-     "min5": -10.9,
-     "max5": 18.9
+     "rate": 3.8,
+     "min5": 2.7,
+     "max5": 4.2
     },
     {
      "group": "45 - 54 years",
-     "change": 8.3,
-     "min5": -7.4,
-     "max5": 15.6
+     "rate": 3.1,
+     "min5": 2.2,
+     "max5": 4.1
     },
     {
      "group": "55 - 59 years",
-     "change": 0.9,
-     "min5": -9.6,
-     "max5": 13.3
+     "rate": 4.7,
+     "min5": 2.3,
+     "max5": 4.8
     },
     {
      "group": "60 - 64 years",
-     "change": 8.5,
-     "min5": -4.2,
-     "max5": 10.6
+     "rate": 3.4,
+     "min5": 2.9,
+     "max5": 5.6
     },
     {
      "group": "65 years and over",
-     "change": -0.4,
-     "min5": -6.6,
-     "max5": 10.8
+     "rate": 1.3,
+     "min5": 0.6,
+     "max5": 2.3
     }
    ]
   },
@@ -25714,39 +25714,39 @@
    "groups": [
     {
      "group": "Primary or below",
-     "change": 4.5,
-     "min5": -5.5,
-     "max5": 10.2
+     "rate": 9.2,
+     "min5": 6.0,
+     "max5": 16.7
     },
     {
      "group": "Lower secondary",
-     "change": 23.0,
-     "min5": -22.4,
-     "max5": 23.0
+     "rate": 12.9,
+     "min5": 6.6,
+     "max5": 12.9
     },
     {
      "group": "Higher secondary",
-     "change": -1.3,
-     "min5": -14.3,
-     "max5": 33.1
+     "rate": 6.7,
+     "min5": 4.9,
+     "max5": 8.0
     },
     {
      "group": "Post-secondary non-tertiary",
-     "change": 3.1,
-     "min5": -15.2,
-     "max5": 15.0
+     "rate": 5.1,
+     "min5": 2.9,
+     "max5": 6.7
     },
     {
      "group": "Third level non-honours degree",
-     "change": 19.0,
-     "min5": -21.0,
-     "max5": 28.8
+     "rate": 4.9,
+     "min5": 2.4,
+     "max5": 4.9
     },
     {
      "group": "Third level honours degree or higher",
-     "change": -0.2,
-     "min5": -14.2,
-     "max5": 48.7
+     "rate": 3.5,
+     "min5": 2.7,
+     "max5": 4.5
     }
    ]
   }
