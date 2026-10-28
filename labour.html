@@ -8,22 +8,49 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
   <div class="page">
     <div class="page-head">
       <h1>Labour Market</h1>
-      <p>Employment, unemployment and participation in Ireland.</p>
     </div>
-    <section class="card">
-      <div class="coming-soon">
-        <h2>Coming soon</h2>
-        <p>Indicators for this theme are on the roadmap. Data will come from official sources such as the CSO, Eurostat and the Central Bank of Ireland.</p>
-        <p><a class="badge" href="about.html">See the roadmap on the About page</a></p>
+
+    <section class="card" id="highlights-card">
+      <div class="card-header">
+        <h2>Highlights — latest period</h2>
+        <span class="badge live" id="labour-updated"></span>
       </div>
+      <div id="labour-highlights"></div>
+      <p class="footnote">Seasonally adjusted. Monthly unemployment from CSO MUM01 (September 2026); ILO unemployment and participation rates from CSO QLF02, 2026Q2. Youth unemployment covers ages 15–24; headline rates ages 15–74. Forecasts from the Central Bank of Ireland Quarterly Bulletin. Hover the tiles for details.</p>
     </section>
+
+    <div class="chart-grid">
+      <section class="card">
+        <div class="card-header">
+          <h2>Monthly unemployment rate</h2>
+          <span class="badge">Past 5 years, %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="unemployment-chart"></canvas></div>
+        <p class="footnote">Seasonally adjusted monthly unemployment rate, ages 15–74. Source: CSO MUM01.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Participation &amp; unemployment</h2>
+          <span class="badge">Quarterly, %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="participation-chart"></canvas></div>
+        <p class="footnote">ILO participation rate (15+) and unemployment rate (15–74), seasonally adjusted. Source: CSO QLF02.</p>
+      </section>
+    </div>
   </div>
 
   <script src="nav.js"></script>
+  <script src="chart-theme.js"></script>
+  <script src="data/labour.js"></script>
+  <script src="data/forecasts.js"></script>
+  <script src="labour.js"></script>
 </body>
 </html>
