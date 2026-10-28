@@ -100,9 +100,9 @@ def build_quarterly(rows, statistic):
     return out
 
 
-def build_sector_change(rows, statistic, keep_sectors=None):
-    """Return {quarter, sectors: [{sector, prev, latest, change}]} for the latest quarter,
-    both sexes, seasonally adjusted."""
+def build_sector_change(rows, statistic, years=5):
+    """Per-sector: latest quarterly change (dot) and range of quarterly changes over
+    the past `years` years (bar), both sexes, seasonally adjusted."""
     series = {}
     for r in rows:
         if r["STATISTIC"] != statistic or not r["VALUE"]:
@@ -120,12 +120,23 @@ def build_sector_change(rows, statistic, keep_sectors=None):
     if not series:
         return None
     latest_t = max(max(q.keys()) for q in series.values() if q)
+    cutoff = latest_t - years * 4  # changes from quarters up to cutoff need level at cutoff
     out = []
     for sector, q in series.items():
         if latest_t not in q or latest_t - 1 not in q:
             continue
-        prev, latest = q[latest_t - 1], q[latest_t]
-        out.append({"sector": sector, "prev": prev, "latest": latest, "change": round(latest - prev, 1)})
+        latest_change = round(q[latest_t] - q[latest_t - 1], 1)
+        changes = [q[t] - q[t - 1] for t in sorted(q) if t > cutoff and t - 1 in q and t <= latest_t]
+        out.append(
+            {
+                "sector": sector,
+                "prev": q[latest_t - 1],
+                "latest": q[latest_t],
+                "change": latest_change,
+                "min5": round(min(changes), 1) if changes else None,
+                "max5": round(max(changes), 1) if changes else None,
+            }
+        )
     out.sort(key=lambda x: x["change"], reverse=True)
     return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "sectors": out}
 

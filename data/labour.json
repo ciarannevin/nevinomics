@@ -22782,85 +22782,113 @@
     "sector": "Accommodation and food service activities (I)",
     "prev": 176.2,
     "latest": 189.9,
-    "change": 13.7
+    "change": 13.7,
+    "min5": -10.4,
+    "max5": 53.0
    },
    {
     "sector": "Administrative and support service activities (N)",
     "prev": 98.5,
     "latest": 106.8,
-    "change": 8.3
+    "change": 8.3,
+    "min5": -7.1,
+    "max5": 8.3
    },
    {
     "sector": "Human health and social work activities (Q)",
     "prev": 385.2,
     "latest": 392.2,
-    "change": 7.0
+    "change": 7.0,
+    "min5": -9.8,
+    "max5": 17.7
    },
    {
     "sector": "Other NACE activities (R to U)",
     "prev": 118.2,
     "latest": 124.8,
-    "change": 6.6
+    "change": 6.6,
+    "min5": -8.4,
+    "max5": 17.2
    },
    {
     "sector": "Information and communication (J)",
     "prev": 172.4,
     "latest": 174.7,
-    "change": 2.3
+    "change": 2.3,
+    "min5": -15.4,
+    "max5": 27.1
    },
    {
     "sector": "Public administration and defence, compulsory social security (O)",
     "prev": 147.1,
     "latest": 149.2,
-    "change": 2.1
+    "change": 2.1,
+    "min5": -8.3,
+    "max5": 9.0
    },
    {
     "sector": "Agriculture, forestry and fishing (A)",
     "prev": 107.0,
     "latest": 107.0,
-    "change": 0.0
+    "change": 0.0,
+    "min5": -14.8,
+    "max5": 8.1
    },
    {
     "sector": "Transportation and storage (H)",
     "prev": 133.2,
     "latest": 133.0,
-    "change": -0.2
+    "change": -0.2,
+    "min5": -9.4,
+    "max5": 12.0
    },
    {
     "sector": "Education (P)",
     "prev": 257.1,
     "latest": 256.7,
-    "change": -0.4
+    "change": -0.4,
+    "min5": -7.7,
+    "max5": 14.8
    },
    {
     "sector": "Financial, insurance and real estate activities (K,L)",
     "prev": 148.7,
     "latest": 148.2,
-    "change": -0.5
+    "change": -0.5,
+    "min5": -8.5,
+    "max5": 10.4
    },
    {
     "sector": "Professional, scientific and technical activities (M)",
     "prev": 188.3,
     "latest": 186.5,
-    "change": -1.8
+    "change": -1.8,
+    "min5": -9.5,
+    "max5": 14.6
    },
    {
     "sector": "Industry (B to E)",
     "prev": 355.5,
     "latest": 352.9,
-    "change": -2.6
+    "change": -2.6,
+    "min5": -19.3,
+    "max5": 13.0
    },
    {
     "sector": "Wholesale and retail trade, repair of motor vehicles and motorcycles (G)",
     "prev": 322.7,
     "latest": 316.3,
-    "change": -6.4
+    "change": -6.4,
+    "min5": -24.2,
+    "max5": 22.4
    },
    {
     "sector": "Construction (F)",
     "prev": 198.3,
     "latest": 188.9,
-    "change": -9.4
+    "change": -9.4,
+    "min5": -16.7,
+    "max5": 19.4
    }
   ]
  }
