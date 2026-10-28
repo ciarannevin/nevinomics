@@ -293,4 +293,59 @@ function initCharts() {
 document.addEventListener('DOMContentLoaded', () => {
   initHighlights();
   initCharts();
+  initSectorChart();
 });
+
+function initSectorChart() {
+  const ctx = document.getElementById('sector-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const sc = LABOUR_DATA.sector_change;
+  if (!sc || !sc.sectors || !sc.sectors.length) return;
+
+  const label = (s) => s.replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '');
+  const sectors = [...sc.sectors].reverse();
+  const data = {
+    labels: sectors.map((s) => label(s.sector)),
+    datasets: [
+      {
+        label: `Net employment change, ${sc.quarter} (thousands)`,
+        data: sectors.map((s) => s.change),
+        backgroundColor: sectors.map((s) => (s.change >= 0 ? '#009a44' : '#c0392b')),
+        borderRadius: 3,
+      },
+    ],
+  };
+  const config = {
+    type: 'bar',
+    data,
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      scales: {
+        x: {
+          ticks: { callback: (v) => `${v}k`, color: NEVINOMICS.muted },
+          grid: { color: 'rgba(0,0,0,0.05)' },
+        },
+        y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (item) => {
+              const v = item.parsed.x;
+              return `${v >= 0 ? '+' : ''}${v.toFixed(1)}k vs previous quarter`;
+            },
+          },
+        },
+      },
+    },
+    plugins: [nevinomicsWatermark],
+  };
+  new Chart(ctx, config);
+
+  const badge = document.getElementById('sector-updated');
+  if (badge) badge.textContent = sc.quarter;
+}
