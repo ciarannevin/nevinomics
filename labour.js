@@ -167,9 +167,10 @@ function initCharts() {
     const config = {
       type: 'line',
       data: { datasets },
-      options: nvBaseOptions((v) => `${v}%`),
+      options: nvBaseOptions(),
       plugins: [nevinomicsWatermark],
     };
+    config.options.scales.y.title = { display: true, text: '%' };
     config.options.scales.x.time.unit = 'year';
     config.options.scales.x.time.tooltipFormat = 'MMM yyyy';
     config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
@@ -220,9 +221,10 @@ function initCharts() {
     const config = {
       type: 'line',
       data: { datasets },
-      options: nvBaseOptions((v) => `${v}%`),
+      options: nvBaseOptions(),
       plugins: [nevinomicsWatermark],
     };
+    config.options.scales.y.title = { display: true, text: '%' };
     config.options.scales.x.time.unit = 'year';
     config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
     config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
@@ -248,7 +250,7 @@ function initCharts() {
         nvLineDataset(
           'Participation rate (all, 15+)',
           lastNYearsQuarterly(part, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
-          { color: '#0e5c8a', fill: false }
+          { color: '#009a44', fill: false }
         )
       );
     }
@@ -257,7 +259,7 @@ function initCharts() {
         nvLineDataset(
           'Male (15+)',
           lastNYearsQuarterly(partM, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
-          { color: '#009a44', fill: false }
+          { color: '#0e5c8a', fill: false }
         )
       );
     }
@@ -273,9 +275,10 @@ function initCharts() {
     const config = {
       type: 'line',
       data: { datasets },
-      options: nvBaseOptions((v) => `${v}%`),
+      options: nvBaseOptions(),
       plugins: [nevinomicsWatermark],
     };
+    config.options.scales.y.title = { display: true, text: '%' };
     config.options.scales.x.time.unit = 'year';
     config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
     config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
@@ -342,8 +345,9 @@ function initSectorChart() {
       interaction: { mode: 'nearest', intersect: false },
       scales: {
         x: {
-          ticks: { callback: (v) => `${v}k`, color: NEVINOMICS.muted },
+          ticks: { callback: (v) => v.toLocaleString('en-IE'), color: NEVINOMICS.muted },
           grid: { color: 'rgba(0,0,0,0.05)' },
+          title: { display: true, text: 'Thousands of persons' },
         },
         y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
       },
@@ -354,10 +358,10 @@ function initSectorChart() {
             label: (item) => {
               if (item.dataset.type === 'scatter') {
                 const v = item.parsed.x;
-                return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}k`;
+                return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toLocaleString('en-IE', { maximumFractionDigits: 1 })} thousand`;
               }
               const r = item.raw.x;
-              return `${item.dataset.label}: ${r[0] >= 0 ? '+' : ''}${r[0].toFixed(1)}k to ${r[1] >= 0 ? '+' : ''}${r[1].toFixed(1)}k`;
+              return `${item.dataset.label}: ${r[0].toLocaleString('en-IE', { maximumFractionDigits: 1 })} to +${r[1].toLocaleString('en-IE', { maximumFractionDigits: 1 })}`;
             },
           },
         },
@@ -391,9 +395,10 @@ function initEmploymentChart() {
   const config = {
     type: 'line',
     data: { datasets },
-    options: nvBaseOptions((v) => `${Math.round(v)}k`),
+    options: nvBaseOptions((v) => v.toLocaleString('en-IE')),
     plugins: [nevinomicsWatermark],
   };
+  config.options.scales.y.title = { display: true, text: 'Thousands of persons' };
   config.options.scales.x.time.unit = 'year';
   config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
   config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
@@ -402,7 +407,7 @@ function initEmploymentChart() {
       const d = new Date(items[0].parsed.x);
       return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
     },
-    label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}k`,
+    label: (item) => `${item.dataset.label}: ${item.parsed.y.toLocaleString('en-IE', { maximumFractionDigits: 1 })} thousand`,
   };
   new Chart(ctx, config);
 }

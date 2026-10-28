@@ -118,9 +118,10 @@ function initLevelsChart() {
   const config = {
     type: 'line',
     data: { datasets: buildGrowthDatasets('yoy') },
-    options: nvBaseOptions((v) => `${v}%`),
+    options: nvBaseOptions(),
     plugins: [nevinomicsWatermark],
   };
+  config.options.scales.y.title = { display: true, text: '%' };
   config.options.scales.x.time.unit = 'quarter';
   config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
   config.options.plugins.legend = {
@@ -184,9 +185,10 @@ function initForecastChart() {
   const config = {
     type: 'line',
     data: { datasets },
-    options: nvBaseOptions((v) => `${v}%`),
+    options: nvBaseOptions(),
     plugins: [nevinomicsWatermark],
   };
+  config.options.scales.y.title = { display: true, text: '%' };
   config.options.scales.x.time.unit = 'year';
   config.options.scales.x.time.tooltipFormat = 'yyyy';
   config.options.plugins.legend = {
