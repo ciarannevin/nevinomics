@@ -299,6 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSectorChart();
   initEmploymentChart();
   initHoursChart();
+  initDemographicsCharts();
 });
 
 function initSectorChart() {
@@ -451,4 +452,86 @@ function initHoursChart() {
     label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)} hours`,
   };
   new Chart(ctx, config);
+}
+
+function rangePlotConfig(breakdown, labelFmt) {
+  const groups = [...breakdown.groups].reverse();
+  const labels = groups.map((g) => labelFmt(g.group));
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: '5-year range of quarterly changes',
+        data: groups.map((g) =>
+          g.min5 === null || g.max5 === null ? null : { x: [g.min5, g.max5], y: labelFmt(g.group) }
+        ),
+        backgroundColor: 'rgba(0,154,68,0.14)',
+        borderColor: 'rgba(0,154,68,0.35)',
+        borderWidth: 1,
+        borderRadius: 3,
+        borderSkipped: false,
+      },
+      {
+        label: `Latest quarter (${breakdown.quarter})`,
+        type: 'scatter',
+        data: groups.map((g) => ({ x: g.change, y: labelFmt(g.group) })),
+        backgroundColor: groups.map((g) => (g.change >= 0 ? '#009a44' : '#c0392b')),
+        pointRadius: 5,
+        pointHoverRadius: 7,
+      },
+    ],
+  };
+  const config = {
+    type: 'bar',
+    data,
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      scales: {
+        x: {
+          ticks: { callback: (v) => v.toLocaleString('en-IE'), color: NEVINOMICS.muted },
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          title: { display: true, text: 'Thousands of persons' },
+        },
+        y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (item) => {
+              if (item.dataset.type === 'scatter') {
+                const v = item.parsed.x;
+                return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toLocaleString('en-IE', { maximumFractionDigits: 1 })} thousand`;
+              }
+              const r = item.raw.x;
+              return `${item.dataset.label}: ${r[0].toLocaleString('en-IE', { maximumFractionDigits: 1 })} to +${r[1].toLocaleString('en-IE', { maximumFractionDigits: 1 })}`;
+            },
+          },
+        },
+      },
+    },
+    plugins: [nevinomicsWatermark],
+  };
+  return config;
+}
+
+function initDemographicsCharts() {
+  if (typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const demo = LABOUR_DATA.demographics;
+  if (!demo) return;
+
+  const specs = [
+    { key: 'sex', id: 'demo-sex-chart', fmt: (g) => g },
+    { key: 'age', id: 'demo-age-chart', fmt: (g) => g.replace(' years', '').replace(' and over', '+') },
+    { key: 'education', id: 'demo-edu-chart', fmt: (g) => g.replace('Third level honours degree or higher', 'Third level (honours)+').replace('Third level non-honours degree', 'Third level (non-honours)') },
+  ];
+  for (const spec of specs) {
+    const ctx = document.getElementById(spec.id);
+    const breakdown = demo[spec.key];
+    if (!ctx || !breakdown || !breakdown.groups || !breakdown.groups.length) continue;
+    new Chart(ctx, rangePlotConfig(breakdown, spec.fmt));
+  }
 }

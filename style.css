@@ -457,3 +457,6 @@ body {
 }
 
 .data-table td:first-child { box-shadow: 1px 0 0 var(--border); }
+
+.demo-chart-block { min-width: 0; overflow: hidden; }
+.demo-chart-block .section-label { margin: 0 0 0.25rem; }
