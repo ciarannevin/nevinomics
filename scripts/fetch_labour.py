@@ -100,6 +100,29 @@ def build_quarterly(rows, statistic):
     return out
 
 
+def build_employment_levels(rows, statistic):
+    """Total employment (All NACE sectors) by sex, seasonally adjusted."""
+    out = {}
+    for r in rows:
+        if r["STATISTIC"] != statistic or not r["VALUE"]:
+            continue
+        if r["NACE Rev 2 Economic Sector"] != "All NACE economic sectors":
+            continue
+        sex = SEX_MAP.get(r["Sex"])
+        m = re.match(r"(\d{4})Q(\d)", r["Quarter"])
+        if not sex or not m:
+            continue
+        t = int(m.group(1)) * 4 + int(m.group(2)) - 1
+        out.setdefault(sex, {})[t] = float(r["VALUE"])
+    series = {}
+    for sex, q in out.items():
+        recs = []
+        for t in sorted(q):
+            recs.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": q[t]})
+        series[sex] = recs
+    return series
+
+
 def build_sector_change(rows, statistic, years=5):
     """Per-sector: latest quarterly change (dot) and range of quarterly changes over
     the past `years` years (bar), both sexes, seasonally adjusted."""
@@ -164,6 +187,9 @@ def main():
     sector_change = build_sector_change(qlf3, QLF03_EMPLOYMENT)
     if not sector_change:
         raise SystemExit("No sector employment data fetched")
+    employment_levels = build_employment_levels(qlf3, QLF03_EMPLOYMENT)
+    if not employment_levels:
+        raise SystemExit("No employment levels data fetched")
 
     out = ROOT / "data"
     out.mkdir(parents=True, exist_ok=True)
@@ -172,6 +198,7 @@ def main():
         "participation": participation,
         "ilo_unemployment": unemployment,
         "sector_change": sector_change,
+        "employment_levels": employment_levels,
     }
     write_js("LABOUR_DATA", payload, out / "labour.js")
     (out / "labour.json").write_text(json.dumps(payload, indent=1))
@@ -186,6 +213,8 @@ def main():
     print(f"ILO unemployment (both): last: {u[-1]}")
     sc = sector_change
     print(f"Sector change ({sc['quarter']}): {len(sc['sectors'])} sectors, top: {sc['sectors'][0]['sector']} {sc['sectors'][0]['change']:+.1f}k, bottom: {sc['sectors'][-1]['sector']} {sc['sectors'][-1]['change']:+.1f}k")
+    el = employment_levels["both"]
+    print(f"Employment levels (both): {len(el)} quarters, last: {el[-1]}")
 
 
 if __name__ == "__main__":

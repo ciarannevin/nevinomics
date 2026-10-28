@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHighlights();
   initCharts();
   initSectorChart();
+  initEmploymentChart();
 });
 
 function initSectorChart() {
@@ -363,6 +364,45 @@ function initSectorChart() {
       },
     },
     plugins: [nevinomicsWatermark],
+  };
+  new Chart(ctx, config);
+}
+
+function initEmploymentChart() {
+  const ctx = document.getElementById('employment-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const levels = LABOUR_DATA.employment_levels;
+  if (!levels) return;
+
+  const palette = { both: '#009a44', male: '#0e5c8a', female: '#c28a00' };
+  const names = { both: 'Total', male: 'Male', female: 'Female' };
+  const datasets = [];
+  for (const key of ['both', 'male', 'female']) {
+    const series = levels[key] || [];
+    if (!series.length) continue;
+    datasets.push(
+      nvLineDataset(
+        names[key],
+        lastNYearsQuarterly(series, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+        { color: palette[key], fill: false }
+      )
+    );
+  }
+  const config = {
+    type: 'line',
+    data: { datasets },
+    options: nvBaseOptions((v) => `${Math.round(v)}k`),
+    plugins: [nevinomicsWatermark],
+  };
+  config.options.scales.x.time.unit = 'year';
+  config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
+  config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+  config.options.plugins.tooltip.callbacks = {
+    title: (items) => {
+      const d = new Date(items[0].parsed.x);
+      return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
+    },
+    label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}k`,
   };
   new Chart(ctx, config);
 }
