@@ -25644,6 +25644,452 @@
    }
   ]
  },
+ "earnings": [
+  {
+   "quarter": "2008Q1",
+   "value": 21.35,
+   "qoq": null,
+   "yoy": null
+  },
+  {
+   "quarter": "2008Q2",
+   "value": 21.55,
+   "qoq": 0.94,
+   "yoy": null
+  },
+  {
+   "quarter": "2008Q3",
+   "value": 21.57,
+   "qoq": 0.09,
+   "yoy": null
+  },
+  {
+   "quarter": "2008Q4",
+   "value": 22.03,
+   "qoq": 2.13,
+   "yoy": null
+  },
+  {
+   "quarter": "2009Q1",
+   "value": 22.23,
+   "qoq": 0.91,
+   "yoy": 4.12
+  },
+  {
+   "quarter": "2009Q2",
+   "value": 22.06,
+   "qoq": -0.76,
+   "yoy": 2.37
+  },
+  {
+   "quarter": "2009Q3",
+   "value": 22.24,
+   "qoq": 0.82,
+   "yoy": 3.11
+  },
+  {
+   "quarter": "2009Q4",
+   "value": 22.31,
+   "qoq": 0.31,
+   "yoy": 1.27
+  },
+  {
+   "quarter": "2010Q1",
+   "value": 21.98,
+   "qoq": -1.48,
+   "yoy": -1.12
+  },
+  {
+   "quarter": "2010Q2",
+   "value": 22.07,
+   "qoq": 0.41,
+   "yoy": 0.05
+  },
+  {
+   "quarter": "2010Q3",
+   "value": 22.13,
+   "qoq": 0.27,
+   "yoy": -0.49
+  },
+  {
+   "quarter": "2010Q4",
+   "value": 21.99,
+   "qoq": -0.63,
+   "yoy": -1.43
+  },
+  {
+   "quarter": "2011Q1",
+   "value": 21.93,
+   "qoq": -0.27,
+   "yoy": -0.23
+  },
+  {
+   "quarter": "2011Q2",
+   "value": 21.93,
+   "qoq": 0.0,
+   "yoy": -0.63
+  },
+  {
+   "quarter": "2011Q3",
+   "value": 21.92,
+   "qoq": -0.05,
+   "yoy": -0.95
+  },
+  {
+   "quarter": "2011Q4",
+   "value": 21.96,
+   "qoq": 0.18,
+   "yoy": -0.14
+  },
+  {
+   "quarter": "2012Q1",
+   "value": 21.96,
+   "qoq": 0.0,
+   "yoy": 0.14
+  },
+  {
+   "quarter": "2012Q2",
+   "value": 21.98,
+   "qoq": 0.09,
+   "yoy": 0.23
+  },
+  {
+   "quarter": "2012Q3",
+   "value": 22.18,
+   "qoq": 0.91,
+   "yoy": 1.19
+  },
+  {
+   "quarter": "2012Q4",
+   "value": 21.85,
+   "qoq": -1.49,
+   "yoy": -0.5
+  },
+  {
+   "quarter": "2013Q1",
+   "value": 21.89,
+   "qoq": 0.18,
+   "yoy": -0.32
+  },
+  {
+   "quarter": "2013Q2",
+   "value": 22.03,
+   "qoq": 0.64,
+   "yoy": 0.23
+  },
+  {
+   "quarter": "2013Q3",
+   "value": 21.91,
+   "qoq": -0.54,
+   "yoy": -1.22
+  },
+  {
+   "quarter": "2013Q4",
+   "value": 21.88,
+   "qoq": -0.14,
+   "yoy": 0.14
+  },
+  {
+   "quarter": "2014Q1",
+   "value": 21.97,
+   "qoq": 0.41,
+   "yoy": 0.37
+  },
+  {
+   "quarter": "2014Q2",
+   "value": 21.82,
+   "qoq": -0.68,
+   "yoy": -0.95
+  },
+  {
+   "quarter": "2014Q3",
+   "value": 21.61,
+   "qoq": -0.96,
+   "yoy": -1.37
+  },
+  {
+   "quarter": "2014Q4",
+   "value": 22.06,
+   "qoq": 2.08,
+   "yoy": 0.82
+  },
+  {
+   "quarter": "2015Q1",
+   "value": 21.84,
+   "qoq": -1.0,
+   "yoy": -0.59
+  },
+  {
+   "quarter": "2015Q2",
+   "value": 21.88,
+   "qoq": 0.18,
+   "yoy": 0.27
+  },
+  {
+   "quarter": "2015Q3",
+   "value": 21.94,
+   "qoq": 0.27,
+   "yoy": 1.53
+  },
+  {
+   "quarter": "2015Q4",
+   "value": 21.93,
+   "qoq": -0.05,
+   "yoy": -0.59
+  },
+  {
+   "quarter": "2016Q1",
+   "value": 22.05,
+   "qoq": 0.55,
+   "yoy": 0.96
+  },
+  {
+   "quarter": "2016Q2",
+   "value": 21.99,
+   "qoq": -0.27,
+   "yoy": 0.5
+  },
+  {
+   "quarter": "2016Q3",
+   "value": 22.03,
+   "qoq": 0.18,
+   "yoy": 0.41
+  },
+  {
+   "quarter": "2016Q4",
+   "value": 22.21,
+   "qoq": 0.82,
+   "yoy": 1.28
+  },
+  {
+   "quarter": "2017Q1",
+   "value": 22.15,
+   "qoq": -0.27,
+   "yoy": 0.45
+  },
+  {
+   "quarter": "2017Q2",
+   "value": 22.29,
+   "qoq": 0.63,
+   "yoy": 1.36
+  },
+  {
+   "quarter": "2017Q3",
+   "value": 22.66,
+   "qoq": 1.66,
+   "yoy": 2.86
+  },
+  {
+   "quarter": "2017Q4",
+   "value": 22.64,
+   "qoq": -0.09,
+   "yoy": 1.94
+  },
+  {
+   "quarter": "2018Q1",
+   "value": 22.75,
+   "qoq": 0.49,
+   "yoy": 2.71
+  },
+  {
+   "quarter": "2018Q2",
+   "value": 22.96,
+   "qoq": 0.92,
+   "yoy": 3.01
+  },
+  {
+   "quarter": "2018Q3",
+   "value": 23.24,
+   "qoq": 1.22,
+   "yoy": 2.56
+  },
+  {
+   "quarter": "2018Q4",
+   "value": 23.37,
+   "qoq": 0.56,
+   "yoy": 3.22
+  },
+  {
+   "quarter": "2019Q1",
+   "value": 23.38,
+   "qoq": 0.04,
+   "yoy": 2.77
+  },
+  {
+   "quarter": "2019Q2",
+   "value": 23.69,
+   "qoq": 1.33,
+   "yoy": 3.18
+  },
+  {
+   "quarter": "2019Q3",
+   "value": 24.2,
+   "qoq": 2.15,
+   "yoy": 4.13
+  },
+  {
+   "quarter": "2019Q4",
+   "value": 24.3,
+   "qoq": 0.41,
+   "yoy": 3.98
+  },
+  {
+   "quarter": "2020Q1",
+   "value": 24.02,
+   "qoq": -1.15,
+   "yoy": 2.74
+  },
+  {
+   "quarter": "2020Q2",
+   "value": 25.36,
+   "qoq": 5.58,
+   "yoy": 7.05
+  },
+  {
+   "quarter": "2020Q3",
+   "value": 25.13,
+   "qoq": -0.91,
+   "yoy": 3.84
+  },
+  {
+   "quarter": "2020Q4",
+   "value": 25.63,
+   "qoq": 1.99,
+   "yoy": 5.47
+  },
+  {
+   "quarter": "2021Q1",
+   "value": 26.03,
+   "qoq": 1.56,
+   "yoy": 8.37
+  },
+  {
+   "quarter": "2021Q2",
+   "value": 26.07,
+   "qoq": 0.15,
+   "yoy": 2.8
+  },
+  {
+   "quarter": "2021Q3",
+   "value": 26.11,
+   "qoq": 0.15,
+   "yoy": 3.9
+  },
+  {
+   "quarter": "2021Q4",
+   "value": 26.36,
+   "qoq": 0.96,
+   "yoy": 2.85
+  },
+  {
+   "quarter": "2022Q1",
+   "value": 26.6,
+   "qoq": 0.91,
+   "yoy": 2.19
+  },
+  {
+   "quarter": "2022Q2",
+   "value": 26.75,
+   "qoq": 0.56,
+   "yoy": 2.61
+  },
+  {
+   "quarter": "2022Q3",
+   "value": 27.05,
+   "qoq": 1.12,
+   "yoy": 3.6
+  },
+  {
+   "quarter": "2022Q4",
+   "value": 28.01,
+   "qoq": 3.55,
+   "yoy": 6.26
+  },
+  {
+   "quarter": "2023Q1",
+   "value": 27.63,
+   "qoq": -1.36,
+   "yoy": 3.87
+  },
+  {
+   "quarter": "2023Q2",
+   "value": 28.19,
+   "qoq": 2.03,
+   "yoy": 5.38
+  },
+  {
+   "quarter": "2023Q3",
+   "value": 28.62,
+   "qoq": 1.53,
+   "yoy": 5.8
+  },
+  {
+   "quarter": "2023Q4",
+   "value": 28.62,
+   "qoq": 0.0,
+   "yoy": 2.18
+  },
+  {
+   "quarter": "2024Q1",
+   "value": 28.98,
+   "qoq": 1.26,
+   "yoy": 4.89
+  },
+  {
+   "quarter": "2024Q2",
+   "value": 29.75,
+   "qoq": 2.66,
+   "yoy": 5.53
+  },
+  {
+   "quarter": "2024Q3",
+   "value": 30.01,
+   "qoq": 0.87,
+   "yoy": 4.86
+  },
+  {
+   "quarter": "2024Q4",
+   "value": 30.42,
+   "qoq": 1.37,
+   "yoy": 6.29
+  },
+  {
+   "quarter": "2025Q1",
+   "value": 30.81,
+   "qoq": 1.28,
+   "yoy": 6.31
+  },
+  {
+   "quarter": "2025Q2",
+   "value": 30.83,
+   "qoq": 0.06,
+   "yoy": 3.63
+  },
+  {
+   "quarter": "2025Q3",
+   "value": 31.13,
+   "qoq": 0.97,
+   "yoy": 3.73
+  },
+  {
+   "quarter": "2025Q4",
+   "value": 31.39,
+   "qoq": 0.84,
+   "yoy": 3.19
+  },
+  {
+   "quarter": "2026Q1",
+   "value": 31.83,
+   "qoq": 1.4,
+   "yoy": 3.31
+  },
+  {
+   "quarter": "2026Q2",
+   "value": 32.02,
+   "qoq": 0.6,
+   "yoy": 3.86
+  }
+ ],
  "demographics": {
   "sex": {
    "quarter": "2026Q2",

@@ -300,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initEmploymentChart();
   initHoursChart();
   initDemographicsCharts();
+  initEarningsChart();
 });
 
 function initSectorChart() {
@@ -533,4 +534,54 @@ function initDemographicsCharts() {
     if (!ctx || !breakdown || !breakdown.groups || !breakdown.groups.length) continue;
     new Chart(ctx, rangePlotConfig(breakdown, spec.fmt));
   }
+}
+
+function initEarningsChart() {
+  const ctx = document.getElementById('earnings-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const earnings = LABOUR_DATA.earnings;
+  if (!earnings || !earnings.length) return;
+
+  const five = lastNYearsQuarterly(earnings, 5);
+  const level = nvLineDataset(
+    'Average hourly earnings (€)',
+    five.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+    { color: '#009a44', fill: false }
+  );
+  const change = nvLineDataset(
+    'Quarterly change (%)',
+    five.filter((d) => d.qoq !== null).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.qoq })),
+    { color: '#c28a00', fill: false }
+  );
+  change.yAxisID = 'yChange';
+
+  const config = {
+    type: 'line',
+    data: { datasets: [level, change] },
+    options: nvBaseOptions((v) => v.toLocaleString('en-IE', { maximumFractionDigits: 2 })),
+    plugins: [nevinomicsWatermark],
+  };
+  config.options.scales.y.title = { display: true, text: '€ per hour' };
+  config.options.scales.yChange = {
+    position: 'right',
+    ticks: { callback: (v) => `${v}`, color: NEVINOMICS.muted },
+    grid: { drawOnChartArea: false },
+    title: { display: true, text: 'Quarterly change, %' },
+  };
+  config.options.scales.x.time.unit = 'year';
+  config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
+  config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+  config.options.plugins.tooltip.callbacks = {
+    title: (items) => {
+      const d = new Date(items[0].parsed.x);
+      return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
+    },
+    label: (item) => {
+      const v = item.parsed.y;
+      return item.dataset.yAxisID === 'yChange'
+        ? `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%`
+        : `${item.dataset.label}: €${v.toFixed(2)}`;
+    },
+  };
+  new Chart(ctx, config);
 }

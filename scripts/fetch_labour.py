@@ -21,6 +21,7 @@ QLF03_CSV = f"{CSO}/QLF03/CSV/1.0/en"
 QLF18_CSV = f"{CSO}/QLF18/CSV/1.0/en"
 QLF24_CSV = f"{CSO}/QLF24/CSV/1.0/en"
 QLF33_CSV = f"{CSO}/QLF33/CSV/1.0/en"
+EHQ08_JSON = f"{CSO}/EHQ08/JSON-stat/2.0/en"
 ROOT = Path(__file__).resolve().parent.parent
 
 # MUM01: MUM01C02 = seasonally adjusted unemployment RATE
@@ -35,6 +36,8 @@ QLF33_HOURS = "QLF33C01"
 # QLF18: ILO unemployment rate by age (statistic 6); QLF24: ILO unemployment rate by education (statistic 6)
 QLF18_UNEMP_RATE_AGE = "QLF18C06"
 QLF24_UNEMP_RATE_EDU = "QLF24C06"
+# EHQ03: average hourly earnings, seasonally adjusted (statistic S3), all sectors, all employees
+EHQ08_HOURLY_EARNINGS_SA = "EHQ08S3"
 
 AGE_MAP = {"15 - 74 years": "15-74", "15 - 24 years": "15-24", "25 - 74 years": "25-74"}
 SEX_MAP = {"Both sexes": "both", "Male": "male", "Female": "female"}
@@ -173,6 +176,46 @@ def build_breakdown_rates(rows, statistic, group_labels, group_col, keep, years=
     return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "groups": out}
 
 
+def fetch_json(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=240) as r:
+        return json.loads(r.read())
+
+
+def build_earnings():
+    """SA average hourly earnings, All sectors (EHQ08S3, via JSON-stat).
+    The SA statistics in EHQ03 are empty in the API; SA earnings live in EHQ08."""
+    j = fetch_json(EHQ08_JSON)
+    values = j["value"]
+    nQ, nP = j["size"][1], j["size"][2]
+    stats = list(j["dimension"]["STATISTIC"]["category"]["index"])
+    sectors = list(j["dimension"]["C02511V03040"]["category"]["index"])
+    qcodes = list(j["dimension"]["TLIST(Q1)"]["category"]["index"])
+    qlabels = j["dimension"]["TLIST(Q1)"]["category"]["label"]
+    sector_label = j["dimension"]["C02511V03040"]["category"]["label"]
+    si = stats.index(EHQ08_HOURLY_EARNINGS_SA)
+    all_code = [k for k, v in sector_label.items() if v == "All sectors"][0]
+    all_i = sectors.index(all_code)
+    series = {}
+    for qi, qc in enumerate(qcodes):
+        idx = si * (nQ * nP) + qi * nP + all_i
+        v = values[idx] if idx < len(values) else None
+        if v is not None:
+            m = re.match(r"(\d{4})Q(\d)", qlabels[qc])
+            if m:
+                t = int(m.group(1)) * 4 + int(m.group(2)) - 1
+                series[t] = float(v)
+    out = []
+    for t in sorted(series):
+        qoq = yoy = None
+        if t - 1 in series:
+            qoq = round((series[t] / series[t - 1] - 1) * 100, 2)
+        if t - 4 in series:
+            yoy = round((series[t] / series[t - 4] - 1) * 100, 2)
+        out.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": series[t], "qoq": qoq, "yoy": yoy})
+    return out
+
+
 def build_hours(rows, statistic):
     """Average usual hours worked per week by sex (QLF33)."""
     out = {}
@@ -267,6 +310,9 @@ def main():
     hours = build_hours(qlf33, QLF33_HOURS)
     if not hours:
         raise SystemExit("No hours data fetched")
+    earnings = build_earnings()
+    if not earnings:
+        raise SystemExit("No earnings data fetched")
 
     # unemployment rate ranges: sex from QLF02 (SA); age from QLF18C06; education from QLF24C06
     sex_rows = [r for r in qlf if r["STATISTIC"] == QLF02_UNEMP and r["Sex"] in ("Male", "Female") and r["VALUE"]]
@@ -292,6 +338,7 @@ def main():
         "sector_change": sector_change,
         "employment_levels": employment_levels,
         "hours": hours,
+        "earnings": earnings,
         "demographics": {
             "sex": sex_breakdown,
             "age": age_breakdown,
@@ -315,6 +362,7 @@ def main():
     print(f"Employment levels (both): {len(el)} quarters, last: {el[-1]}")
     h = hours["both"]
     print(f"Hours (both): {len(h)} quarters, last: {h[-1]}")
+    print(f"Earnings: {len(earnings)} quarters, last: {earnings[-1]}")
     print(f"Sex rates: male {sex_breakdown['groups'][0]['rate']}%, female {sex_breakdown['groups'][1]['rate']}%")
     print(f"Age rates: {len(age_breakdown['groups'])} groups, first: {age_breakdown['groups'][0]['group']} {age_breakdown['groups'][0]['rate']}%")
     print(f"Education rates: {len(edu_breakdown['groups'])} groups")
