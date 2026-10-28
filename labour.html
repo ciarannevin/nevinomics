@@ -20,10 +20,9 @@
     <section class="card" id="highlights-card">
       <div class="card-header">
         <h2>Highlights — latest period</h2>
-        <span class="badge live" id="labour-updated"></span>
-      </div>
+              </div>
       <div id="labour-highlights"></div>
-      <p class="footnote">Seasonally adjusted. Monthly unemployment from CSO MUM01 (September 2026); ILO unemployment and participation rates from CSO QLF02, 2026Q2. Youth unemployment covers ages 15–24; headline rates ages 15–74. Forecasts from the Central Bank of Ireland Quarterly Bulletin. Hover the tiles for details.</p>
+      <p class="footnote">Seasonally adjusted. Monthly unemployment from CSO MUM01; ILO unemployment and participation rates from CSO QLF02. All series seasonally adjusted. Youth unemployment covers ages 15–24; headline rates ages 15–74. Forecasts from the Central Bank of Ireland Quarterly Bulletin. Hover the tiles for details.</p>
     </section>
 
     <div class="chart-grid">
@@ -38,11 +37,20 @@
 
       <section class="card">
         <div class="card-header">
-          <h2>Participation &amp; unemployment</h2>
+          <h2>ILO unemployment rate</h2>
+          <span class="badge">Quarterly, %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="ilo-unemployment-chart"></canvas></div>
+        <p class="footnote">ILO unemployment rate, ages 15–74, by sex, seasonally adjusted. Source: CSO QLF02.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Participation rate</h2>
           <span class="badge">Quarterly, %</span>
         </div>
         <div class="chart-wrap"><canvas id="participation-chart"></canvas></div>
-        <p class="footnote">ILO participation rate (15+) and unemployment rate (15–74), seasonally adjusted. Source: CSO QLF02.</p>
+        <p class="footnote">ILO participation rate, ages 15 and over, total and by sex, seasonally adjusted. Source: CSO QLF02.</p>
       </section>
     </div>
   </div>

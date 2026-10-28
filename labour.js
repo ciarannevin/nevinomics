@@ -24,6 +24,11 @@ function lastNYearsQuarterly(records, years) {
   return records.filter((r) => Number(r.quarter.slice(0, 4)) >= cutoffYear);
 }
 
+function monthLabel(m) {
+  const d = new Date(Date.UTC(Number(m.slice(0, 4)), Number(m.slice(5, 7)) - 1, 1));
+  return d.toLocaleDateString('en-IE', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
 function fmtPctV(v, dp = 1) {
   return v === null || v === undefined ? '—' : `${v.toFixed(dp)}%`;
 }
@@ -110,22 +115,29 @@ function initHighlights() {
     );
   }
 
-  let forecastHtml = '';
-  if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series && FORECAST_DATA.series.Unemployment) {
-    const pts = FORECAST_DATA.series.Unemployment.filter((p) => p.forecast && p.value !== null).slice(0, 3);
-    if (pts.length) {
-      const cells = pts.map((p) => ({ label: p.year, value: fmtPctV(p.value), dir: '' }));
-      forecastHtml = tile('Unemployment rate — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, unemployment rate', cells);
+  const forecastTiles = [];
+  if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series) {
+    const un = (FORECAST_DATA.series.Unemployment || []).filter((p) => p.forecast && p.value !== null).slice(0, 3);
+    if (un.length) {
+      forecastTiles.push(
+        tile('Unemployment rate — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, unemployment rate (%)', un.map((p) => ({ label: p.year, value: fmtPctV(p.value), dir: '' })))
+      );
+    }
+    const emp = (FORECAST_DATA.series.Employment || []).filter((p) => p.forecast && p.value !== null).slice(0, 3);
+    if (emp.length) {
+      forecastTiles.push(
+        tile('Total employment — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, annual growth in total employment (%)', emp.map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' })))
+      );
     }
   }
 
   host.innerHTML =
-    (monthlyTiles.length ? `<div class="kpi-heading">Monthly unemployment (CSO MUM01)</div><div class="kpis">${monthlyTiles.join('')}</div>` : '') +
+    (monthlyTiles.length ? `<div class="kpi-heading">Monthly unemployment, ${muLatest ? monthLabel(muLatest.month) : ''} (CSO MUM01)</div><div class="kpis">${monthlyTiles.join('')}</div>` : '') +
     (quarterlyTiles.length ? `<div class="kpi-heading">ILO labour market, ${partLatest ? partLatest.quarter : ''} (CSO QLF02)</div><div class="kpis">${quarterlyTiles.join('')}</div>` : '') +
-    (forecastHtml ? `<div class="kpi-heading">Annual forecasts</div><div class="kpis">${forecastHtml}</div>` : '');
+    (forecastTiles.length ? `<div class="kpi-heading">Annual forecasts (Central Bank of Ireland)</div><div class="kpis">${forecastTiles.join('')}</div>` : '');
 
   const badge = document.getElementById('labour-updated');
-  if (badge && latest) badge.textContent = `Data through ${latest}`;
+  if (badge) badge.textContent = '';
 }
 
 function initCharts() {
@@ -171,27 +183,37 @@ function initCharts() {
     new Chart(ctx1, config);
   }
 
-  // Chart 2: participation + ILO unemployment, 5 years
-  const ctx2 = document.getElementById('participation-chart');
+  // Chart 2: ILO unemployment rate, total + by sex, 5 years
+  const ctx2 = document.getElementById('ilo-unemployment-chart');
   if (ctx2) {
-    const part = (L.participation || {}).both || [];
     const ilo = (L.ilo_unemployment || {}).both || [];
+    const iloM = (L.ilo_unemployment || {}).male || [];
+    const iloF = (L.ilo_unemployment || {}).female || [];
     const datasets = [];
-    if (part.length) {
+    if (ilo.length) {
       datasets.push(
         nvLineDataset(
-          'Participation rate (15+)',
-          lastNYearsQuarterly(part, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+          'Unemployment rate (15–74, all)',
+          lastNYearsQuarterly(ilo, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+          { color: '#009a44', fill: false }
+        )
+      );
+    }
+    if (iloM.length) {
+      datasets.push(
+        nvLineDataset(
+          'Male (15–74)',
+          lastNYearsQuarterly(iloM, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
           { color: '#0e5c8a', fill: false }
         )
       );
     }
-    if (ilo.length) {
+    if (iloF.length) {
       datasets.push(
         nvLineDataset(
-          'Unemployment rate (15–74)',
-          lastNYearsQuarterly(ilo, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
-          { color: '#009a44', fill: false }
+          'Female (15–74)',
+          lastNYearsQuarterly(iloF, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+          { color: '#c28a00', fill: false }
         )
       );
     }
@@ -212,6 +234,59 @@ function initCharts() {
       label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%`,
     };
     new Chart(ctx2, config);
+  }
+
+  // Chart 3: participation rate, total + by sex, 5 years
+  const ctx3 = document.getElementById('participation-chart');
+  if (ctx3) {
+    const part = (L.participation || {}).both || [];
+    const partM = (L.participation || {}).male || [];
+    const partF = (L.participation || {}).female || [];
+    const datasets = [];
+    if (part.length) {
+      datasets.push(
+        nvLineDataset(
+          'Participation rate (all, 15+)',
+          lastNYearsQuarterly(part, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+          { color: '#0e5c8a', fill: false }
+        )
+      );
+    }
+    if (partM.length) {
+      datasets.push(
+        nvLineDataset(
+          'Male (15+)',
+          lastNYearsQuarterly(partM, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+          { color: '#009a44', fill: false }
+        )
+      );
+    }
+    if (partF.length) {
+      datasets.push(
+        nvLineDataset(
+          'Female (15+)',
+          lastNYearsQuarterly(partF, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+          { color: '#c28a00', fill: false }
+        )
+      );
+    }
+    const config = {
+      type: 'line',
+      data: { datasets },
+      options: nvBaseOptions((v) => `${v}%`),
+      plugins: [nevinomicsWatermark],
+    };
+    config.options.scales.x.time.unit = 'year';
+    config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
+    config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+    config.options.plugins.tooltip.callbacks = {
+      title: (items) => {
+        const d = new Date(items[0].parsed.x);
+        return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
+      },
+      label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%`,
+    };
+    new Chart(ctx3, config);
   }
 }
 
