@@ -32,7 +32,7 @@
           <span class="badge">Monthly, %</span>
         </div>
         <div class="chart-wrap"><canvas id="unemployment-chart"></canvas></div>
-        <p class="footnote">Seasonally adjusted monthly unemployment rate, ages 15–74. Source: CSO MUM01.</p>
+        <p class="footnote">Seasonally adjusted monthly unemployment rate, ages 15–74, plus youth (15–24). Source: CSO MUM01.</p>
       </section>
 
       <section class="card">
@@ -43,43 +43,7 @@
         <div class="chart-wrap"><canvas id="ilo-unemployment-chart"></canvas></div>
         <p class="footnote">ILO unemployment rate, ages 15–74, by sex, seasonally adjusted. Source: CSO QLF02.</p>
       </section>
-
-      <section class="card">
-        <div class="card-header">
-          <h2>Participation rate</h2>
-          <span class="badge">Quarterly, %</span>
-        </div>
-        <div class="chart-wrap"><canvas id="participation-chart"></canvas></div>
-        <p class="footnote">ILO participation rate, ages 15 and over, total and by sex, seasonally adjusted. Source: CSO QLF02.</p>
-      </section>
-
-      <section class="card">
-        <div class="card-header">
-          <h2>Persons in employment</h2>
-          <span class="badge">Quarterly, thousands</span>
-        </div>
-        <div class="chart-wrap"><canvas id="employment-chart"></canvas></div>
-        <p class="footnote">Persons aged 15–89 in employment, total and by sex, seasonally adjusted. Source: CSO QLF03.</p>
-      </section>
-
-      <section class="card">
-        <div class="card-header">
-          <h2>Average usual hours worked</h2>
-          <span class="badge">Quarterly, hours per week</span>
-        </div>
-        <div class="chart-wrap"><canvas id="hours-chart"></canvas></div>
-        <p class="footnote">Average usual hours worked per week for persons aged 15–89 in employment, total and by sex. Source: CSO QLF33.</p>
-      </section>
     </div>
-
-    <section class="card" id="sector-card">
-      <div class="card-header">
-        <h2>Net employment change by sector, latest quarter vs 5-year range</h2>
-        <span class="badge live" id="sector-updated"></span>
-      </div>
-      <div class="chart-wrap" style="height: 460px;"><canvas id="sector-chart"></canvas></div>
-      <p class="footnote">Thousands of persons aged 15–89, seasonally adjusted. Bars show the range of quarterly changes over the past 5 years; dots show the latest quarter’s change (green if positive, red if negative). Sectors sorted by latest change. Source: CSO QLF03.</p>
-    </section>
 
     <div class="chart-grid">
       <section class="card">
@@ -109,6 +73,37 @@
         <p class="footnote">Bars: range of rates over the past 5 years; dot: latest quarter rate. Not seasonally adjusted. Source: CSO QLF24.</p>
       </section>
     </div>
+
+    <div class="chart-grid">
+      <section class="card">
+        <div class="card-header">
+          <h2>Participation rate</h2>
+          <span class="badge">Quarterly, %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="participation-chart"></canvas></div>
+        <p class="footnote">ILO participation rate, ages 15 and over, total and by sex, seasonally adjusted. Source: CSO QLF02.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Persons in employment</h2>
+          <span class="badge">Quarterly, thousands</span>
+        </div>
+        <div class="chart-wrap"><canvas id="employment-chart"></canvas></div>
+        <p class="footnote">Persons aged 15–89 in employment, total and by sex, seasonally adjusted. Source: CSO QLF03.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Average usual hours worked</h2>
+          <span class="badge">Quarterly, hours per week</span>
+        </div>
+        <div class="chart-wrap"><canvas id="hours-chart"></canvas></div>
+        <p class="footnote">Average usual hours worked per week for persons aged 15–89 in employment, total and by sex. Source: CSO QLF33.</p>
+      </section>
+    </div>
+
+        </div>
   </div>
 
   <script src="nav.js"></script>
