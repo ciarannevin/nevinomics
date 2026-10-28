@@ -298,9 +298,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initSectorChart() {
   const ctx = document.getElementById('sector-chart');
-  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
-  const sc = LABOUR_DATA.sector_change;
-  if (!sc || !sc.sectors || !sc.sectors.length) return;
+  const sc = typeof LABOUR_DATA !== 'undefined' ? LABOUR_DATA.sector_change : null;
+  const badge = document.getElementById('sector-updated');
+  if (badge && sc && sc.quarter) badge.textContent = sc.quarter;
+  if (!ctx || typeof Chart === 'undefined' || !sc || !sc.sectors || !sc.sectors.length) return;
 
   const label = (s) => s.replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '');
   const sectors = [...sc.sectors].reverse();
@@ -345,7 +346,4 @@ function initSectorChart() {
     plugins: [nevinomicsWatermark],
   };
   new Chart(ctx, config);
-
-  const badge = document.getElementById('sector-updated');
-  if (badge) badge.textContent = sc.quarter;
 }
