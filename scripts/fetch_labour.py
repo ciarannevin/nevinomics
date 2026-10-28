@@ -18,6 +18,7 @@ CSO = "https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset"
 MUM01_CSV = f"{CSO}/MUM01/CSV/1.0/en"
 QLF02_CSV = f"{CSO}/QLF02/CSV/1.0/en"
 QLF03_CSV = f"{CSO}/QLF03/CSV/1.0/en"
+QLF33_CSV = f"{CSO}/QLF33/CSV/1.0/en"
 ROOT = Path(__file__).resolve().parent.parent
 
 # MUM01: MUM01C02 = seasonally adjusted unemployment RATE
@@ -27,6 +28,8 @@ QLF02_PARTIC = "QLF02S1"
 QLF02_UNEMP = "QLF02S2"
 # QLF03: QLF03S1 = persons in employment by NACE sector, seasonally adjusted
 QLF03_EMPLOYMENT = "QLF03S1"
+# QLF33: average usual hours worked per week (not seasonally adjusted)
+QLF33_HOURS = "QLF33C01"
 
 AGE_MAP = {"15 - 74 years": "15-74", "15 - 24 years": "15-24", "25 - 74 years": "25-74"}
 SEX_MAP = {"Both sexes": "both", "Male": "male", "Female": "female"}
@@ -123,6 +126,27 @@ def build_employment_levels(rows, statistic):
     return series
 
 
+def build_hours(rows, statistic):
+    """Average usual hours worked per week by sex (QLF33)."""
+    out = {}
+    for r in rows:
+        if r["STATISTIC"] != statistic or not r["VALUE"]:
+            continue
+        sex = SEX_MAP.get(r["Sex"])
+        m = re.match(r"(\d{4})Q(\d)", r["Quarter"])
+        if not sex or not m:
+            continue
+        t = int(m.group(1)) * 4 + int(m.group(2)) - 1
+        out.setdefault(sex, {})[t] = float(r["VALUE"])
+    series = {}
+    for sex, q in out.items():
+        recs = []
+        for t in sorted(q):
+            recs.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": q[t]})
+        series[sex] = recs
+    return series
+
+
 def build_sector_change(rows, statistic, years=5):
     """Per-sector: latest quarterly change (dot) and range of quarterly changes over
     the past `years` years (bar), both sexes, seasonally adjusted."""
@@ -176,6 +200,7 @@ def main():
     mum = list(csv.DictReader(io.StringIO(fetch_csv(MUM01_CSV))))
     qlf = list(csv.DictReader(io.StringIO(fetch_csv(QLF02_CSV))))
     qlf3 = list(csv.DictReader(io.StringIO(fetch_csv(QLF03_CSV))))
+    qlf33 = list(csv.DictReader(io.StringIO(fetch_csv(QLF33_CSV))))
 
     monthly = build_monthly(mum, MUM01_RATE)
     participation = build_quarterly(qlf, QLF02_PARTIC)
@@ -190,6 +215,9 @@ def main():
     employment_levels = build_employment_levels(qlf3, QLF03_EMPLOYMENT)
     if not employment_levels:
         raise SystemExit("No employment levels data fetched")
+    hours = build_hours(qlf33, QLF33_HOURS)
+    if not hours:
+        raise SystemExit("No hours data fetched")
 
     out = ROOT / "data"
     out.mkdir(parents=True, exist_ok=True)
@@ -199,6 +227,7 @@ def main():
         "ilo_unemployment": unemployment,
         "sector_change": sector_change,
         "employment_levels": employment_levels,
+        "hours": hours,
     }
     write_js("LABOUR_DATA", payload, out / "labour.js")
     (out / "labour.json").write_text(json.dumps(payload, indent=1))
@@ -215,6 +244,8 @@ def main():
     print(f"Sector change ({sc['quarter']}): {len(sc['sectors'])} sectors, top: {sc['sectors'][0]['sector']} {sc['sectors'][0]['change']:+.1f}k, bottom: {sc['sectors'][-1]['sector']} {sc['sectors'][-1]['change']:+.1f}k")
     el = employment_levels["both"]
     print(f"Employment levels (both): {len(el)} quarters, last: {el[-1]}")
+    h = hours["both"]
+    print(f"Hours (both): {len(h)} quarters, last: {h[-1]}")
 
 
 if __name__ == "__main__":
