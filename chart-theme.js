@@ -18,7 +18,7 @@ const nevinomicsWatermark = {
     const w = ctx.measureText(text).width;
     ctx.fillStyle = 'rgba(0,154,68,0.55)';
     // just below the x-axis line, above the tick labels
-    ctx.fillText(text, chartArea.right - w, chartArea.bottom + 9);
+    ctx.fillText(text, chartArea.right - w, chartArea.bottom + 7);
     ctx.restore();
   },
 };
