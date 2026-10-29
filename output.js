@@ -13,6 +13,13 @@ const OUTPUT_SERIES = [
   { varName: 'MDD_DATA', short: 'MDD', full: 'Modified Final Domestic Demand' },
 ];
 
+function bulletinName() {
+  if (typeof FORECAST_DATA === 'undefined' || !FORECAST_DATA.title) return 'CBI Quarterly Bulletin';
+  const m = FORECAST_DATA.title.match(/Q([1-4])\s*(\d{4})/) ||
+    FORECAST_DATA.url.match(/quarterly-bulletin-q([1-4])-(\d{4})/);
+  return m ? `CBI Quarterly Bulletin Q${m[1]} ${m[2]}` : 'CBI Quarterly Bulletin';
+}
+
 function pickLatest(records) {
   for (let i = records.length - 1; i >= 0; i--) {
     if (records[i].yoy !== null && records[i].qoq !== null) return records[i];
@@ -72,7 +79,7 @@ function initSummaryStrip() {
 
   host.innerHTML =
     (growthHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Growth rates</span><span class="badge live">${latestQuarter || ''}</span></div><div class="kpis">${growthHtml}</div>` : '') +
-    (forecastHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual growth forecasts</span><span class="badge live">CBI Bulletin</span></div><div class="kpis">${forecastHtml}</div>` : '');
+    (forecastHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual growth forecasts</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastHtml}</div>` : '');
 
 
 }
@@ -227,8 +234,7 @@ function initForecastChart() {
 
   const badge = document.getElementById('forecast-updated');
   if (badge) {
-    const m = (FORECAST_DATA.title || '').match(/Q([1-4])\s*(\d{4})/);
-    badge.textContent = m ? `CBI Bulletin Q${m[1]} ${m[2]}` : 'CBI forecasts';
+    badge.textContent = bulletinName();
     badge.classList.add('live');
   }
 }

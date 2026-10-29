@@ -24,6 +24,13 @@ function lastNYearsQuarterly(records, years) {
   return records.filter((r) => Number(r.quarter.slice(0, 4)) >= cutoffYear);
 }
 
+function bulletinName() {
+  if (typeof FORECAST_DATA === 'undefined' || !FORECAST_DATA.title) return 'CBI Quarterly Bulletin';
+  const m = FORECAST_DATA.title.match(/Q([1-4])\s*(\d{4})/) ||
+    (FORECAST_DATA.url || '').match(/quarterly-bulletin-q([1-4])-(\d{4})/);
+  return m ? `CBI Quarterly Bulletin Q${m[1]} ${m[2]}` : 'CBI Quarterly Bulletin';
+}
+
 function monthLabel(m) {
   const d = new Date(Date.UTC(Number(m.slice(0, 4)), Number(m.slice(5, 7)) - 1, 1));
   return d.toLocaleDateString('en-IE', { month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -161,7 +168,7 @@ function initHighlights() {
   host.innerHTML =
     (monthlyTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Monthly unemployment (CSO MUM01)</span><span class="badge live">${muLatest ? monthLabel(muLatest.month) : ''}</span></div><div class="kpis">${monthlyTiles.join('')}</div>` : '') +
     (quarterlyTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">ILO labour market (CSO QLF02)</span><span class="badge live">${partLatest ? partLatest.quarter : ''}</span></div><div class="kpis">${quarterlyTiles.join('')}</div>` : '') +
-    (forecastTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual forecasts (Central Bank of Ireland)</span><span class="badge live">CBI Bulletin</span></div><div class="kpis">${forecastTiles.join('')}</div>` : '');
+    (forecastTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual forecasts (Central Bank of Ireland)</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastTiles.join('')}</div>` : '');
 
   const badge = document.getElementById('labour-updated');
   if (badge) badge.textContent = '';
