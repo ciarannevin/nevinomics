@@ -22,6 +22,7 @@ QLF18_CSV = f"{CSO}/QLF18/CSV/1.0/en"
 QLF24_CSV = f"{CSO}/QLF24/CSV/1.0/en"
 QLF33_CSV = f"{CSO}/QLF33/CSV/1.0/en"
 EHQ08_JSON = f"{CSO}/EHQ08/JSON-stat/2.0/en"
+EHQ03_CSV = f"{CSO}/EHQ03/CSV/1.0/en"
 ROOT = Path(__file__).resolve().parent.parent
 
 # MUM01: MUM01C02 = seasonally adjusted unemployment RATE
@@ -38,13 +39,16 @@ QLF18_UNEMP_RATE_AGE = "QLF18C06"
 QLF24_UNEMP_RATE_EDU = "QLF24C06"
 # EHQ03: average hourly earnings, seasonally adjusted (statistic S3), all sectors, all employees
 EHQ08_HOURLY_EARNINGS_SA = "EHQ08S3"
+# EHQ03: average hourly earnings by NACE sector, all employees (statistic C03, not SA)
+EHQ03_HOURLY_EARNINGS = "EHQ03C03"
 
 AGE_MAP = {"15 - 74 years": "15-74", "15 - 24 years": "15-24", "25 - 74 years": "25-74"}
 SEX_MAP = {"Both sexes": "both", "Male": "male", "Female": "female"}
 
 
 def fetch_csv(url):
-    with urllib.request.urlopen(url, timeout=120) as resp:
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    with urllib.request.urlopen(req, timeout=240) as resp:
         return resp.read().decode("utf-8-sig")
 
 
@@ -216,6 +220,59 @@ def build_earnings():
     return out
 
 
+def build_sector_earnings(rows, statistic, years=5):
+    """Per NACE sector: latest QoQ % change in average hourly earnings + 5-year range.
+    EHQ03 C03, all employees, not seasonally adjusted."""
+    series = {}
+    for r in rows:
+        if r["STATISTIC"] != statistic or not r["VALUE"]:
+            continue
+        if r["Type of Employee"] != "All employees":
+            continue
+        sector = r["Economic Sector NACE Rev 2"]
+        if sector in (
+            "All NACE economic sectors",
+            "Not stated",
+            "Industry and Construction (B to F)",
+            "Services (G to U)",
+            "Industry (B to E)",
+            "Electricity, water supply and waste management (D,E)",
+            "Financial, insurance and real estate activities (K,L)",
+            "Arts, entertainment, recreation and other service activities (R,S)",
+            "Real estate activities (L)",
+        ):
+            continue
+        m = re.match(r"(\d{4})Q(\d)", r["Quarter"])
+        if not m:
+            continue
+        t = int(m.group(1)) * 4 + int(m.group(2)) - 1
+        series.setdefault(sector, {})[t] = float(r["VALUE"])
+    if not series:
+        return None
+    latest_t = max(max(q.keys()) for q in series.values() if q)
+    cutoff = latest_t - years * 4
+    out = []
+    for sector, q in series.items():
+        if latest_t not in q or latest_t - 1 not in q:
+            continue
+        latest_change = round((q[latest_t] / q[latest_t - 1] - 1) * 100, 2)
+        changes = [
+            (q[t] / q[t - 1] - 1) * 100
+            for t in sorted(q)
+            if t > cutoff and t - 1 in q and t <= latest_t
+        ]
+        out.append(
+            {
+                "sector": sector,
+                "change": latest_change,
+                "min5": round(min(changes), 2) if changes else None,
+                "max5": round(max(changes), 2) if changes else None,
+            }
+        )
+    out.sort(key=lambda x: x["change"], reverse=True)
+    return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "sectors": out}
+
+
 def build_hours(rows, statistic):
     """Average usual hours worked per week by sex (QLF33)."""
     out = {}
@@ -293,6 +350,7 @@ def main():
     qlf18 = list(csv.DictReader(io.StringIO(fetch_csv(QLF18_CSV))))
     qlf24 = list(csv.DictReader(io.StringIO(fetch_csv(QLF24_CSV))))
     qlf33 = list(csv.DictReader(io.StringIO(fetch_csv(QLF33_CSV))))
+    ehq3 = list(csv.DictReader(io.StringIO(fetch_csv(EHQ03_CSV))))
 
     monthly = build_monthly(mum, MUM01_RATE)
     participation = build_quarterly(qlf, QLF02_PARTIC)
@@ -313,6 +371,9 @@ def main():
     earnings = build_earnings()
     if not earnings:
         raise SystemExit("No earnings data fetched")
+    sector_earnings = build_sector_earnings(ehq3, EHQ03_HOURLY_EARNINGS)
+    if not sector_earnings:
+        raise SystemExit("No sector earnings data fetched")
 
     # unemployment rate ranges: sex from QLF02 (SA); age from QLF18C06; education from QLF24C06
     sex_rows = [r for r in qlf if r["STATISTIC"] == QLF02_UNEMP and r["Sex"] in ("Male", "Female") and r["VALUE"]]
@@ -339,6 +400,7 @@ def main():
         "employment_levels": employment_levels,
         "hours": hours,
         "earnings": earnings,
+        "sector_earnings": sector_earnings,
         "demographics": {
             "sex": sex_breakdown,
             "age": age_breakdown,
@@ -363,6 +425,8 @@ def main():
     h = hours["both"]
     print(f"Hours (both): {len(h)} quarters, last: {h[-1]}")
     print(f"Earnings: {len(earnings)} quarters, last: {earnings[-1]}")
+    se = sector_earnings
+    print(f"Sector earnings ({se['quarter']}): {len(se['sectors'])} sectors, top: {se['sectors'][0]['sector'][:40]} {se['sectors'][0]['change']:+.1f}%, bottom: {se['sectors'][-1]['sector'][:40]} {se['sectors'][-1]['change']:+.1f}%")
     print(f"Sex rates: male {sex_breakdown['groups'][0]['rate']}%, female {sex_breakdown['groups'][1]['rate']}%")
     print(f"Age rates: {len(age_breakdown['groups'])} groups, first: {age_breakdown['groups'][0]['group']} {age_breakdown['groups'][0]['rate']}%")
     print(f"Education rates: {len(edu_breakdown['groups'])} groups")

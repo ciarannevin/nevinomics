@@ -307,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHoursChart();
   initDemographicsCharts();
   initEarningsChart();
+  initSectorEarningsChart();
 });
 
 function initSectorChart() {
@@ -588,6 +589,75 @@ function initEarningsChart() {
         ? `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%`
         : `${item.dataset.label}: €${v.toFixed(2)}`;
     },
+  };
+  new Chart(ctx, config);
+}
+
+function initSectorEarningsChart() {
+  const ctx = document.getElementById('sector-earnings-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const se = LABOUR_DATA.sector_earnings;
+  if (!se || !se.sectors || !se.sectors.length) return;
+
+  const label = (s) => s.replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '');
+  const sectors = [...se.sectors].reverse();
+  const data = {
+    labels: sectors.map((s) => label(s.sector)),
+    datasets: [
+      {
+        label: '5-year range of quarterly changes',
+        data: sectors.map((s) =>
+          s.min5 === null || s.max5 === null ? null : { x: [s.min5, s.max5], y: label(s.sector) }
+        ),
+        backgroundColor: 'rgba(0,154,68,0.14)',
+        borderColor: 'rgba(0,154,68,0.35)',
+        borderWidth: 1,
+        borderRadius: 3,
+        borderSkipped: false,
+      },
+      {
+        label: `Latest quarter (${se.quarter})`,
+        type: 'scatter',
+        data: sectors.map((s) => ({ x: s.change, y: label(s.sector) })),
+        backgroundColor: sectors.map((s) => (s.change >= 0 ? '#009a44' : '#c0392b')),
+        pointRadius: 5,
+        pointHoverRadius: 7,
+      },
+    ],
+  };
+  const config = {
+    type: 'bar',
+    data,
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      scales: {
+        x: {
+          ticks: { callback: (v) => `${v}`, color: NEVINOMICS.muted },
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          title: { display: true, text: 'Quarterly change, %' },
+        },
+        y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (item) => {
+              if (item.dataset.type === 'scatter') {
+                const v = item.parsed.x;
+                return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
+              }
+              const r = item.raw.x;
+              return `${item.dataset.label}: ${r[0].toFixed(1)}% to ${r[1].toFixed(1)}%`;
+            },
+          },
+        },
+      },
+    },
+    plugins: [nevinomicsWatermark],
   };
   new Chart(ctx, config);
 }
