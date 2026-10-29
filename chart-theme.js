@@ -47,10 +47,7 @@ function nvBaseOptions(yTicksCallback) {
         type: 'time',
         time: { unit: 'year', tooltipFormat: 'yyyy QQQ' },
         grid: { display: false },
-        ticks: { color: NEVINOMICS.muted },
-        afterBuildTicks: (axis) => {
-          axis.padding = 14;
-        },
+        ticks: { color: NEVINOMICS.muted, padding: 14 },
       },
       y: {
         ticks: { callback: yTicksCallback, color: NEVINOMICS.muted },
