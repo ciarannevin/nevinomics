@@ -47,6 +47,27 @@ function tile(label, tooltip, cols) {
   return `<div class="kpi kpi-wide" title="${tooltip}"><span class="label">${label}</span><div class="mini-cols">${cells}</div></div>`;
 }
 
+function sectorLabel(s) {
+  return s
+    .replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '')
+    .replace('Public administration and defence; compulsory social security', 'Public administration and defence')
+    .replace('Public Administration and Defence; Compulsory Social Security', 'Public administration and defence')
+    .replace('Wholesale and retail trade; repair of motor vehicles and motorcycles', 'Wholesale and retail trade')
+    .replace('Wholesale and Retail Trade', 'Wholesale and retail trade')
+    .replace('Professional, scientific and technical activities', 'Professional, scientific and technical')
+    .replace('Professional, Scientific and Technical Activities', 'Professional, scientific and technical')
+    .replace('Administrative and support service activities', 'Administrative and support services')
+    .replace('Administrative and Support Service Activities', 'Administrative and support services')
+    .replace('Publishing, Broadcasting, and Content Production and Distribution Activities', 'Publishing and broadcasting')
+    .replace('Telecommunication, Computer Programming, Consulting, Computing Infrastructure and Other Information Service Activities', 'Telecom and computer services')
+    .replace('Human health and social work activities', 'Human health and social work')
+    .replace('Human Health and Social Work Activities', 'Human health and social work')
+    .replace('Accommodation and food service activities', 'Accommodation and food service')
+    .replace('Accommodation and Food Service Activities', 'Accommodation and food service')
+    .replace('Transportation and storage', 'Transportation and storage')
+    .replace('Transportation and Storage', 'Transportation and storage');
+}
+
 function initHighlights() {
   const host = document.getElementById('labour-highlights');
   if (!host || typeof LABOUR_DATA === 'undefined') return;
@@ -321,13 +342,7 @@ function initSectorChart() {
   if (badge && sc && sc.quarter) badge.textContent = sc.quarter;
   if (!ctx || typeof Chart === 'undefined' || !sc || !sc.sectors || !sc.sectors.length) return;
 
-  const label = (s) =>
-    s
-      .replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '')
-      .replace('Public administration and defence; compulsory social security', 'Public administration and defence')
-      .replace('Wholesale and retail trade; repair of motor vehicles and motorcycles', 'Wholesale and retail trade')
-      .replace('Professional, scientific and technical activities', 'Professional, scientific and technical')
-      .replace('Administrative and support service activities', 'Administrative and support services');
+  const label = sectorLabel;
   const sectors = [...sc.sectors].reverse();
   const range = (s) => (s.min5 === null || s.max5 === null ? null : [s.min5, s.max5]);
   const data = {
@@ -623,13 +638,7 @@ function initSectorEarningsChart() {
   const se = LABOUR_DATA.sector_earnings;
   if (!se || !se.sectors || !se.sectors.length) return;
 
-  const label = (s) =>
-    s
-      .replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '')
-      .replace('Public administration and defence; compulsory social security', 'Public administration and defence')
-      .replace('Wholesale and retail trade; repair of motor vehicles and motorcycles', 'Wholesale and retail trade')
-      .replace('Professional, scientific and technical activities', 'Professional, scientific and technical')
-      .replace('Administrative and support service activities', 'Administrative and support services');
+  const label = sectorLabel;
   const sectors = [...se.sectors].reverse();
   const data = {
     labels: sectors.map((s) => label(s.sector)),
@@ -802,11 +811,7 @@ function initVacancyRatesChart() {
   const va = LABOUR_DATA.vacancies;
   if (!va || !va.sectors || !va.sectors.length) return;
 
-  const label = (s) =>
-    s
-      .replace(/\\s*\\([A-Z0-9]+(?: to [A-Z0-9]+)?\\)\\s*$/, '')
-      .replace('Publishing, Broadcasting, and Content Production and Distribution Activities', 'Publishing and broadcasting')
-      .replace('Telecommunication, Computer Programming, Consulting, Computing Infrastructure and Other Information Service Activities', 'Telecom and computer services');
+  const label = sectorLabel;
   const sectors = [...va.sectors].reverse();
   const data = {
     labels: sectors.map((s) => label(s.sector)),
@@ -814,8 +819,11 @@ function initVacancyRatesChart() {
       {
         label: `Year-on-year change, ${va.quarter} (pp)`,
         data: sectors.map((s) => ({ x: s.yoy, y: label(s.sector) })),
-        backgroundColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? '#009a44' : '#c0392b')),
+        backgroundColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(0,154,68,0.35)' : 'rgba(192,57,43,0.35)')),
+        borderColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(0,154,68,0.8)' : 'rgba(192,57,43,0.8)')),
+        borderWidth: 1,
         borderRadius: 3,
+        order: 2,
       },
       {
         label: `Quarter-on-quarter change, ${va.quarter} (pp)`,
@@ -824,6 +832,7 @@ function initVacancyRatesChart() {
         backgroundColor: '#0e5c8a',
         pointRadius: 5,
         pointHoverRadius: 7,
+        order: 1,
       },
     ],
   };
