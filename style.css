@@ -462,3 +462,10 @@ body {
 
 .demo-chart-block { min-width: 0; overflow: hidden; }
 .demo-chart-block .section-label { margin: 0 0 0.25rem; }
+
+
+.footnote a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
