@@ -14,10 +14,11 @@ const nevinomicsWatermark = {
     if (!chartArea) return;
     const text = 'nevinomics';
     ctx.save();
-    ctx.font = '600 11px "Space Grotesk", system-ui, sans-serif';
+    ctx.font = '600 9px "Space Grotesk", system-ui, sans-serif';
     const w = ctx.measureText(text).width;
     ctx.fillStyle = 'rgba(0,154,68,0.55)';
-    ctx.fillText(text, chartArea.right - w, chartArea.bottom - 4);
+    // just below the x-axis line, above the tick labels
+    ctx.fillText(text, chartArea.right - w, chartArea.bottom + 9);
     ctx.restore();
   },
 };
