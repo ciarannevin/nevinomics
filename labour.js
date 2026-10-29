@@ -271,6 +271,38 @@ function initDemographicsCharts() {
   }
 }
 
+function initSectorEarningsChart() {
+  const ctx = document.getElementById('sector-earnings-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const se = LABOUR_DATA.sector_earnings;
+  if (!se || !se.sectors || !se.sectors.length) return;
+  const config = rangePlotConfig(se, sectorLabel, {
+    barLabel: '5-year range of annual changes',
+    dotLabel: `Year-on-year, ${se.quarter}`,
+    xTitle: 'Year-on-year change, %',
+  });
+  new Chart(ctx, config);
+}
+
+function initOccupationEarningsChart() {
+  const ctx = document.getElementById('occupation-earnings-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const oe = LABOUR_DATA.occupation_earnings;
+  if (!oe || !oe.groups || !oe.groups.length) return;
+
+  const fmt = (g) =>
+    g
+      .replace('Managers, professionals and associated professionals', 'Managers, professionals')
+      .replace('Clerical, sales and service employees', 'Clerical, sales and service')
+      .replace('Production, transport, craft and other manual workers', 'Production, transport, craft');
+  const config = rangePlotConfig(oe, fmt, {
+    barLabel: '5-year range of annual changes',
+    dotLabel: `Year-on-year, ${oe.quarter}`,
+    xTitle: 'Year-on-year change, %',
+  });
+  new Chart(ctx, config);
+}
+
 function initEarningsChart() {
   const ctx = document.getElementById('earnings-chart');
   if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
