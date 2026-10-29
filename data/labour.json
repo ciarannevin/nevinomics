@@ -26185,6 +26185,29 @@
    }
   ]
  },
+ "occupation_earnings": {
+  "quarter": "2026Q1",
+  "groups": [
+   {
+    "group": "Managers, professionals and associated professionals",
+    "change": 4.29,
+    "min5": 0.8,
+    "max5": 6.04
+   },
+   {
+    "group": "Clerical, sales and service employees",
+    "change": 7.18,
+    "min5": 2.72,
+    "max5": 9.54
+   },
+   {
+    "group": "Production, transport, craft and other manual workers",
+    "change": 6.64,
+    "min5": 2.62,
+    "max5": 12.44
+   }
+  ]
+ },
  "demographics": {
   "sex": {
    "quarter": "2026Q2",

@@ -308,6 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDemographicsCharts();
   initEarningsChart();
   initSectorEarningsChart();
+  initOccupationEarningsChart();
 });
 
 function initSectorChart() {
@@ -359,7 +360,10 @@ function initSectorChart() {
           grid: { color: 'rgba(0,0,0,0.05)' },
           title: { display: true, text: 'Thousands of persons' },
         },
-        y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
+        y: {
+          grid: { display: false },
+          ticks: { color: '#16241c', font: { size: 11 }, autoSkip: false, autoSkipPadding: 0 },
+        },
       },
       plugins: {
         legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
@@ -503,7 +507,10 @@ function rangePlotConfig(breakdown, labelFmt) {
           grid: { color: 'rgba(0,0,0,0.05)' },
           title: { display: true, text: '%' },
         },
-        y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
+        y: {
+          grid: { display: false },
+          ticks: { color: '#16241c', font: { size: 11 }, autoSkip: false, autoSkipPadding: 0 },
+        },
       },
       plugins: {
         legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
@@ -639,7 +646,10 @@ function initSectorEarningsChart() {
           grid: { color: 'rgba(0,0,0,0.05)' },
           title: { display: true, text: 'Year-on-year change, %' },
         },
-        y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
+        y: {
+          grid: { display: false },
+          ticks: { color: '#16241c', font: { size: 11 }, autoSkip: false, autoSkipPadding: 0 },
+        },
       },
       plugins: {
         legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
@@ -659,5 +669,24 @@ function initSectorEarningsChart() {
     },
     plugins: [nevinomicsWatermark],
   };
+  new Chart(ctx, config);
+}
+
+
+function initOccupationEarningsChart() {
+  const ctx = document.getElementById('occupation-earnings-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const oe = LABOUR_DATA.occupation_earnings;
+  if (!oe || !oe.groups || !oe.groups.length) return;
+
+  const fmt = (g) =>
+    g
+      .replace('Managers, professionals and associated professionals', 'Managers, professionals')
+      .replace('Clerical, sales and service employees', 'Clerical, sales and service')
+      .replace('Production, transport, craft and other manual workers', 'Production, transport, craft');
+  const config = rangePlotConfig(oe, fmt);
+  config.data.datasets[0].label = '5-year range of annual changes';
+  config.data.datasets[1].label = `Year-on-year, ${oe.quarter}`;
+  config.options.scales.x.title.text = 'Year-on-year change, %';
   new Chart(ctx, config);
 }

@@ -23,6 +23,7 @@ QLF24_CSV = f"{CSO}/QLF24/CSV/1.0/en"
 QLF33_CSV = f"{CSO}/QLF33/CSV/1.0/en"
 EHQ08_JSON = f"{CSO}/EHQ08/JSON-stat/2.0/en"
 EHQ03_CSV = f"{CSO}/EHQ03/CSV/1.0/en"
+EHQ57_JSON = f"{CSO}/EHQ57/JSON-stat/2.0/en"
 ROOT = Path(__file__).resolve().parent.parent
 
 # MUM01: MUM01C02 = seasonally adjusted unemployment RATE
@@ -41,6 +42,13 @@ QLF24_UNEMP_RATE_EDU = "QLF24C06"
 EHQ08_HOURLY_EARNINGS_SA = "EHQ08S3"
 # EHQ03: average hourly earnings by NACE sector, all employees (statistic C03, not SA)
 EHQ03_HOURLY_EARNINGS = "EHQ03C03"
+# EHQ57: average earnings by employee type (occupation), all sectors (the per-occupation rows in
+# EHQ53/EHQ03 are discontinued/empty in the API; EHQ57 is the current occupation earnings table)
+EHQ57_OCCUPATION_GROUPS = [
+    "Managers, professionals and associated professionals",
+    "Clerical, sales and service employees",
+    "Production, transport, craft and other manual workers",
+]
 
 AGE_MAP = {"15 - 74 years": "15-74", "15 - 24 years": "15-24", "25 - 74 years": "25-74"}
 SEX_MAP = {"Both sexes": "both", "Male": "male", "Female": "female"}
@@ -273,6 +281,59 @@ def build_sector_earnings(rows, statistic, years=5):
     return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "sectors": out}
 
 
+def build_occupation_earnings(years=5):
+    """Average weekly earnings by employee type (EHQ57, all sectors, not SA):
+    latest YoY change + 5-year range of YoY changes."""
+    j = fetch_json(EHQ57_JSON)
+    values = j["value"]
+    nQ, nE, nS = j["size"][1], j["size"][2], j["size"][3]
+    emps = list(j["dimension"]["C02397V02888"]["category"]["index"])
+    secs = list(j["dimension"]["C04498V05282"]["category"]["index"])
+    qcodes = list(j["dimension"]["TLIST(Q1)"]["category"]["index"])
+    qlabels = j["dimension"]["TLIST(Q1)"]["category"]["label"]
+    el = j["dimension"]["C02397V02888"]["category"]["label"]
+    sl = j["dimension"]["C04498V05282"]["category"]["label"]
+    all_sec = [k for k, v in sl.items() if "All NACE" in v][0]
+    all_i = secs.index(all_sec)
+    out = []
+    for group in EHQ57_OCCUPATION_GROUPS:
+        code = [k for k, v in el.items() if v == group][0]
+        e_i = emps.index(code)
+        series = {}
+        for qi, qc in enumerate(qcodes):
+            idx = qi * (nE * nS) + e_i * nS + all_i
+            v = values[idx] if idx < len(values) else None
+            if v is not None:
+                m = re.match(r"(\d{4})Q(\d)", qlabels[qc])
+                if m:
+                    series[int(m.group(1)) * 4 + int(m.group(2)) - 1] = float(v)
+        if not series:
+            continue
+        latest_t = max(series)
+        if latest_t - 4 not in series:
+            continue
+        cutoff = latest_t - years * 4
+        latest_change = round((series[latest_t] / series[latest_t - 4] - 1) * 100, 2)
+        changes = [
+            (series[t] / series[t - 4] - 1) * 100
+            for t in sorted(series)
+            if t > cutoff and t - 4 in series and t <= latest_t
+        ]
+        out.append(
+            {
+                "group": group,
+                "change": latest_change,
+                "min5": round(min(changes), 2) if changes else None,
+                "max5": round(max(changes), 2) if changes else None,
+            }
+        )
+    order = {g: i for i, g in enumerate(EHQ57_OCCUPATION_GROUPS)}
+    out.sort(key=lambda x: order.get(x["group"], 99))
+    if not out:
+        return None
+    return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "groups": out}
+
+
 def build_hours(rows, statistic):
     """Average usual hours worked per week by sex (QLF33)."""
     out = {}
@@ -374,6 +435,9 @@ def main():
     sector_earnings = build_sector_earnings(ehq3, EHQ03_HOURLY_EARNINGS)
     if not sector_earnings:
         raise SystemExit("No sector earnings data fetched")
+    occupation_earnings = build_occupation_earnings()
+    if not occupation_earnings:
+        raise SystemExit("No occupation earnings data fetched")
 
     # unemployment rate ranges: sex from QLF02 (SA); age from QLF18C06; education from QLF24C06
     sex_rows = [r for r in qlf if r["STATISTIC"] == QLF02_UNEMP and r["Sex"] in ("Male", "Female") and r["VALUE"]]
@@ -401,6 +465,7 @@ def main():
         "hours": hours,
         "earnings": earnings,
         "sector_earnings": sector_earnings,
+        "occupation_earnings": occupation_earnings,
         "demographics": {
             "sex": sex_breakdown,
             "age": age_breakdown,
@@ -425,6 +490,8 @@ def main():
     h = hours["both"]
     print(f"Hours (both): {len(h)} quarters, last: {h[-1]}")
     print(f"Earnings: {len(earnings)} quarters, last: {earnings[-1]}")
+    oe = occupation_earnings
+    print(f"Occupation earnings ({oe['quarter']}): {len(oe['groups'])} groups, latest: " + ", ".join(f"{g['group'].split(',')[0]} {g['change']:+.1f}%" for g in oe["groups"]))
     se = sector_earnings
     print(f"Sector earnings ({se['quarter']}): {len(se['sectors'])} sectors, top: {se['sectors'][0]['sector'][:40]} {se['sectors'][0]['change']:+.1f}%, bottom: {se['sectors'][-1]['sector'][:40]} {se['sectors'][-1]['change']:+.1f}%")
     print(f"Sex rates: male {sex_breakdown['groups'][0]['rate']}%, female {sex_breakdown['groups'][1]['rate']}%")
