@@ -14,10 +14,10 @@ const OUTPUT_SERIES = [
 ];
 
 function bulletinName() {
-  if (typeof FORECAST_DATA === 'undefined' || !FORECAST_DATA.title) return 'CBI Quarterly Bulletin';
+  if (typeof FORECAST_DATA === 'undefined' || !FORECAST_DATA.title) return '';
   const m = FORECAST_DATA.title.match(/Q([1-4])\s*(\d{4})/) ||
     FORECAST_DATA.url.match(/quarterly-bulletin-q([1-4])-(\d{4})/);
-  return m ? `CBI Quarterly Bulletin Q${m[1]} ${m[2]}` : 'CBI Quarterly Bulletin';
+  return m ? `${m[2]}Q${m[1]}` : '';
 }
 
 function pickLatest(records) {
