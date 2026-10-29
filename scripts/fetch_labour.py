@@ -221,8 +221,8 @@ def build_earnings():
 
 
 def build_sector_earnings(rows, statistic, years=5):
-    """Per NACE sector: latest QoQ % change in average hourly earnings + 5-year range.
-    EHQ03 C03, all employees, not seasonally adjusted."""
+    """Per NACE sector: latest YoY % change in average hourly earnings + 5-year range
+    of YoY changes. EHQ03 C03, all employees, not seasonally adjusted."""
     series = {}
     for r in rows:
         if r["STATISTIC"] != statistic or not r["VALUE"]:
@@ -253,13 +253,13 @@ def build_sector_earnings(rows, statistic, years=5):
     cutoff = latest_t - years * 4
     out = []
     for sector, q in series.items():
-        if latest_t not in q or latest_t - 1 not in q:
+        if latest_t not in q or latest_t - 4 not in q:
             continue
-        latest_change = round((q[latest_t] / q[latest_t - 1] - 1) * 100, 2)
+        latest_change = round((q[latest_t] / q[latest_t - 4] - 1) * 100, 2)
         changes = [
-            (q[t] / q[t - 1] - 1) * 100
+            (q[t] / q[t - 4] - 1) * 100
             for t in sorted(q)
-            if t > cutoff and t - 1 in q and t <= latest_t
+            if t > cutoff and t - 4 in q and t <= latest_t
         ]
         out.append(
             {

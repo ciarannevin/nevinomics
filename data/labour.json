@@ -26094,94 +26094,94 @@
   "quarter": "2026Q2",
   "sectors": [
    {
-    "sector": "Transportation and storage (H)",
-    "change": 5.03,
-    "min5": -4.97,
-    "max5": 5.63
-   },
-   {
-    "sector": "Public administration and defence; compulsory social security (O)",
-    "change": 1.88,
-    "min5": -5.39,
-    "max5": 12.71
-   },
-   {
-    "sector": "Construction (F)",
-    "change": 1.81,
-    "min5": -5.53,
-    "max5": 4.63
-   },
-   {
-    "sector": "Human health and social work activities (Q)",
-    "change": 0.68,
-    "min5": -3.71,
-    "max5": 9.0
-   },
-   {
     "sector": "Professional, scientific and technical activities (M)",
-    "change": 0.67,
-    "min5": -4.05,
-    "max5": 5.55
-   },
-   {
-    "sector": "Accommodation and food service activities (I)",
-    "change": -0.28,
-    "min5": -7.1,
-    "max5": 5.01
-   },
-   {
-    "sector": "Education (P)",
-    "change": -0.47,
-    "min5": -7.14,
-    "max5": 8.43
-   },
-   {
-    "sector": "Wholesale and retail trade; repair of motor vehicles and motorcycles (G)",
-    "change": -0.57,
-    "min5": -5.22,
-    "max5": 7.45
-   },
-   {
-    "sector": "Other service activities (S)",
-    "change": -1.03,
-    "min5": -6.34,
-    "max5": 7.11
+    "change": 5.63,
+    "min5": 0.28,
+    "max5": 10.75
    },
    {
     "sector": "Arts, entertainment and recreation (R)",
-    "change": -2.04,
-    "min5": -11.09,
-    "max5": 12.69
+    "change": 5.22,
+    "min5": -4.95,
+    "max5": 11.51
    },
    {
     "sector": "Mining and quarrying (B)",
-    "change": -3.7,
-    "min5": -8.82,
-    "max5": 11.0
-   },
-   {
-    "sector": "Information and communication (J)",
-    "change": -5.12,
-    "min5": -10.38,
-    "max5": 11.96
+    "change": 5.1,
+    "min5": -5.35,
+    "max5": 20.4
    },
    {
     "sector": "Administrative and support service activities (N)",
-    "change": -5.62,
-    "min5": -8.5,
-    "max5": 10.78
+    "change": 4.97,
+    "min5": -2.27,
+    "max5": 11.14
    },
    {
-    "sector": "Manufacturing (C)",
-    "change": -6.95,
-    "min5": -7.96,
-    "max5": 11.12
+    "sector": "Information and communication (J)",
+    "change": 4.81,
+    "min5": -1.0,
+    "max5": 12.5
    },
    {
     "sector": "Financial and insurance activities (K)",
-    "change": -14.23,
-    "min5": -15.83,
-    "max5": 22.9
+    "change": 4.74,
+    "min5": 0.18,
+    "max5": 7.42
+   },
+   {
+    "sector": "Human health and social work activities (Q)",
+    "change": 4.71,
+    "min5": -0.04,
+    "max5": 11.85
+   },
+   {
+    "sector": "Manufacturing (C)",
+    "change": 4.36,
+    "min5": 2.23,
+    "max5": 5.87
+   },
+   {
+    "sector": "Transportation and storage (H)",
+    "change": 3.78,
+    "min5": -2.5,
+    "max5": 10.58
+   },
+   {
+    "sector": "Public administration and defence; compulsory social security (O)",
+    "change": 3.48,
+    "min5": -2.54,
+    "max5": 13.27
+   },
+   {
+    "sector": "Construction (F)",
+    "change": 3.28,
+    "min5": -1.29,
+    "max5": 10.59
+   },
+   {
+    "sector": "Accommodation and food service activities (I)",
+    "change": 3.26,
+    "min5": -5.83,
+    "max5": 7.54
+   },
+   {
+    "sector": "Other service activities (S)",
+    "change": 3.12,
+    "min5": -0.96,
+    "max5": 12.65
+   },
+   {
+    "sector": "Wholesale and retail trade; repair of motor vehicles and motorcycles (G)",
+    "change": 2.24,
+    "min5": 0.73,
+    "max5": 6.34
+   },
+   {
+    "sector": "Education (P)",
+    "change": 1.81,
+    "min5": -3.36,
+    "max5": 10.87
    }
   ]
  },

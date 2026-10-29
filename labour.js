@@ -605,7 +605,7 @@ function initSectorEarningsChart() {
     labels: sectors.map((s) => label(s.sector)),
     datasets: [
       {
-        label: '5-year range of quarterly changes',
+        label: '5-year range of annual changes',
         data: sectors.map((s) =>
           s.min5 === null || s.max5 === null ? null : { x: [s.min5, s.max5], y: label(s.sector) }
         ),
@@ -616,7 +616,7 @@ function initSectorEarningsChart() {
         borderSkipped: false,
       },
       {
-        label: `Latest quarter (${se.quarter})`,
+        label: `Year-on-year, ${se.quarter}`,
         type: 'scatter',
         data: sectors.map((s) => ({ x: s.change, y: label(s.sector) })),
         backgroundColor: sectors.map((s) => (s.change >= 0 ? '#009a44' : '#c0392b')),
@@ -637,7 +637,7 @@ function initSectorEarningsChart() {
         x: {
           ticks: { callback: (v) => `${v}`, color: NEVINOMICS.muted },
           grid: { color: 'rgba(0,0,0,0.05)' },
-          title: { display: true, text: 'Quarterly change, %' },
+          title: { display: true, text: 'Year-on-year change, %' },
         },
         y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
       },
