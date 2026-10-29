@@ -39,3 +39,17 @@ Conventions and lessons learned while building the Output page. Apply these on e
 
 - Output page complete: highlights (growth + forecasts), growth chart (YoY/QoQ toggle), forecast chart (GDP/GNI*/MDD, solid/dashed), components table (with investment breakdown + contributions).
 - Other pages are styled shells awaiting content, following the same patterns.
+
+## Conventions (established during Labour page build, 2026)
+
+- **Shared helpers live in `common.js`** (loaded before every page script): date/quarter conversions, windowing, tile builder, `sectorLabel`, `setBadge`, `rangePlotConfig`, `quarterlyLineConfig`, `bulletinName`. Page scripts contain only page-specific init functions. Do not redefine these in page scripts.
+- **Badge = data period** (e.g. `2026Q2`, `September 2026`), never units. Units live in axis titles. Forecast badges show the bulletin's period, e.g. `2026Q3`, derived via `bulletinName()`.
+- **Tile mini-columns use `.mini-cols`** everywhere (`.forecast-years` is retired).
+- **Range plots** (horizontal bar+dot) all use `rangePlotConfig(breakdown, labelFmt, opts)` from common.js; supports both `{groups:[{group,...}]}` and `{sectors:[{sector,...}]}` shapes.
+- **Quarterly line charts** use `quarterlyLineConfig(datasets, opts)`; dual-axis level+change charts use `dualAxisLevelChangeConfig` (labour.js, may promote to common.js when a second page needs it).
+- **Sex colour coding**: total/all = green `#009a44`, male = blue `#0e5c8a`, female = amber `#c28a00`.
+- **Footnote sources**: `Source: Central Statistics Office (<a href="https://data.cso.ie">Table XXX</a>)` as a suffix where possible; CBI: `Source: Central Bank of Ireland <a href="...bulletins-list">Quarterly Bulletin</a>`.
+- **Month format**: badges use long month (`September 2026`); chart tooltips use short (`Sep 2026`).
+- **Data files**: both `.js` (site payload) and `.json` (identical, for inspection/testing) are generated; this is intentional.
+- **Python fetch scripts share `scripts/cso_common.py`**: `quarter_index`, `quarter_label`, `pct_change_levels` (ratio % changes), `pp_change_levels` (pp differences for rates), `year_window`.
+- **PxStat quirks**: SA statistics in EHQ03/EHQ04 and occupation rows in EHQ53 are EMPTY in the API; SA earnings live in EHQ08, occupation earnings in EHQ57. EHQ59 uses NACE Rev 2.1 title-case labels - `sectorLabel` normalises both styles.

@@ -406,7 +406,6 @@ body {
 
 .kpi-wide { flex-basis: 300px; }
 
-.forecast-years,
 .mini-cols {
   display: flex;
   gap: 1.25rem;

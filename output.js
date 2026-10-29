@@ -13,12 +13,6 @@ const OUTPUT_SERIES = [
   { varName: 'MDD_DATA', short: 'MDD', full: 'Modified Final Domestic Demand' },
 ];
 
-function bulletinName() {
-  if (typeof FORECAST_DATA === 'undefined' || !FORECAST_DATA.title) return '';
-  const m = FORECAST_DATA.title.match(/Q([1-4])\s*(\d{4})/) ||
-    FORECAST_DATA.url.match(/quarterly-bulletin-q([1-4])-(\d{4})/);
-  return m ? `${m[2]}Q${m[1]}` : '';
-}
 
 function pickLatest(records) {
   for (let i = records.length - 1; i >= 0; i--) {
@@ -63,15 +57,13 @@ function initSummaryStrip() {
     for (const key of ['GDP', 'GNI*', 'MDD']) {
       const pts = (FORECAST_DATA.series[key] || []).filter((p) => p.forecast && p.value !== null);
       if (!pts.length) continue;
-      const years = pts.slice(0, 3);
-      const cells = years
-        .map(
-          (p) =>
-            `<div class="fy-col"><span class="fy-year">${p.year}</span><span class="fy-val ${p.value < 0 ? 'down' : 'up'}">${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%</span></div>`
-        )
-        .join('');
+      const names = { 'GNI*': 'Modified Gross National Income', GDP: 'Gross Domestic Product', MDD: 'Modified Final Domestic Demand' };
       forecastTiles.push(
-        `<div class="kpi kpi-wide" title="${key === 'GNI*' ? 'Modified Gross National Income' : key === 'GDP' ? 'Gross Domestic Product' : 'Modified Final Domestic Demand'} — Central Bank of Ireland Quarterly Bulletin forecast annual growth"><span class="label">${key} — forecast annual growth</span><div class="forecast-years">${cells}</div></div>`
+        tile(
+          `${key} — forecast annual growth`,
+          `${names[key]} — Central Bank of Ireland Quarterly Bulletin forecast annual growth`,
+          pts.slice(0, 3).map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' }))
+        )
       );
     }
     forecastHtml = forecastTiles.join('');
@@ -84,21 +76,11 @@ function initSummaryStrip() {
 
 }
 
-function quarterToDate(q) {
-  const [year, qn] = [q.slice(0, 4), q.slice(5)];
-  return new Date(Date.UTC(Number(year), (Number(qn) - 1) * 3, 1));
-}
 
 function fmtMillions(v) {
   return `€${Math.round(v).toLocaleString('en-IE')}m`;
 }
 
-function lastNYears(records, years) {
-  if (!records || !records.length) return [];
-  const last = records[records.length - 1];
-  const cutoffYear = Number(last.quarter.slice(0, 4)) - years;
-  return records.filter((r) => Number(r.quarter.slice(0, 4)) >= cutoffYear);
-}
 
 function buildGrowthDatasets(metric) {
   const palette = { GDP: '#009a44', GNP: '#0e5c8a', MDD: '#c28a00' };

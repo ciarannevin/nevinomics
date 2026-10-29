@@ -11,8 +11,12 @@ import csv
 import io
 import json
 import re
+import sys
 import urllib.request
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from cso_common import pct_change_levels, pp_change_levels, quarter_label
 
 CSO = "https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset"
 MUM01_CSV = f"{CSO}/MUM01/CSV/1.0/en"
@@ -241,18 +245,7 @@ def build_vacancies():
 
     all_series = level_series(all_i)
 
-    def pp_records(series):
-        out = []
-        for t in sorted(series):
-            qoq = yoy = None
-            if t - 1 in series:
-                qoq = round(series[t] - series[t - 1], 2)
-            if t - 4 in series:
-                yoy = round(series[t] - series[t - 4], 2)
-            out.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": series[t], "qoq": qoq, "yoy": yoy})
-        return out
-
-    overall = pp_records(all_series)
+    overall = pp_change_levels(all_series)
     sectors = []
     for sec_i, sec_code in enumerate(sec_codes):
         if sec_code in EHQ59_SECTOR_AGGREGATES or sec_code == all_sec_code:
@@ -348,15 +341,7 @@ def build_ehq08_series(statistic):
 
 
 def series_to_records(series):
-    out = []
-    for t in sorted(series):
-        qoq = yoy = None
-        if t - 1 in series:
-            qoq = round((series[t] / series[t - 1] - 1) * 100, 2)
-        if t - 4 in series:
-            yoy = round((series[t] / series[t - 4] - 1) * 100, 2)
-        out.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": series[t], "qoq": qoq, "yoy": yoy})
-    return out
+    return pct_change_levels(series)
 
 
 def build_occupation_earnings(years=5):
