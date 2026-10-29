@@ -5,7 +5,7 @@
     { href: 'index.html', label: 'Home' },
     { href: 'output.html', label: 'Output' },
     { href: 'labour.html', label: 'Labour' },
-    { href: 'inflation.html', label: 'Inflation' },
+    { href: 'prices.html', label: 'Prices' },
     { href: 'fiscal.html', label: 'Fiscal' },
     { href: 'financial.html', label: 'Financial' },
     { href: 'global.html', label: 'Global' },
