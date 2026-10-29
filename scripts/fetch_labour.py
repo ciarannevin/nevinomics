@@ -24,6 +24,7 @@ QLF33_CSV = f"{CSO}/QLF33/CSV/1.0/en"
 EHQ08_JSON = f"{CSO}/EHQ08/JSON-stat/2.0/en"
 EHQ03_CSV = f"{CSO}/EHQ03/CSV/1.0/en"
 EHQ57_JSON = f"{CSO}/EHQ57/JSON-stat/2.0/en"
+EHQ59_JSON = f"{CSO}/EHQ59/JSON-stat/2.0/en"
 ROOT = Path(__file__).resolve().parent.parent
 
 # MUM01: MUM01C02 = seasonally adjusted unemployment RATE
@@ -49,6 +50,9 @@ EHQ57_OCCUPATION_GROUPS = [
     "Clerical, sales and service employees",
     "Production, transport, craft and other manual workers",
 ]
+# EHQ59: job vacancies - EHQ59C03 = vacancy rate (%)
+EHQ59_VACANCY_RATE = "EHQ59C03"
+EHQ59_SECTOR_AGGREGATES = {"ZZ210011", "ZZ210228", "ZZ210221", "ZZ210223"}  # keep real sectors only
 
 AGE_MAP = {"15 - 74 years": "15-74", "15 - 24 years": "15-24", "25 - 74 years": "25-74"}
 SEX_MAP = {"Both sexes": "both", "Male": "male", "Female": "female"}
@@ -197,35 +201,73 @@ def fetch_json(url):
 def build_earnings():
     """SA average hourly earnings, All sectors (EHQ08S3, via JSON-stat).
     The SA statistics in EHQ03 are empty in the API; SA earnings live in EHQ08."""
-    j = fetch_json(EHQ08_JSON)
+    return series_to_records(build_ehq08_series(EHQ08_HOURLY_EARNINGS_SA))
+
+
+def build_labour_costs():
+    """SA average hourly other labour costs, All sectors (EHQ08S7)."""
+    return series_to_records(build_ehq08_series("EHQ08S7"))
+
+
+def build_vacancies():
+    """Job vacancy rate (EHQ59C03): All-sectors level series + per-sector latest QoQ (pp) and YoY (pp)."""
+    j = fetch_json(EHQ59_JSON)
     values = j["value"]
-    nQ, nP = j["size"][1], j["size"][2]
+    nQ, nP, nS = j["size"][1], j["size"][2], j["size"][3]
     stats = list(j["dimension"]["STATISTIC"]["category"]["index"])
-    sectors = list(j["dimension"]["C02511V03040"]["category"]["index"])
+    secs = list(j["dimension"]["C04498V05282"]["category"]["index"])
+    sec_codes = list(j["dimension"]["C04498V05282"]["category"]["index"])
     qcodes = list(j["dimension"]["TLIST(Q1)"]["category"]["index"])
     qlabels = j["dimension"]["TLIST(Q1)"]["category"]["label"]
-    sector_label = j["dimension"]["C02511V03040"]["category"]["label"]
-    si = stats.index(EHQ08_HOURLY_EARNINGS_SA)
-    all_code = [k for k, v in sector_label.items() if v == "All sectors"][0]
-    all_i = sectors.index(all_code)
-    series = {}
-    for qi, qc in enumerate(qcodes):
-        idx = si * (nQ * nP) + qi * nP + all_i
-        v = values[idx] if idx < len(values) else None
-        if v is not None:
-            m = re.match(r"(\d{4})Q(\d)", qlabels[qc])
-            if m:
-                t = int(m.group(1)) * 4 + int(m.group(2)) - 1
-                series[t] = float(v)
-    out = []
-    for t in sorted(series):
-        qoq = yoy = None
-        if t - 1 in series:
-            qoq = round((series[t] / series[t - 1] - 1) * 100, 2)
-        if t - 4 in series:
-            yoy = round((series[t] / series[t - 4] - 1) * 100, 2)
-        out.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": series[t], "qoq": qoq, "yoy": yoy})
-    return out
+    sl = j["dimension"]["C04498V05282"]["category"]["label"]
+    privs = list(j["dimension"]["C02511V03040"]["category"]["index"])
+    pl = j["dimension"]["C02511V03040"]["category"]["label"]
+    si = stats.index(EHQ59_VACANCY_RATE)
+    all_sec_code = [k for k, v in sl.items() if "All NACE" in v][0]
+    all_i = secs.index(all_sec_code)
+    priv_code = [k for k, v in pl.items() if v == "All sectors"][0]
+    allp = privs.index(priv_code)
+
+    def level_series(sec_i):
+        series = {}
+        for qi, qc in enumerate(qcodes):
+            idx = si * (nQ * nP * nS) + qi * (nP * nS) + allp * nS + sec_i
+            v = values[idx] if idx < len(values) else None
+            if v is not None:
+                m = re.match(r"(\d{4})Q(\d)", qlabels[qc])
+                if m:
+                    series[int(m.group(1)) * 4 + int(m.group(2)) - 1] = float(v)
+        return series
+
+    all_series = level_series(all_i)
+
+    def pp_records(series):
+        out = []
+        for t in sorted(series):
+            qoq = yoy = None
+            if t - 1 in series:
+                qoq = round(series[t] - series[t - 1], 2)
+            if t - 4 in series:
+                yoy = round(series[t] - series[t - 4], 2)
+            out.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": series[t], "qoq": qoq, "yoy": yoy})
+        return out
+
+    overall = pp_records(all_series)
+    sectors = []
+    for sec_i, sec_code in enumerate(sec_codes):
+        if sec_code in EHQ59_SECTOR_AGGREGATES or sec_code == all_sec_code:
+            continue
+        series = level_series(sec_i)
+        if not series:
+            continue
+        latest_t = max(series)
+        rec = {"sector": sl[sec_code]}
+        rec["qoq"] = round(series[latest_t] - series[latest_t - 1], 2) if latest_t - 1 in series else None
+        rec["yoy"] = round(series[latest_t] - series[latest_t - 4], 2) if latest_t - 4 in series else None
+        sectors.append(rec)
+    sectors.sort(key=lambda x: (x["yoy"] if x["yoy"] is not None else -99), reverse=True)
+    latest_t = max(all_series)
+    return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "overall": overall, "sectors": sectors}
 
 
 def build_sector_earnings(rows, statistic, years=5):
@@ -279,6 +321,42 @@ def build_sector_earnings(rows, statistic, years=5):
         )
     out.sort(key=lambda x: x["change"], reverse=True)
     return {"quarter": f"{latest_t // 4}Q{latest_t % 4 + 1}", "sectors": out}
+
+
+def build_ehq08_series(statistic):
+    """Extract an All-sectors SA series from EHQ08 (JSON-stat)."""
+    j = fetch_json(EHQ08_JSON)
+    values = j["value"]
+    nQ, nP = j["size"][1], j["size"][2]
+    stats = list(j["dimension"]["STATISTIC"]["category"]["index"])
+    sectors = list(j["dimension"]["C02511V03040"]["category"]["index"])
+    qcodes = list(j["dimension"]["TLIST(Q1)"]["category"]["index"])
+    qlabels = j["dimension"]["TLIST(Q1)"]["category"]["label"]
+    sector_label = j["dimension"]["C02511V03040"]["category"]["label"]
+    si = stats.index(statistic)
+    all_code = [k for k, v in sector_label.items() if v == "All sectors"][0]
+    all_i = sectors.index(all_code)
+    series = {}
+    for qi, qc in enumerate(qcodes):
+        idx = si * (nQ * nP) + qi * nP + all_i
+        v = values[idx] if idx < len(values) else None
+        if v is not None:
+            m = re.match(r"(\d{4})Q(\d)", qlabels[qc])
+            if m:
+                series[int(m.group(1)) * 4 + int(m.group(2)) - 1] = float(v)
+    return series
+
+
+def series_to_records(series):
+    out = []
+    for t in sorted(series):
+        qoq = yoy = None
+        if t - 1 in series:
+            qoq = round((series[t] / series[t - 1] - 1) * 100, 2)
+        if t - 4 in series:
+            yoy = round((series[t] / series[t - 4] - 1) * 100, 2)
+        out.append({"quarter": f"{t // 4}Q{t % 4 + 1}", "value": series[t], "qoq": qoq, "yoy": yoy})
+    return out
 
 
 def build_occupation_earnings(years=5):
@@ -438,6 +516,12 @@ def main():
     occupation_earnings = build_occupation_earnings()
     if not occupation_earnings:
         raise SystemExit("No occupation earnings data fetched")
+    labour_costs = build_labour_costs()
+    if not labour_costs:
+        raise SystemExit("No labour costs data fetched")
+    vacancies = build_vacancies()
+    if not vacancies or not vacancies["overall"]:
+        raise SystemExit("No vacancies data fetched")
 
     # unemployment rate ranges: sex from QLF02 (SA); age from QLF18C06; education from QLF24C06
     sex_rows = [r for r in qlf if r["STATISTIC"] == QLF02_UNEMP and r["Sex"] in ("Male", "Female") and r["VALUE"]]
@@ -466,6 +550,8 @@ def main():
         "earnings": earnings,
         "sector_earnings": sector_earnings,
         "occupation_earnings": occupation_earnings,
+        "labour_costs": labour_costs,
+        "vacancies": vacancies,
         "demographics": {
             "sex": sex_breakdown,
             "age": age_breakdown,
@@ -490,6 +576,10 @@ def main():
     h = hours["both"]
     print(f"Hours (both): {len(h)} quarters, last: {h[-1]}")
     print(f"Earnings: {len(earnings)} quarters, last: {earnings[-1]}")
+    lc = labour_costs
+    print(f"Labour costs: {len(lc)} quarters, last: {lc[-1]}")
+    va = vacancies
+    print(f"Vacancies: overall last: {va['overall'][-1]}, sectors: {len(va['sectors'])}")
     oe = occupation_earnings
     print(f"Occupation earnings ({oe['quarter']}): {len(oe['groups'])} groups, latest: " + ", ".join(f"{g['group'].split(',')[0]} {g['change']:+.1f}%" for g in oe["groups"]))
     se = sector_earnings

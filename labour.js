@@ -309,6 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initEarningsChart();
   initSectorEarningsChart();
   initOccupationEarningsChart();
+  initLabourCostsChart();
+  initVacanciesChart();
+  initVacancyRatesChart();
 });
 
 function initSectorChart() {
@@ -318,7 +321,13 @@ function initSectorChart() {
   if (badge && sc && sc.quarter) badge.textContent = sc.quarter;
   if (!ctx || typeof Chart === 'undefined' || !sc || !sc.sectors || !sc.sectors.length) return;
 
-  const label = (s) => s.replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '');
+  const label = (s) =>
+    s
+      .replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '')
+      .replace('Public administration and defence; compulsory social security', 'Public administration and defence')
+      .replace('Wholesale and retail trade; repair of motor vehicles and motorcycles', 'Wholesale and retail trade')
+      .replace('Professional, scientific and technical activities', 'Professional, scientific and technical')
+      .replace('Administrative and support service activities', 'Administrative and support services');
   const sectors = [...sc.sectors].reverse();
   const range = (s) => (s.min5 === null || s.max5 === null ? null : [s.min5, s.max5]);
   const data = {
@@ -354,6 +363,7 @@ function initSectorChart() {
       responsive: true,
       maintainAspectRatio: false,
       interaction: { mode: 'nearest', intersect: false },
+      layout: { padding: { left: 8 } },
       scales: {
         x: {
           ticks: { callback: (v) => v.toLocaleString('en-IE'), color: NEVINOMICS.muted },
@@ -466,9 +476,11 @@ function initHoursChart() {
   new Chart(ctx, config);
 }
 
-function rangePlotConfig(breakdown, labelFmt) {
+function rangePlotConfig(breakdown, labelFmt, opts = {}) {
   const groups = [...breakdown.groups].reverse();
   const labels = groups.map((g) => labelFmt(g.group));
+  const isChange = groups.some((g) => g.change !== undefined);
+  const dotLabel = opts.dotLabel || `Latest value, ${breakdown.quarter}`;
   const data = {
     labels,
     datasets: [
@@ -484,10 +496,13 @@ function rangePlotConfig(breakdown, labelFmt) {
         borderSkipped: false,
       },
       {
-        label: `Unemployment rate, ${breakdown.quarter}`,
+        label: dotLabel,
         type: 'scatter',
-        data: groups.map((g) => ({ x: g.rate, y: labelFmt(g.group) })),
-        backgroundColor: '#009a44',
+        data: groups.map((g) => ({ x: g.change !== undefined ? g.change : g.rate, y: labelFmt(g.group) })),
+        backgroundColor: (ctx) => {
+          const v = ctx.raw ? ctx.raw.x : 0;
+          return v >= 0 ? '#009a44' : '#c0392b';
+        },
         pointRadius: 5,
         pointHoverRadius: 7,
       },
@@ -501,6 +516,7 @@ function rangePlotConfig(breakdown, labelFmt) {
       responsive: true,
       maintainAspectRatio: false,
       interaction: { mode: 'nearest', intersect: false },
+      layout: { padding: { left: 8 } },
       scales: {
         x: {
           ticks: { color: NEVINOMICS.muted },
@@ -518,7 +534,8 @@ function rangePlotConfig(breakdown, labelFmt) {
           callbacks: {
             label: (item) => {
               if (item.dataset.type === 'scatter') {
-                return `${item.dataset.label}: ${item.parsed.x.toFixed(1)}%`;
+                const v = item.parsed.x;
+                return `${item.dataset.label}: ${isChange && v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
               }
               const r = item.raw.x;
               return `${item.dataset.label}: ${r[0].toFixed(1)}% to ${r[1].toFixed(1)}%`;
@@ -546,7 +563,7 @@ function initDemographicsCharts() {
     const ctx = document.getElementById(spec.id);
     const breakdown = demo[spec.key];
     if (!ctx || !breakdown || !breakdown.groups || !breakdown.groups.length) continue;
-    new Chart(ctx, rangePlotConfig(breakdown, spec.fmt));
+    new Chart(ctx, rangePlotConfig(breakdown, spec.fmt, { dotLabel: `Unemployment rate, ${breakdown.quarter}` }));
   }
 }
 
@@ -606,7 +623,13 @@ function initSectorEarningsChart() {
   const se = LABOUR_DATA.sector_earnings;
   if (!se || !se.sectors || !se.sectors.length) return;
 
-  const label = (s) => s.replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '');
+  const label = (s) =>
+    s
+      .replace(/\s*\([A-Z0-9]+(?: to [A-Z0-9]+)?\)\s*$/, '')
+      .replace('Public administration and defence; compulsory social security', 'Public administration and defence')
+      .replace('Wholesale and retail trade; repair of motor vehicles and motorcycles', 'Wholesale and retail trade')
+      .replace('Professional, scientific and technical activities', 'Professional, scientific and technical')
+      .replace('Administrative and support service activities', 'Administrative and support services');
   const sectors = [...se.sectors].reverse();
   const data = {
     labels: sectors.map((s) => label(s.sector)),
@@ -658,7 +681,7 @@ function initSectorEarningsChart() {
             label: (item) => {
               if (item.dataset.type === 'scatter') {
                 const v = item.parsed.x;
-                return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
+                return `${item.dataset.label}: ${isChange && v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
               }
               const r = item.raw.x;
               return `${item.dataset.label}: ${r[0].toFixed(1)}% to ${r[1].toFixed(1)}%`;
@@ -688,5 +711,155 @@ function initOccupationEarningsChart() {
   config.data.datasets[0].label = '5-year range of annual changes';
   config.data.datasets[1].label = `Year-on-year, ${oe.quarter}`;
   config.options.scales.x.title.text = 'Year-on-year change, %';
+  new Chart(ctx, config);
+}
+
+function initLabourCostsChart() {
+  const ctx = document.getElementById('labour-costs-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const lc = LABOUR_DATA.labour_costs;
+  if (!lc || !lc.length) return;
+
+  const five = lastNYearsQuarterly(lc, 5);
+  const level = nvLineDataset(
+    'Other labour costs (€ per hour)',
+    five.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+    { color: '#009a44', fill: false }
+  );
+  const change = nvLineDataset(
+    'Quarterly change (%)',
+    five.filter((d) => d.qoq !== null).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.qoq })),
+    { color: '#c28a00', fill: false }
+  );
+  change.yAxisID = 'yChange';
+
+  const config = {
+    type: 'line',
+    data: { datasets: [level, change] },
+    options: nvBaseOptions((v) => v.toLocaleString('en-IE', { maximumFractionDigits: 2 })),
+    plugins: [nevinomicsWatermark],
+  };
+  config.options.scales.y.title = { display: true, text: '€ per hour' };
+  config.options.scales.yChange = {
+    position: 'right',
+    ticks: { color: NEVINOMICS.muted },
+    grid: { drawOnChartArea: false },
+    title: { display: true, text: 'Quarterly change, %' },
+  };
+  config.options.scales.x.time.unit = 'year';
+  config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
+  config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+  config.options.plugins.tooltip.callbacks = {
+    title: (items) => {
+      const d = new Date(items[0].parsed.x);
+      return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
+    },
+    label: (item) => {
+      const v = item.parsed.y;
+      return item.dataset.yAxisID === 'yChange'
+        ? `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}%`
+        : `${item.dataset.label}: €${v.toFixed(2)}`;
+    },
+  };
+  new Chart(ctx, config);
+}
+
+function initVacanciesChart() {
+  const ctx = document.getElementById('vacancies-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const va = LABOUR_DATA.vacancies;
+  if (!va || !va.overall || !va.overall.length) return;
+
+  const five = lastNYearsQuarterly(va.overall, 5);
+  const dataset = nvLineDataset(
+    'Job vacancy rate, all sectors',
+    five.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
+    { color: '#009a44', fill: false }
+  );
+  const config = {
+    type: 'line',
+    data: { datasets: [dataset] },
+    options: nvBaseOptions(),
+    plugins: [nevinomicsWatermark],
+  };
+  config.options.scales.y.title = { display: true, text: '%' };
+  config.options.scales.x.time.unit = 'year';
+  config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
+  config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } };
+  config.options.plugins.tooltip.callbacks = {
+    title: (items) => {
+      const d = new Date(items[0].parsed.x);
+      return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
+    },
+    label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%`,
+  };
+  new Chart(ctx, config);
+}
+
+function initVacancyRatesChart() {
+  const ctx = document.getElementById('vacancy-rates-chart');
+  if (!ctx || typeof Chart === 'undefined' || typeof LABOUR_DATA === 'undefined') return;
+  const va = LABOUR_DATA.vacancies;
+  if (!va || !va.sectors || !va.sectors.length) return;
+
+  const label = (s) =>
+    s
+      .replace(/\\s*\\([A-Z0-9]+(?: to [A-Z0-9]+)?\\)\\s*$/, '')
+      .replace('Publishing, Broadcasting, and Content Production and Distribution Activities', 'Publishing and broadcasting')
+      .replace('Telecommunication, Computer Programming, Consulting, Computing Infrastructure and Other Information Service Activities', 'Telecom and computer services');
+  const sectors = [...va.sectors].reverse();
+  const data = {
+    labels: sectors.map((s) => label(s.sector)),
+    datasets: [
+      {
+        label: `Year-on-year change, ${va.quarter} (pp)`,
+        data: sectors.map((s) => ({ x: s.yoy, y: label(s.sector) })),
+        backgroundColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? '#009a44' : '#c0392b')),
+        borderRadius: 3,
+      },
+      {
+        label: `Quarter-on-quarter change, ${va.quarter} (pp)`,
+        type: 'scatter',
+        data: sectors.map((s) => ({ x: s.qoq, y: label(s.sector) })),
+        backgroundColor: '#0e5c8a',
+        pointRadius: 5,
+        pointHoverRadius: 7,
+      },
+    ],
+  };
+  const config = {
+    type: 'bar',
+    data,
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      layout: { padding: { left: 8 } },
+      scales: {
+        x: {
+          ticks: { color: NEVINOMICS.muted },
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          title: { display: true, text: 'Change in vacancy rate, pp' },
+        },
+        y: {
+          grid: { display: false },
+          ticks: { color: '#16241c', font: { size: 11 }, autoSkip: false, autoSkipPadding: 0 },
+        },
+      },
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
+        tooltip: {
+          callbacks: {
+            label: (item) => {
+              const v = item.parsed.x;
+              return `${item.dataset.label}: ${v >= 0 ? '+' : ''}${v.toFixed(1)}pp`;
+            },
+          },
+        },
+      },
+    },
+    plugins: [nevinomicsWatermark],
+  };
   new Chart(ctx, config);
 }

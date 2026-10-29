@@ -109,7 +109,16 @@
         <p class="footnote">Thousands of persons aged 15–89, seasonally adjusted. Bars: range of quarterly changes over the past 5 years; dots: latest quarter (green positive, red negative). Sectors sorted by latest change. Source: CSO QLF03.</p>
       </section>
 
-      <section class="card">
+<section class="card">
+        <div class="card-header">
+          <h2>Hourly earnings change by sector</h2>
+          <span class="badge">Quarterly, %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="sector-earnings-chart"></canvas></div>
+        <p class="footnote">Bars: range of year-on-year changes in average hourly earnings over the past 5 years; dots: latest year-on-year change (green positive, red negative). All employees, not seasonally adjusted. Sectors sorted by latest change. Source: CSO EHQ03.</p>
+      </section>
+
+<section class="card">
         <div class="card-header">
           <h2>Average hourly earnings</h2>
           <span class="badge">Quarterly, € per hour</span>
@@ -120,14 +129,14 @@
 
       <section class="card">
         <div class="card-header">
-          <h2>Hourly earnings change by sector</h2>
-          <span class="badge">Quarterly, %</span>
+          <h2>Other labour costs per hour</h2>
+          <span class="badge">Quarterly, € per hour</span>
         </div>
-        <div class="chart-wrap"><canvas id="sector-earnings-chart"></canvas></div>
-        <p class="footnote">Bars: range of year-on-year changes in average hourly earnings over the past 5 years; dots: latest year-on-year change (green positive, red negative). All employees, not seasonally adjusted. Sectors sorted by latest change. Source: CSO EHQ03.</p>
+        <div class="chart-wrap"><canvas id="labour-costs-chart"></canvas></div>
+        <p class="footnote">Seasonally adjusted average hourly other labour costs (employers' social contributions, excluding earnings and benefit in kind), all sectors. Left axis: level (€ per hour); right axis: quarterly change (%). Source: CSO EHQ08.</p>
       </section>
 
-      <section class="card">
+<section class="card">
         <div class="card-header">
           <h2>Earnings change by employee type</h2>
           <span class="badge">Quarterly, %</span>
@@ -135,6 +144,30 @@
         <div class="chart-wrap" style="height: 240px;"><canvas id="occupation-earnings-chart"></canvas></div>
         <p class="footnote">Bars: range of year-on-year changes in average weekly earnings over the past 5 years; dots: latest year-on-year change. All sectors, not seasonally adjusted. Source: CSO EHQ57.</p>
       </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Job vacancy rate</h2>
+          <span class="badge">Quarterly, %</span>
+        </div>
+        <div class="chart-wrap"><canvas id="vacancies-chart"></canvas></div>
+        <p class="footnote">Job vacancy rate, all sectors, past 5 years. Source: CSO EHQ59.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Vacancy rate change by sector</h2>
+          <span class="badge">Quarterly, pp</span>
+        </div>
+        <div class="chart-wrap"><canvas id="vacancy-rates-chart"></canvas></div>
+        <p class="footnote">Change in job vacancy rate by sector, latest quarter. Bars: year-on-year change (pp, green positive, red negative); dots: quarter-on-quarter change (pp, blue). Sectors sorted by year-on-year change. Source: CSO EHQ59.</p>
+      </section>
+
+      
+
+      
+
+      
     </div>
   </div>
 
