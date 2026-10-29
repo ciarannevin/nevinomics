@@ -320,8 +320,43 @@ function initCharts() {
   }
 }
 
+function setBadge(id, text) {
+  const el = document.getElementById(id);
+  if (el && text) el.textContent = text;
+}
+
+function initChartBadges() {
+  if (typeof LABOUR_DATA === 'undefined') return;
+  const L = LABOUR_DATA;
+  const mu = ((L.monthly_unemployment || {})['15-74'] || {}).both || [];
+  if (mu.length) setBadge('unemployment-updated', monthLabel(mu[mu.length - 1].month));
+  const ilo = (L.ilo_unemployment || {}).both || [];
+  if (ilo.length) setBadge('ilo-unemployment-updated', ilo[ilo.length - 1].quarter);
+  const demo = L.demographics || {};
+  for (const key of ['sex', 'age', 'education']) {
+    const b = demo[key];
+    if (b && b.quarter) setBadge(`demo-${key}-updated`, b.quarter);
+  }
+  const part = (L.participation || {}).both || [];
+  if (part.length) setBadge('participation-updated', part[part.length - 1].quarter);
+  const emp = (L.employment_levels || {}).both || [];
+  if (emp.length) setBadge('employment-updated', emp[emp.length - 1].quarter);
+  const hrs = (L.hours || {}).both || [];
+  if (hrs.length) setBadge('hours-updated', hrs[hrs.length - 1].quarter);
+  if (L.sector_change && L.sector_change.quarter) setBadge('sector-updated', L.sector_change.quarter);
+  if (L.sector_earnings && L.sector_earnings.quarter) setBadge('sector-earnings-updated', L.sector_earnings.quarter);
+  if (L.earnings && L.earnings.length) setBadge('hourly-earnings-updated', L.earnings[L.earnings.length - 1].quarter);
+  if (L.labour_costs && L.labour_costs.length) setBadge('labour-costs-updated', L.labour_costs[L.labour_costs.length - 1].quarter);
+  if (L.occupation_earnings && L.occupation_earnings.quarter) setBadge('occupation-earnings-updated', L.occupation_earnings.quarter);
+  if (L.vacancies && L.vacancies.overall && L.vacancies.overall.length) {
+    setBadge('vacancies-updated', L.vacancies.overall[L.vacancies.overall.length - 1].quarter);
+    setBadge('vacancy-rates-updated', L.vacancies.quarter);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initHighlights();
+  initChartBadges();
   initCharts();
   initSectorChart();
   initEmploymentChart();
@@ -338,8 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function initSectorChart() {
   const ctx = document.getElementById('sector-chart');
   const sc = typeof LABOUR_DATA !== 'undefined' ? LABOUR_DATA.sector_change : null;
-  const badge = document.getElementById('sector-updated');
-  if (badge && sc && sc.quarter) badge.textContent = sc.quarter;
   if (!ctx || typeof Chart === 'undefined' || !sc || !sc.sectors || !sc.sectors.length) return;
 
   const label = sectorLabel;

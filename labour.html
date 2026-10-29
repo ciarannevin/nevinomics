@@ -29,7 +29,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Monthly unemployment rate</h2>
-          <span class="badge">Monthly, %</span>
+          <span class="badge live" id="unemployment-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="unemployment-chart"></canvas></div>
         <p class="footnote">Seasonally adjusted monthly unemployment rate, ages 15–74, plus youth (15–24). Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table MUM01</a>)</p>
@@ -38,7 +38,7 @@
       <section class="card">
         <div class="card-header">
           <h2>ILO unemployment rate</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="ilo-unemployment-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="ilo-unemployment-chart"></canvas></div>
         <p class="footnote">ILO unemployment rate, ages 15–74, by sex, seasonally adjusted. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table QLF02</a>)</p>
@@ -47,7 +47,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Unemployment rate by sex</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="demo-sex-updated"></span>
         </div>
         <div class="chart-wrap" style="height: 200px;"><canvas id="demo-sex-chart"></canvas></div>
         <p class="footnote">Bars: range of rates over the past 5 years; dot: latest quarter rate. Seasonally adjusted. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table QLF02</a>)</p>
@@ -56,7 +56,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Unemployment rate by age group</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="demo-age-updated"></span>
         </div>
         <div class="chart-wrap" style="height: 340px;"><canvas id="demo-age-chart"></canvas></div>
         <p class="footnote">Bars: range of rates over the past 5 years; dot: latest quarter rate. Not seasonally adjusted. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table QLF18</a>)</p>
@@ -65,7 +65,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Unemployment rate by education level</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="demo-edu-updated"></span>
         </div>
         <div class="chart-wrap" style="height: 340px;"><canvas id="demo-edu-chart"></canvas></div>
         <p class="footnote">Bars: range of rates over the past 5 years; dot: latest quarter rate. Not seasonally adjusted. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table QLF24</a>)</p>
@@ -74,7 +74,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Participation rate</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="participation-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="participation-chart"></canvas></div>
         <p class="footnote">ILO participation rate, ages 15 and over, total and by sex, seasonally adjusted. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table QLF02</a>)</p>
@@ -83,7 +83,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Persons in employment</h2>
-          <span class="badge">Quarterly, thousands</span>
+          <span class="badge live" id="employment-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="employment-chart"></canvas></div>
         <p class="footnote">Persons aged 15–89 in employment, total and by sex, seasonally adjusted. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table QLF03</a>)</p>
@@ -92,7 +92,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Average usual hours worked</h2>
-          <span class="badge">Quarterly, hours per week</span>
+          <span class="badge live" id="hours-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="hours-chart"></canvas></div>
         <p class="footnote">Average usual hours worked per week for persons aged 15–89 in employment, total and by sex. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table QLF33</a>)</p>
@@ -112,7 +112,7 @@
 <section class="card">
         <div class="card-header">
           <h2>Hourly earnings change by sector</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="sector-earnings-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="sector-earnings-chart"></canvas></div>
         <p class="footnote">Bars: range of year-on-year changes in average hourly earnings over the past 5 years; dots: latest year-on-year change (green positive, red negative). All employees, not seasonally adjusted. Sectors sorted by latest change. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table EHQ03</a>)</p>
@@ -121,7 +121,7 @@
 <section class="card">
         <div class="card-header">
           <h2>Average hourly earnings</h2>
-          <span class="badge">Quarterly, € per hour</span>
+          <span class="badge live" id="hourly-earnings-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="earnings-chart"></canvas></div>
         <p class="footnote">Seasonally adjusted average hourly earnings, all sectors. Left axis: level (€ per hour); right axis: quarterly change (%). Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table EHQ08</a>)</p>
@@ -130,7 +130,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Other labour costs per hour</h2>
-          <span class="badge">Quarterly, € per hour</span>
+          <span class="badge live" id="labour-costs-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="labour-costs-chart"></canvas></div>
         <p class="footnote">Seasonally adjusted average hourly other labour costs (employers' social contributions, excluding earnings and benefit in kind), all sectors. Left axis: level (€ per hour); right axis: quarterly change (%). Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table EHQ08</a>)</p>
@@ -139,7 +139,7 @@
 <section class="card">
         <div class="card-header">
           <h2>Earnings change by employee type</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="occupation-earnings-updated"></span>
         </div>
         <div class="chart-wrap" style="height: 240px;"><canvas id="occupation-earnings-chart"></canvas></div>
         <p class="footnote">Bars: range of year-on-year changes in average weekly earnings over the past 5 years; dots: latest year-on-year change. All sectors, not seasonally adjusted. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table EHQ57</a>)</p>
@@ -148,7 +148,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Job vacancy rate</h2>
-          <span class="badge">Quarterly, %</span>
+          <span class="badge live" id="vacancies-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="vacancies-chart"></canvas></div>
         <p class="footnote">Job vacancy rate, all sectors, past 5 years. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table EHQ59</a>)</p>
@@ -157,7 +157,7 @@
       <section class="card">
         <div class="card-header">
           <h2>Vacancy rate change by sector</h2>
-          <span class="badge">Quarterly, pp</span>
+          <span class="badge live" id="vacancy-rates-updated"></span>
         </div>
         <div class="chart-wrap"><canvas id="vacancy-rates-chart"></canvas></div>
         <p class="footnote">Change in job vacancy rate by sector, latest quarter. Bars: year-on-year change (pp, green positive, red negative); dots: quarter-on-quarter change (pp, blue). Sectors sorted by year-on-year change. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table EHQ59</a>)</p>

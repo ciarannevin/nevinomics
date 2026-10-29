@@ -219,6 +219,13 @@ function initForecastChart() {
 
   new Chart(ctx, config);
 
+  const growthBadge = document.getElementById('growth-updated');
+  if (growthBadge) {
+    const gdp = getSeriesData('GDP');
+    const latest = gdp && gdp.length ? gdp[gdp.length - 1] : null;
+    if (latest && latest.quarter) growthBadge.textContent = latest.quarter;
+  }
+
   const badge = document.getElementById('forecast-updated');
   if (badge) {
     const m = (FORECAST_DATA.title || '').match(/Q([1-4])\s*(\d{4})/);
