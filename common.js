@@ -163,6 +163,9 @@ function rangePlotConfig(breakdown, labelFmt, opts = {}) {
           ticks: { color: NEVINOMICS.muted },
           grid: { color: 'rgba(0,0,0,0.05)' },
           title: { display: true, text: xTitle },
+          afterBuildTicks: (axis) => {
+            axis.padding = 14;
+          },
         },
         y: {
           grid: { display: false },
