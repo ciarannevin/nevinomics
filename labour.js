@@ -159,9 +159,9 @@ function initHighlights() {
   }
 
   host.innerHTML =
-    (monthlyTiles.length ? `<div class="kpi-heading">Monthly unemployment, ${muLatest ? monthLabel(muLatest.month) : ''} (CSO MUM01)</div><div class="kpis">${monthlyTiles.join('')}</div>` : '') +
-    (quarterlyTiles.length ? `<div class="kpi-heading">ILO labour market, ${partLatest ? partLatest.quarter : ''} (CSO QLF02)</div><div class="kpis">${quarterlyTiles.join('')}</div>` : '') +
-    (forecastTiles.length ? `<div class="kpi-heading">Annual forecasts (Central Bank of Ireland)</div><div class="kpis">${forecastTiles.join('')}</div>` : '');
+    (monthlyTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Monthly unemployment (CSO MUM01)</span><span class="badge live">${muLatest ? monthLabel(muLatest.month) : ''}</span></div><div class="kpis">${monthlyTiles.join('')}</div>` : '') +
+    (quarterlyTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">ILO labour market (CSO QLF02)</span><span class="badge live">${partLatest ? partLatest.quarter : ''}</span></div><div class="kpis">${quarterlyTiles.join('')}</div>` : '') +
+    (forecastTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual forecasts (Central Bank of Ireland)</span><span class="badge live">CBI Bulletin</span></div><div class="kpis">${forecastTiles.join('')}</div>` : '');
 
   const badge = document.getElementById('labour-updated');
   if (badge) badge.textContent = '';
@@ -333,9 +333,9 @@ function initChartBadges() {
   const ilo = (L.ilo_unemployment || {}).both || [];
   if (ilo.length) setBadge('ilo-unemployment-updated', ilo[ilo.length - 1].quarter);
   const demo = L.demographics || {};
-  for (const key of ['sex', 'age', 'education']) {
+  for (const [key, id] of [['sex', 'demo-sex-updated'], ['age', 'demo-age-updated'], ['education', 'demo-edu-updated']]) {
     const b = demo[key];
-    if (b && b.quarter) setBadge(`demo-${key}-updated`, b.quarter);
+    if (b && b.quarter) setBadge(id, b.quarter);
   }
   const part = (L.participation || {}).both || [];
   if (part.length) setBadge('participation-updated', part[part.length - 1].quarter);

@@ -71,11 +71,10 @@ function initSummaryStrip() {
   }
 
   host.innerHTML =
-    (growthHtml ? `<div class="kpi-heading">Growth rates</div><div class="kpis">${growthHtml}</div>` : '') +
-    (forecastHtml ? `<div class="kpi-heading">Annual growth forecasts</div><div class="kpis">${forecastHtml}</div>` : '');
+    (growthHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Growth rates</span><span class="badge live">${latestQuarter || ''}</span></div><div class="kpis">${growthHtml}</div>` : '') +
+    (forecastHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual growth forecasts</span><span class="badge live">CBI Bulletin</span></div><div class="kpis">${forecastHtml}</div>` : '');
 
-  const badge = document.getElementById('strip-updated');
-  if (badge && latestQuarter) badge.textContent = `Data through ${latestQuarter}`;
+
 }
 
 function quarterToDate(q) {
@@ -221,7 +220,7 @@ function initForecastChart() {
 
   const growthBadge = document.getElementById('growth-updated');
   if (growthBadge) {
-    const gdp = getSeriesData('GDP');
+    const gdp = getSeriesData('GDP_DATA');
     const latest = gdp && gdp.length ? gdp[gdp.length - 1] : null;
     if (latest && latest.quarter) growthBadge.textContent = latest.quarter;
   }
