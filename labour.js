@@ -506,7 +506,7 @@ function rangePlotConfig(breakdown, labelFmt) {
         y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
       },
       plugins: {
-        legend: { display: false },
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
         tooltip: {
           callbacks: {
             label: (item) => {
@@ -642,7 +642,7 @@ function initSectorEarningsChart() {
         y: { grid: { display: false }, ticks: { color: '#16241c', font: { size: 11 } } },
       },
       plugins: {
-        legend: { display: false },
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
         tooltip: {
           callbacks: {
             label: (item) => {
