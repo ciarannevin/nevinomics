@@ -129,6 +129,12 @@ function initHighlights() {
         tile('Total employment — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, annual growth in total employment (%)', emp.map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' })))
       );
     }
+    const comp = (FORECAST_DATA.series['Compensation per employee'] || []).filter((p) => p.forecast && p.value !== null).slice(0, 3);
+    if (comp.length) {
+      forecastTiles.push(
+        tile('Compensation per employee — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, annual growth in compensation per employee (%)', comp.map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' })))
+      );
+    }
   }
 
   host.innerHTML =

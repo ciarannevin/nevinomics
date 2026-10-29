@@ -190,6 +190,33 @@
     "forecast": true,
     "value": 2.5
    }
+  ],
+  "Compensation per employee": [
+   {
+    "year": "2024",
+    "forecast": false,
+    "value": 6.6
+   },
+   {
+    "year": "2025",
+    "forecast": false,
+    "value": 2.4
+   },
+   {
+    "year": "2026",
+    "forecast": true,
+    "value": 4.7
+   },
+   {
+    "year": "2027",
+    "forecast": true,
+    "value": 3.8
+   },
+   {
+    "year": "2028",
+    "forecast": true,
+    "value": 3.5
+   }
   ]
  }
 }

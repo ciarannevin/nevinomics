@@ -26,6 +26,7 @@ TRACKED_ROWS = {
     "Unemployment Rate": "Unemployment",
     "Harmonised Index of Consumer Prices (HICP)": "HICP",
     "HICP Excluding Food and Energy (Core HICP)": "Core HICP",
+    "Compensation per Employee": "Compensation per employee",
 }
 
 
@@ -36,11 +37,15 @@ def fetch(url):
 
 
 def parse_table(raw):
-    """Return (years, {indicator_full_name: [values...]}) from the first revisions-free block."""
+    """Return (years, {indicator_full_name: [values...]}) from the full forecast table.
+
+    The bulletin publishes two versions of the forecast summary: a short table and an
+    extended table with additional rows (Compensation per Employee, government balance,
+    debt). Prefer the extended one so all tracked indicators are captured."""
     tables = re.findall(r"<table.*?</table>", raw, re.S)
-    for t in tables:
-        if "Gross Domestic Product" not in t or "Modified Domestic Demand" not in t:
-            continue
+    candidates = [t for t in tables if "Gross Domestic Product" in t and "Modified Domestic Demand" in t]
+    candidates.sort(key=lambda t: "Compensation per Employee" in t, reverse=True)
+    for t in candidates:
         rows = re.findall(r"<tr.*?</tr>", t, re.S)
         years = None
         data = {}
@@ -51,8 +56,8 @@ def parse_table(raw):
             ]
             if not cells:
                 continue
-            if years is None and all(re.fullmatch(r"\d{4}f?", c) for c in cells[1:] if c):
-                years = [(c.rstrip("f"), c.endswith("f")) for c in cells if c]
+            if years is None and all(re.fullmatch(r"\d{4}[ef]?", c) for c in cells[1:] if c):
+                years = [(c.rstrip("ef"), c.endswith("f")) for c in cells if c]
                 continue
             label = cells[0]
             if label in TRACKED_ROWS and label not in data:
