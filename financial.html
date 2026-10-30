@@ -30,7 +30,6 @@
     }
     .brand-block .blurb { font-size: 0.85rem; color: var(--faint); margin: 0 0 1.25rem; }
 
-    /* header-size lockup demo */
     .lockup {
       display: flex;
       align-items: center;
@@ -47,12 +46,11 @@
     }
     .lockup .word em { font-style: normal; color: var(--accent); }
 
-    .sizes { display: flex; align-items: flex-end; gap: 1.5rem; margin: 1rem 0; }
+    .sizes { display: flex; align-items: flex-end; gap: 1.5rem; margin: 1rem 0; flex-wrap: wrap; }
     .sizes .cell { text-align: center; }
     .sizes .cell .label { font-size: 11px; color: var(--faint); margin-top: 6px; }
     .sizes svg { display: block; }
 
-    /* favicon context: a browser-tab-like chip */
     .tab-chip {
       display: inline-flex; align-items: center; gap: 8px;
       background: #eee; border-radius: 8px 8px 0 0; padding: 7px 14px 7px 10px;
@@ -60,103 +58,97 @@
       min-width: 170px;
     }
     .tab-chip .x { margin-left: auto; color: #999; }
+
+    /* SVG mark reuse: same viewBox everywhere; only width/height change.
+       All geometry is defined once in the defs per mark and referenced via <use>. */
   </style>
 </head>
 <body>
-  <div class="mock-note">Brand mark exploration — four candidates rendered at header size, mark-only size, and in a browser-tab context. Not the live header.</div>
+  <div class="mock-note">Brand mark exploration, round 2 — refined C (heather, standardised circle geometry) and new option E (chart-line N). Same viewBox geometry at every size, so proportions never drift.</div>
 
   <div class="page">
     <div class="page-head">
       <h1>Brand marks</h1>
-      <p>Four candidate marks for the header, favicon and social identity. Each uses the Nordic botanical palette and Space Grotesk geometry.</p>
+      <p>Refined candidates. Each mark is a single fixed geometry (same viewBox), rendered at different scales — so the design can’t “float” between sizes.</p>
     </div>
 
     <div class="brand-grid">
 
-      <!-- A: E[V] expected value -->
+      <!-- C refined: N monogram, standardised circles, spruce+heather -->
       <section class="brand-block">
-        <h2>A — E[V] “expected value”</h2>
-        <p class="blurb">The expectation operator hidden in NEVIN. Reads as mathematics and as “Nevin”. Clever without being cute; instantly ownable.</p>
+        <h2>C — N monogram with Venn overlap (refined)</h2>
+        <p class="blurb">Circles now anchored to a fixed point — the terminal of the N’s closing stroke — with spruce + heather overlap. Identical geometry at every size; only the render scale changes.</p>
+
+        <!-- single source of truth for the mark geometry -->
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <defs>
+            <g id="mark-c">
+              <!-- N: two verticals + diagonal, square caps -->
+              <path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/>
+              <!-- overlap anchored at the top terminal (22,5): two circles, fixed centres/radii -->
+              <circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/>
+              <circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/>
+            </g>
+            <g id="mark-e">
+              <!-- N drawn as a single chart line: round caps/joins, spruce -->
+              <path d="M7 24 V6 L21 24 V6" fill="none" stroke="#3E7C59" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- data-point marker at the line's end -->
+              <circle cx="21" cy="6" r="2.6" fill="#3E7C59"/>
+            </g>
+          </defs>
+        </svg>
+
         <div class="lockup">
-          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-            <rect width="30" height="30" rx="6" fill="none"/>
-            <text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text>
-          </svg>
+          <svg width="30" height="30" viewBox="0 0 30 30"><use href="#mark-c"/></svg>
           <span class="word">nevin<em>omics</em></span>
         </div>
         <div class="sizes">
-          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg><div class="label">30px</div></div>
-          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg><div class="label">20px</div></div>
-          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg><div class="label">16px favicon</div></div>
+          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><use href="#mark-c"/></svg><div class="label">30px</div></div>
+          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><use href="#mark-c"/></svg><div class="label">20px</div></div>
+          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><use href="#mark-c"/></svg><div class="label">16px favicon</div></div>
           <div class="cell">
-            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg> nevinomics — Output <span class="x">×</span></span>
+            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><use href="#mark-c"/></svg> nevinomics — Output <span class="x">×</span></span>
           </div>
         </div>
       </section>
 
-      <!-- B: range-plot glyph -->
+      <!-- E: chart-line N -->
       <section class="brand-block">
-        <h2>B — Range-plot glyph</h2>
-        <p class="blurb">A translucent bar with a dot — the signature visual language of the site’s charts. Abstract, but literally what the site draws.</p>
+        <h2>E — N as a chart line</h2>
+        <p class="blurb">No circles: the N drawn as one continuous line the way a data series is drawn — rounded joins, spruce — ending in a data-point marker. The monogram literally behaves like one of the site’s charts.</p>
         <div class="lockup">
-          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-            <rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.15)" stroke="rgba(62,124,89,0.4)"/>
-            <circle cx="19" cy="15.5" r="3.4" fill="#3E7C59"/>
-          </svg>
+          <svg width="30" height="30" viewBox="0 0 30 30"><use href="#mark-e"/></svg>
           <span class="word">nevin<em>omics</em></span>
         </div>
         <div class="sizes">
-          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.15)" stroke="rgba(62,124,89,0.4)"/><circle cx="19" cy="15.5" r="3.4" fill="#3E7C59"/></svg><div class="label">30px</div></div>
-          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.15)" stroke="rgba(62,124,89,0.4)"/><circle cx="19" cy="15.5" r="3.4" fill="#3E7C59"/></svg><div class="label">20px</div></div>
-          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.25)" stroke="rgba(62,124,89,0.5)"/><circle cx="19" cy="15.5" r="4" fill="#3E7C59"/></svg><div class="label">16px favicon</div></div>
+          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">30px</div></div>
+          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">20px</div></div>
+          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">16px favicon</div></div>
           <div class="cell">
-            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.25)" stroke="rgba(62,124,89,0.5)"/><circle cx="19" cy="15.5" r="4" fill="#3E7C59"/></svg> nevinomics — Output <span class="x">×</span></span>
+            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><use href="#mark-e"/></svg> nevinomics — Output <span class="x">×</span></span>
           </div>
         </div>
       </section>
 
-      <!-- C: N monogram with venn overlap -->
+      <!-- combined: C and E side by side for direct comparison -->
       <section class="brand-block">
-        <h2>C — N monogram (Venn overlap)</h2>
-        <p class="blurb">A geometric N with the counterspace as two overlapping circles — a nod to the VENNI anagram and the data-set identity. Most logo-like; needs the circle device to read.</p>
-        <div class="lockup">
-          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
-            <path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="3.4" stroke-linecap="square"/>
-            <circle cx="21" cy="9" r="3.2" fill="rgba(232,163,61,0.55)"/>
-            <circle cx="24" cy="9" r="3.2" fill="rgba(62,124,89,0.55)"/>
-          </svg>
-          <span class="word">nevin<em>omics</em></span>
-        </div>
-        <div class="sizes">
-          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="3.4" stroke-linecap="square"/><circle cx="21" cy="9" r="3.2" fill="rgba(232,163,61,0.55)"/><circle cx="24" cy="9" r="3.2" fill="rgba(62,124,89,0.55)"/></svg><div class="label">30px</div></div>
-          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="3.4" stroke-linecap="square"/><circle cx="21" cy="9" r="3.2" fill="rgba(232,163,61,0.55)"/><circle cx="24" cy="9" r="3.2" fill="rgba(62,124,89,0.55)"/></svg><div class="label">20px</div></div>
-          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="4"/><circle cx="21" cy="9" r="3.6" fill="rgba(232,163,61,0.6)"/><circle cx="24" cy="9" r="3.6" fill="rgba(62,124,89,0.6)"/></svg><div class="label">16px favicon</div></div>
-          <div class="cell">
-            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="4"/><circle cx="21" cy="9" r="3.6" fill="rgba(232,163,61,0.6)"/><circle cx="24" cy="9" r="3.6" fill="rgba(62,124,89,0.6)"/></svg> nevinomics — Output <span class="x">×</span></span>
+        <h2>Direct comparison</h2>
+        <p class="blurb">The two finalists side by side at header size.</p>
+        <div class="sizes" style="align-items: center; gap: 3rem;">
+          <div class="lockup" style="padding: 0;">
+            <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-c"/></svg>
+            <span class="word">nevin<em>omics</em></span>
           </div>
-        </div>
-      </section>
-
-      <!-- D: two-tone typographic only -->
-      <section class="brand-block">
-        <h2>D — Two-tone wordmark only</h2>
-        <p class="blurb">No symbol; the wordmark itself, refined: tight tracking, “omics” in spruce. Nothing to invent, nothing to explain — the minimal option.</p>
-        <div class="lockup" style="gap: 0;">
-          <span class="word">nevin<em>omics</em></span>
-        </div>
-        <div class="sizes">
-          <div class="cell"><span class="word" style="font-size: 1.6rem;">nevin<em>omics</em></span><div class="label">header scale</div></div>
-          <div class="cell"><span class="word" style="font-size: 1rem;">nevin<em>omics</em></span><div class="label">small</div></div>
-          <div class="cell"><span class="word" style="font-size: 0.8rem;">nevin<em>omics</em></span><div class="label">16px-ish</div></div>
-          <div class="cell">
-            <span class="tab-chip"><span class="word" style="font-size: 0.72rem; letter-spacing: 0.06em;">n<em>o</em></span> nevinomics — Output <span class="x">×</span></span>
+          <div class="lockup" style="padding: 0;">
+            <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-e"/></svg>
+            <span class="word">nevin<em>omics</em></span>
           </div>
         </div>
       </section>
 
     </div>
 
-    <p class="footnote">All marks inline SVG (or pure text) — no image assets, crisp at any size, version-controlled. Favicons and Open Graph cards would be generated from whichever mark wins.</p>
+    <p class="footnote">Both marks use a single fixed geometry referenced via &lt;use&gt;, so every render is the same design at a different scale. Whichever wins: header lockup on all pages, PNG favicons (16/32/180), and an Open Graph social card generated from it.</p>
   </div>
 
   <script src="nav.js"></script>
