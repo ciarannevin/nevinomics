@@ -53,3 +53,20 @@ Conventions and lessons learned while building the Output page. Apply these on e
 - **Data files**: both `.js` (site payload) and `.json` (identical, for inspection/testing) are generated; this is intentional.
 - **Python fetch scripts share `scripts/cso_common.py`**: `quarter_index`, `quarter_label`, `pct_change_levels` (ratio % changes), `pp_change_levels` (pp differences for rates), `year_window`.
 - **PxStat quirks**: SA statistics in EHQ03/EHQ04 and occupation rows in EHQ53 are EMPTY in the API; SA earnings live in EHQ08, occupation earnings in EHQ57. EHQ59 uses NACE Rev 2.1 title-case labels - `sectorLabel` normalises both styles.
+
+## Chart palette (selected Oct 2026)
+
+**Nordic botanical** — series colours in order:
+1. `#3E7C59` spruce (first series; also the semantic positive)
+2. `#E8A33D` marigold (second)
+3. `#8C5A7A` heather (third)
+4. `#4A6FA5` fjord blue (fourth)
+
+Semantic pair: positive `#3E7C59` spruce / negative `#B3552F` rust (desaturated, harmonised).
+Range-plot bars: neutral translucent family colour (e.g. `rgba(62,124,89,0.12)` fill, `0.3` border).
+Axis/ticks: `#9a9a9a`; legend text `#6b6b6b`.
+
+Rationale: distinctive-but-beautiful for shared screenshots; chosen over terracotta editorial,
+Dublin Bay (continuity), and ink & citrus in a four-way rendered comparison (fiscal.html mock).
+When restyling live charts: line charts take series colours in order; multi-series charts never
+exceed four series; watermark and neutral greys per the Scandinavian mock.
