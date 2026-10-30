@@ -188,11 +188,11 @@ function initPriceCharts() {
   if (ctx4 && P.cpi) {
     const datasets = [];
     if (P.cpi.length) {
-      const headline = nvLineDataset('CPI (headline)', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#777', fill: false });
+      const headline = nvLineDataset('CPI (headline)', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#009a44', fill: false });
       headline.borderDash = [4, 4];
       datasets.push(headline);
     }
-    const palette = { excl_energy: '#009a44' };
+    const palette = { excl_energy: '#0e5c8a' };
     const names = { excl_energy: 'CPI excl. energy' };
     for (const key of ['excl_energy']) {
       const series = ((P.core || {})[key] || {}).series || [];
