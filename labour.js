@@ -407,7 +407,7 @@ function initVacancyRatesChart() {
       layout: { padding: { left: 8 } },
       scales: {
         x: {
-          ticks: { color: NEVINOMICS.muted },
+          ticks: { color: NEVINOMICS.muted, padding: 14 },
           grid: { color: 'rgba(0,0,0,0.05)' },
           title: { display: true, text: 'Change in vacancy rate, pp' },
         },
