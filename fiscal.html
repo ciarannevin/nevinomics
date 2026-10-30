@@ -3,27 +3,356 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fiscal — nevinomics</title>
+  <title>Design mockup — nevinomics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <style>
+    /* ============================================================
+       MOCKUP ONLY: Scandinavian minimal data aesthetic
+       Self-contained styles — does not touch the live design.
+       Qualities: generous whitespace, quiet neutrals, strong
+       typographic hierarchy, hairline rules instead of shadows,
+       restrained colour used only for data.
+       ============================================================ */
+    :root {
+      --bg: #fafafa;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --faint: #9a9a9a;
+      --rule: #e8e8e8;
+      --rule-strong: #1a1a1a;
+      --accent: #2f6b4f;          /* muted pine rather than vivid green */
+      --negative: #b3552f;        /* warm rust rather than alarm red */
+      --font-head: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Space Grotesk', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .mock-note {
+      background: #fff8e6;
+      border-bottom: 1px solid #e8ddc0;
+      color: #6b5d3a;
+      font-size: 12.5px;
+      padding: 8px 24px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px 96px;
+    }
+
+    /* --- masthead: hairline-ruled, no dark bar --- */
+    .masthead {
+      padding: 40px 0 0;
+    }
+    .masthead .brand {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .masthead .brand em { color: var(--accent); font-style: normal; }
+    .masthead .meta {
+      font-size: 12.5px;
+      color: var(--faint);
+      letter-spacing: 0.02em;
+    }
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 16px;
+    }
+    .masthead h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin: 18px 0 10px;
+    }
+    .masthead .lede {
+      font-size: 16.5px;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 0 28px;
+    }
+    .masthead .rule {
+      border: 0;
+      border-top: 1px solid var(--rule-strong);
+      margin: 0;
+    }
+
+    /* --- nav: plain text links, underline on hover --- */
+    .nav {
+      display: flex;
+      gap: 28px;
+      padding: 14px 0;
+      font-size: 13.5px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+    .nav a:hover { color: var(--text); border-bottom-color: var(--text); }
+    .nav a.here { color: var(--text); font-weight: 500; }
+
+    /* --- section headers: small caps + hairline --- */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 56px 0 20px;
+    }
+    .section-head h2 {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .section-head .period {
+      font-size: 12.5px;
+      color: var(--faint);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* --- stats row: number-first, no tiles/borders --- */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 48px;
+    }
+    .stat {
+      min-width: 150px;
+      flex: 1 1 180px;
+    }
+    .stat .label {
+      font-size: 12px;
+      color: var(--faint);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .stat .value {
+      font-family: var(--font-head);
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat .sub {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+    .pos { color: var(--accent); }
+    .neg { color: var(--negative); }
+
+    /* --- chart figure: no card, hairline rules top/bottom --- */
+    .figure {
+      border-top: 1px solid var(--rule);
+      padding: 20px 0 8px;
+    }
+    .figure + .figure { margin-top: 8px; }
+    .figure .fig-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .figure h3 {
+      font-family: var(--font-head);
+      font-size: 15.5px;
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .figure .unit {
+      font-size: 12px;
+      color: var(--faint);
+      letter-spacing: 0.03em;
+    }
+    .figure .chart-wrap { height: 300px; position: relative; }
+    .figure figcaption, .source {
+      font-size: 12px;
+      color: var(--faint);
+      margin: 8px 0 0;
+      line-height: 1.5;
+    }
+    .source a { color: inherit; }
+
+    /* --- footer --- */
+    footer {
+      margin-top: 72px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule-strong);
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+  </style>
 </head>
 <body>
+  <div class="mock-note">Design mockup — Scandinavian minimal direction. Not the live design; a proposal on the Fiscal shell. Fiscal content is still coming; real data below is from the Output page for demonstration.</div>
+
   <div class="page">
-    <div class="page-head">
-      <h1>Fiscal</h1>
-      <p>Government revenue, spending, deficit and debt.</p>
-    </div>
-    <section class="card">
-      <div class="coming-soon">
-        <h2>Coming soon</h2>
-        <p>Indicators for this theme are on the roadmap. Data will come from official sources such as the CSO, Eurostat and the Central Bank of Ireland.</p>
-        <p><a class="badge" href="about.html">See the roadmap on the About page</a></p>
+    <header class="masthead">
+      <div class="masthead-top">
+        <a class="brand" href="index.html">nevin<em>omics</em></a>
+        <span class="meta">Irish economic data · updated quarterly</span>
+      </div>
+      <h1>Output</h1>
+      <p class="lede">Gross domestic product, GNI* and modified domestic demand — the three headline measures of Irish economic activity, with Central Bank forecasts.</p>
+      <hr class="rule">
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a class="here" href="output.html">Output</a>
+        <a href="labour.html">Labour</a>
+        <a href="prices.html">Prices</a>
+        <a href="fiscal.html">Fiscal</a>
+        <a href="financial.html">Financial</a>
+        <a href="global.html">Global</a>
+        <a href="about.html">About</a>
+      </nav>
+    </header>
+
+    <section>
+      <div class="section-head">
+        <h2>At a glance</h2>
+        <span class="period">2026 Q2</span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="label">GDP growth, YoY</div>
+          <div class="value neg">−0.4%</div>
+          <div class="sub">−10.2% QoQ</div>
+        </div>
+        <div class="stat">
+          <div class="label">GNI* growth, YoY</div>
+          <div class="value pos">+5.2%</div>
+          <div class="sub">−5.0% QoQ</div>
+        </div>
+        <div class="stat">
+          <div class="label">MDD growth, YoY</div>
+          <div class="value pos">+1.4%</div>
+          <div class="sub">−0.8% QoQ</div>
+        </div>
+        <div class="stat">
+          <div class="label">CBI forecast, GDP 2026</div>
+          <div class="value">−1.4%</div>
+          <div class="sub">+4.3% in 2027</div>
+        </div>
       </div>
     </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Charts</h2>
+        <span class="period">5-year view</span>
+      </div>
+      <figure class="figure">
+        <div class="fig-head">
+          <h3>Output growth, year on year</h3>
+          <span class="unit">%</span>
+        </div>
+        <div class="chart-wrap"><canvas id="m-growth"></canvas></div>
+        <figcaption>GDP, GNI* and modified domestic demand. Source: Central Statistics Office, Table NAQ04/NAQ05.</figcaption>
+      </figure>
+      <figure class="figure">
+        <div class="fig-head">
+          <h3>Net employment change by sector</h3>
+          <span class="unit">thousands, QoQ</span>
+        </div>
+        <div class="chart-wrap" style="height: 360px;"><canvas id="m-sector"></canvas></div>
+        <figcaption>Bars: 5-year range of quarterly changes; dot: latest quarter. Source: Central Statistics Office, Table QLF03.</figcaption>
+      </figure>
+    </section>
+
+    <footer>
+      <span>nevinomics — Irish economic data, clearly.</span>
+      <span>Data: CSO · Forecasts: Central Bank of Ireland</span>
+    </footer>
   </div>
 
   <script src="nav.js"></script>
+  <script src="chart-theme.js"></script>
+  <script src="common.js"></script>
+  <script src="data/gdp.js"></script>
+  <script src="data/gnp.js"></script>
+  <script src="data/mdd.js"></script>
+  <script src="data/labour.js"></script>
+  <script>
+    // Mockup chart theming: quiet neutrals, data-first
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. line chart: GDP/GNI*/MDD YoY
+      const ctx1 = document.getElementById('m-growth');
+      if (ctx1 && typeof GDP_DATA !== 'undefined') {
+        const palette = { GDP: '#2f6b4f', 'GNI*': '#31586e', MDD: '#a8842c' };
+        const datasets = [];
+        for (const [key, data] of [['GDP', GDP_DATA], ['GNI*', GNP_DATA], ['MDD', MDD_DATA]]) {
+          if (!data) continue;
+          const five = lastNYears(data, 5).filter(d => d.yoy !== null && d.yoy !== undefined);
+          datasets.push(nvLineDataset(key, five.map(d => ({ x: quarterToDate(d.quarter).getTime(), y: d.yoy })), { color: palette[key], fill: false }));
+        }
+        const config = quarterlyLineConfig(datasets, {
+          yTitle: '%',
+          tooltipLabel: item => `${item.dataset.label}: ${item.parsed.y >= 0 ? '+' : ''}${item.parsed.y.toFixed(1)}%`,
+        });
+        config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 10, usePointStyle: true, color: '#6b6b6b', font: { size: 12 } } };
+        config.options.scales.x.ticks.color = '#9a9a9a';
+        config.options.scales.x.ticks.padding = 14;
+        config.options.scales.y.ticks.color = '#9a9a9a';
+        config.options.scales.y.grid.color = 'rgba(0,0,0,0.05)';
+        new Chart(ctx1, config);
+      }
+
+      // 2. range plot: sector employment change
+      const ctx2 = document.getElementById('m-sector');
+      if (ctx2 && typeof LABOUR_DATA !== 'undefined' && LABOUR_DATA.sector_change) {
+        const config = rangePlotConfig(LABOUR_DATA.sector_change, sectorLabel, {
+          barLabel: '5-year range',
+          dotLabel: 'Latest quarter',
+          xTitle: 'Thousands of persons',
+        });
+        config.options.scales.x.ticks.color = '#9a9a9a';
+        config.options.scales.x.ticks.padding = 14;
+        config.options.scales.y.ticks.color = '#1a1a1a';
+        config.data.datasets[0].backgroundColor = 'rgba(47,107,79,0.12)';
+        config.data.datasets[0].borderColor = 'rgba(47,107,79,0.3)';
+        config.data.datasets[1].backgroundColor = ctx => (ctx.raw && ctx.raw.x >= 0 ? '#2f6b4f' : '#b3552f');
+        config.options.plugins.legend.display = true;
+        config.options.plugins.legend.labels = { boxWidth: 10, usePointStyle: true, color: '#6b6b6b', font: { size: 12 } };
+        new Chart(ctx2, config);
+      }
+    });
+  </script>
 </body>
 </html>
