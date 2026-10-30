@@ -141,8 +141,8 @@ function initPriceCharts() {
         {
           label: `Contribution, pp`,
           data: items.map((g) => g.contribution),
-          backgroundColor: items.map((g) => (g.contribution >= 0 ? 'rgba(62,124,89,0.35)' : 'rgba(179,85,47,0.35)')),
-          borderColor: items.map((g) => (g.contribution >= 0 ? 'rgba(62,124,89,0.8)' : 'rgba(179,85,47,0.8)')),
+          backgroundColor: items.map((g) => (g.contribution >= 0 ? 'rgba(62,124,89,0.35)' : 'rgba(140,90,122,0.35)')),
+          borderColor: items.map((g) => (g.contribution >= 0 ? 'rgba(62,124,89,0.8)' : 'rgba(140,90,122,0.8)')),
           borderWidth: 1,
           borderRadius: 3,
         },

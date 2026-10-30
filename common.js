@@ -123,7 +123,7 @@ function rangePlotConfig(breakdown, labelFmt, opts = {}) {
   );
   const dotColour = opts.dotColour || ((ctx) => {
     const v = ctx.raw ? ctx.raw.x : 0;
-    return v >= 0 ? '#3E7C59' : '#B3552F';
+    return v >= 0 ? '#3E7C59' : '#8C5A7A';
   });
   const data = {
     labels: groups.map(name),

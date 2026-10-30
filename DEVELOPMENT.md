@@ -62,7 +62,7 @@ Conventions and lessons learned while building the Output page. Apply these on e
 3. `#8C5A7A` heather (third)
 4. `#4A6FA5` fjord blue (fourth)
 
-Semantic pair: positive `#3E7C59` spruce / negative `#B3552F` rust (desaturated, harmonised).
+Semantic pair: positive `#3E7C59` spruce / negative `#8C5A7A` heather (palette-coherent; third colour where needed is `#E8A33D` marigold).
 Range-plot bars: neutral translucent family colour (e.g. `rgba(62,124,89,0.12)` fill, `0.3` border).
 Axis/ticks: `#9a9a9a`; legend text `#6b6b6b`.
 

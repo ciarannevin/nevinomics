@@ -3,7 +3,7 @@
 const NEVINOMICS = {
   accent: '#3E7C59',
   accentSoft: 'rgba(62,124,89,0.08)',
-  negative: '#B3552F',
+  negative: '#8C5A7A',
   muted: '#5b6b62',
 };
 

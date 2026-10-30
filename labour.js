@@ -379,8 +379,8 @@ function initVacancyRatesChart() {
       {
         label: `Year-on-year change, ${va.quarter} (pp)`,
         data: sectors.map((s) => ({ x: s.yoy, y: label(s.sector) })),
-        backgroundColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(62,124,89,0.35)' : 'rgba(179,85,47,0.35)')),
-        borderColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(62,124,89,0.8)' : 'rgba(179,85,47,0.8)')),
+        backgroundColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(62,124,89,0.35)' : 'rgba(140,90,122,0.35)')),
+        borderColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(62,124,89,0.8)' : 'rgba(140,90,122,0.8)')),
         borderWidth: 1,
         borderRadius: 3,
         order: 2,
