@@ -192,9 +192,9 @@ function initPriceCharts() {
       headline.borderDash = [4, 4];
       datasets.push(headline);
     }
-    const palette = { excl_energy: '#009a44', excl_tobacco: '#0e5c8a' };
-    const names = { excl_energy: 'CPI excl. energy', excl_tobacco: 'CPI excl. tobacco' };
-    for (const key of ['excl_energy', 'excl_tobacco']) {
+    const palette = { excl_energy: '#009a44' };
+    const names = { excl_energy: 'CPI excl. energy' };
+    for (const key of ['excl_energy']) {
       const series = ((P.core || {})[key] || {}).series || [];
       if (series.length) {
         datasets.push(nvLineDataset(names[key], series.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: palette[key], fill: false }));
