@@ -3,25 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Financial — nevinomics</title>
+  <title>Brand marks — nevinomics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .mock-note {
+      background: #fff8e6;
+      border-bottom: 1px solid #e8ddc0;
+      color: #6b5d3a;
+      font-size: 12.5px;
+      padding: 8px 24px;
+      text-align: center;
+    }
+    .brand-grid { margin-top: 2.5rem; }
+    .brand-block {
+      border-top: 1px solid var(--rule-strong);
+      padding: 1.5rem 0 2.5rem;
+    }
+    .brand-block h2 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+    }
+    .brand-block .blurb { font-size: 0.85rem; color: var(--faint); margin: 0 0 1.25rem; }
+
+    /* header-size lockup demo */
+    .lockup {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.75rem 0 1rem;
+    }
+    .lockup .word {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .lockup .word em { font-style: normal; color: var(--accent); }
+
+    .sizes { display: flex; align-items: flex-end; gap: 1.5rem; margin: 1rem 0; }
+    .sizes .cell { text-align: center; }
+    .sizes .cell .label { font-size: 11px; color: var(--faint); margin-top: 6px; }
+    .sizes svg { display: block; }
+
+    /* favicon context: a browser-tab-like chip */
+    .tab-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #eee; border-radius: 8px 8px 0 0; padding: 7px 14px 7px 10px;
+      font-size: 12px; color: #444; border: 1px solid #ddd; border-bottom: 0;
+      min-width: 170px;
+    }
+    .tab-chip .x { margin-left: auto; color: #999; }
+  </style>
 </head>
 <body>
+  <div class="mock-note">Brand mark exploration — four candidates rendered at header size, mark-only size, and in a browser-tab context. Not the live header.</div>
+
   <div class="page">
     <div class="page-head">
-      <h1>Financial</h1>
-      <p>Interest rates, mortgages and credit conditions.</p>
+      <h1>Brand marks</h1>
+      <p>Four candidate marks for the header, favicon and social identity. Each uses the Nordic botanical palette and Space Grotesk geometry.</p>
     </div>
-    <section class="card">
-      <div class="coming-soon">
-        <h2>Coming soon</h2>
-        <p>Indicators for this theme are on the roadmap. Data will come from official sources such as the CSO, Eurostat and the Central Bank of Ireland.</p>
-        <p><a class="badge" href="about.html">See the roadmap on the About page</a></p>
-      </div>
-    </section>
+
+    <div class="brand-grid">
+
+      <!-- A: E[V] expected value -->
+      <section class="brand-block">
+        <h2>A — E[V] “expected value”</h2>
+        <p class="blurb">The expectation operator hidden in NEVIN. Reads as mathematics and as “Nevin”. Clever without being cute; instantly ownable.</p>
+        <div class="lockup">
+          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+            <rect width="30" height="30" rx="6" fill="none"/>
+            <text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text>
+          </svg>
+          <span class="word">nevin<em>omics</em></span>
+        </div>
+        <div class="sizes">
+          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg><div class="label">30px</div></div>
+          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg><div class="label">20px</div></div>
+          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg><div class="label">16px favicon</div></div>
+          <div class="cell">
+            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><text x="15" y="21" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="15" fill="#1a1a1a">E[<tspan fill="#3E7C59">V</tspan>]</text></svg> nevinomics — Output <span class="x">×</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- B: range-plot glyph -->
+      <section class="brand-block">
+        <h2>B — Range-plot glyph</h2>
+        <p class="blurb">A translucent bar with a dot — the signature visual language of the site’s charts. Abstract, but literally what the site draws.</p>
+        <div class="lockup">
+          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+            <rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.15)" stroke="rgba(62,124,89,0.4)"/>
+            <circle cx="19" cy="15.5" r="3.4" fill="#3E7C59"/>
+          </svg>
+          <span class="word">nevin<em>omics</em></span>
+        </div>
+        <div class="sizes">
+          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.15)" stroke="rgba(62,124,89,0.4)"/><circle cx="19" cy="15.5" r="3.4" fill="#3E7C59"/></svg><div class="label">30px</div></div>
+          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.15)" stroke="rgba(62,124,89,0.4)"/><circle cx="19" cy="15.5" r="3.4" fill="#3E7C59"/></svg><div class="label">20px</div></div>
+          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.25)" stroke="rgba(62,124,89,0.5)"/><circle cx="19" cy="15.5" r="4" fill="#3E7C59"/></svg><div class="label">16px favicon</div></div>
+          <div class="cell">
+            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><rect x="5" y="12" width="20" height="7" rx="2" fill="rgba(62,124,89,0.25)" stroke="rgba(62,124,89,0.5)"/><circle cx="19" cy="15.5" r="4" fill="#3E7C59"/></svg> nevinomics — Output <span class="x">×</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- C: N monogram with venn overlap -->
+      <section class="brand-block">
+        <h2>C — N monogram (Venn overlap)</h2>
+        <p class="blurb">A geometric N with the counterspace as two overlapping circles — a nod to the VENNI anagram and the data-set identity. Most logo-like; needs the circle device to read.</p>
+        <div class="lockup">
+          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+            <path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="3.4" stroke-linecap="square"/>
+            <circle cx="21" cy="9" r="3.2" fill="rgba(232,163,61,0.55)"/>
+            <circle cx="24" cy="9" r="3.2" fill="rgba(62,124,89,0.55)"/>
+          </svg>
+          <span class="word">nevin<em>omics</em></span>
+        </div>
+        <div class="sizes">
+          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="3.4" stroke-linecap="square"/><circle cx="21" cy="9" r="3.2" fill="rgba(232,163,61,0.55)"/><circle cx="24" cy="9" r="3.2" fill="rgba(62,124,89,0.55)"/></svg><div class="label">30px</div></div>
+          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="3.4" stroke-linecap="square"/><circle cx="21" cy="9" r="3.2" fill="rgba(232,163,61,0.55)"/><circle cx="24" cy="9" r="3.2" fill="rgba(62,124,89,0.55)"/></svg><div class="label">20px</div></div>
+          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="4"/><circle cx="21" cy="9" r="3.6" fill="rgba(232,163,61,0.6)"/><circle cx="24" cy="9" r="3.6" fill="rgba(62,124,89,0.6)"/></svg><div class="label">16px favicon</div></div>
+          <div class="cell">
+            <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><path d="M8 24 V6 L22 24 V6" fill="none" stroke="#1a1a1a" stroke-width="4"/><circle cx="21" cy="9" r="3.6" fill="rgba(232,163,61,0.6)"/><circle cx="24" cy="9" r="3.6" fill="rgba(62,124,89,0.6)"/></svg> nevinomics — Output <span class="x">×</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- D: two-tone typographic only -->
+      <section class="brand-block">
+        <h2>D — Two-tone wordmark only</h2>
+        <p class="blurb">No symbol; the wordmark itself, refined: tight tracking, “omics” in spruce. Nothing to invent, nothing to explain — the minimal option.</p>
+        <div class="lockup" style="gap: 0;">
+          <span class="word">nevin<em>omics</em></span>
+        </div>
+        <div class="sizes">
+          <div class="cell"><span class="word" style="font-size: 1.6rem;">nevin<em>omics</em></span><div class="label">header scale</div></div>
+          <div class="cell"><span class="word" style="font-size: 1rem;">nevin<em>omics</em></span><div class="label">small</div></div>
+          <div class="cell"><span class="word" style="font-size: 0.8rem;">nevin<em>omics</em></span><div class="label">16px-ish</div></div>
+          <div class="cell">
+            <span class="tab-chip"><span class="word" style="font-size: 0.72rem; letter-spacing: 0.06em;">n<em>o</em></span> nevinomics — Output <span class="x">×</span></span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <p class="footnote">All marks inline SVG (or pure text) — no image assets, crisp at any size, version-controlled. Favicons and Open Graph cards would be generated from whichever mark wins.</p>
   </div>
 
   <script src="nav.js"></script>
