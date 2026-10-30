@@ -118,10 +118,10 @@ function initCharts() {
     const youth = ((L.monthly_unemployment || {})['15-24'] || {}).both || [];
     const datasets = [];
     if (mu.length) {
-      datasets.push(nvLineDataset('Unemployment rate (15-74)', lastNYearsMonthly(mu, 5).map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#009a44', fill: false }));
+      datasets.push(nvLineDataset('Unemployment rate (15-74)', lastNYearsMonthly(mu, 5).map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#3E7C59', fill: false }));
     }
     if (youth.length) {
-      datasets.push(nvLineDataset('Youth unemployment (15-24)', lastNYearsMonthly(youth, 5).map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#c28a00', fill: false }));
+      datasets.push(nvLineDataset('Youth unemployment (15-24)', lastNYearsMonthly(youth, 5).map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#8C5A7A', fill: false }));
     }
     const config = quarterlyLineConfig(datasets, {
       yTitle: '%',
@@ -151,7 +151,7 @@ function initCharts() {
 }
 
 function sexDatasets(seriesMap, opts = {}) {
-  const palette = { both: '#009a44', male: '#0e5c8a', female: '#c28a00' };
+  const palette = { both: '#3E7C59', male: '#E8A33D', female: '#8C5A7A' };
   const names = { both: opts.allLabel || 'All', male: 'Male', female: 'Female' };
   const datasets = [];
   for (const key of ['both', 'male', 'female']) {
@@ -332,12 +332,12 @@ function dualAxisLevelChangeConfig(records, opts = {}) {
   const level = nvLineDataset(
     opts.levelLabel,
     five.map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
-    { color: '#009a44', fill: false }
+    { color: '#3E7C59', fill: false }
   );
   const change = nvLineDataset(
     'Quarterly change (%)',
     five.filter((d) => d.qoq !== null).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.qoq })),
-    { color: '#c28a00', fill: false }
+    { color: '#8C5A7A', fill: false }
   );
   change.yAxisID = 'yChange';
   const config = quarterlyLineConfig([level, change], {
@@ -360,7 +360,7 @@ function initVacanciesChart() {
   const dataset = nvLineDataset(
     'Job vacancy rate, all sectors',
     lastNYearsQuarterly(va.overall, 5).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.value })),
-    { color: '#009a44', fill: false }
+    { color: '#3E7C59', fill: false }
   );
   new Chart(ctx, quarterlyLineConfig([dataset], { yTitle: '%', tooltipLabel: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%` }));
 }
@@ -379,8 +379,8 @@ function initVacancyRatesChart() {
       {
         label: `Year-on-year change, ${va.quarter} (pp)`,
         data: sectors.map((s) => ({ x: s.yoy, y: label(s.sector) })),
-        backgroundColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(0,154,68,0.35)' : 'rgba(192,57,43,0.35)')),
-        borderColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(0,154,68,0.8)' : 'rgba(192,57,43,0.8)')),
+        backgroundColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(62,124,89,0.35)' : 'rgba(179,85,47,0.35)')),
+        borderColor: sectors.map((s) => ((s.yoy ?? 0) >= 0 ? 'rgba(62,124,89,0.8)' : 'rgba(179,85,47,0.8)')),
         borderWidth: 1,
         borderRadius: 3,
         order: 2,
@@ -389,7 +389,7 @@ function initVacancyRatesChart() {
         label: `Quarter-on-quarter change, ${va.quarter} (pp)`,
         type: 'scatter',
         data: sectors.map((s) => ({ x: s.qoq, y: label(s.sector) })),
-        backgroundColor: '#0e5c8a',
+        backgroundColor: '#E8A33D',
         pointRadius: 5,
         pointHoverRadius: 7,
         order: 1,

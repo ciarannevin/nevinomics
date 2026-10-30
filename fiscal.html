@@ -3,230 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Palette comparison — nevinomics</title>
+  <title>Fiscal — nevinomics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-  <style>
-    :root {
-      --text: #1a1a1a;
-      --muted: #6b6b6b;
-      --faint: #9a9a9a;
-      --rule: #e8e8e8;
-      --rule-strong: #1a1a1a;
-      --font-head: 'Space Grotesk', system-ui, sans-serif;
-      --font-body: 'Inter', system-ui, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      background: #fafafa;
-      color: var(--text);
-      font-size: 15px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    .mock-note {
-      background: #fff8e6;
-      border-bottom: 1px solid #e8ddc0;
-      color: #6b5d3a;
-      font-size: 12.5px;
-      padding: 8px 24px;
-      text-align: center;
-    }
-    .page { max-width: 1080px; margin: 0 auto; padding: 0 24px 96px; }
-    h1 {
-      font-family: var(--font-head);
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      margin: 36px 0 8px;
-    }
-    .lede { color: var(--muted); max-width: 640px; margin: 0 0 24px; }
-    .rule { border: 0; border-top: 1px solid var(--rule-strong); margin: 0; }
-
-    .palette-block {
-      margin-top: 48px;
-      border-top: 1px solid var(--rule-strong);
-      padding-top: 16px;
-    }
-    .palette-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .palette-head h2 {
-      font-family: var(--font-head);
-      font-size: 18px;
-      font-weight: 600;
-      margin: 0;
-      letter-spacing: -0.01em;
-    }
-    .palette-head .blurb { font-size: 12.5px; color: var(--faint); }
-    .swatches { display: flex; gap: 6px; margin-bottom: 16px; }
-    .swatch {
-      width: 100%;
-      height: 10px;
-      border-radius: 2px;
-      flex: 1;
-      position: relative;
-    }
-    .swatch span {
-      position: absolute;
-      top: 14px;
-      left: 0;
-      font-size: 10.5px;
-      color: var(--faint);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .fig-row { display: grid; grid-template-columns: 1fr; gap: 24px; }
-    @media (min-width: 900px) { .fig-row { grid-template-columns: 1fr 1fr; } }
-    .figure { border-top: 1px solid var(--rule); padding-top: 14px; }
-    .figure h3 {
-      font-family: var(--font-head);
-      font-size: 14.5px;
-      font-weight: 600;
-      margin: 0 0 10px;
-    }
-    .figure .chart-wrap { height: 260px; position: relative; }
-    .figure .chart-wrap.tall { height: 340px; }
-    .figure .caption {
-      font-size: 11.5px;
-      color: var(--faint);
-      margin: 8px 0 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="mock-note">Palette exploration — four candidate chart palettes rendered on the same two charts (3-series line; range plot). Not the live design.</div>
-
   <div class="page">
-    <h1>Chart palettes</h1>
-    <p class="lede">The same data under four candidate colour families. Judged for distinctiveness at small sizes, beauty on white, and coherence as a family — the qualities that matter when a chart is screenshotted and shared.</p>
-    <hr class="rule">
-
-    <div id="palettes"></div>
+    <div class="page-head">
+      <h1>Fiscal</h1>
+      <p>Government revenue, spending, deficit and debt.</p>
+    </div>
+    <section class="card">
+      <div class="coming-soon">
+        <h2>Coming soon</h2>
+        <p>Indicators for this theme are on the roadmap. Data will come from official sources such as the CSO, Eurostat and the Central Bank of Ireland.</p>
+        <p><a class="badge" href="about.html">See the roadmap on the About page</a></p>
+      </div>
+    </section>
   </div>
 
   <script src="nav.js"></script>
-  <script src="chart-theme.js"></script>
-  <script src="common.js"></script>
-  <script src="data/gdp.js"></script>
-  <script src="data/gnp.js"></script>
-  <script src="data/mdd.js"></script>
-  <script src="data/labour.js"></script>
-  <script>
-    const PALETTES = [
-      {
-        name: 'A — Terracotta editorial',
-        blurb: 'Warm, publication-grade; terracotta hero is instantly recognisable in a feed of blue dashboards.',
-        series: ['#C15B3F', '#2E5E73', '#D9A441', '#5B7553'],
-        pos: '#5B7553', neg: '#B3552F',
-        rangeFill: 'rgba(193,91,63,0.10)', rangeBorder: 'rgba(193,91,63,0.28)',
-      },
-      {
-        name: 'B — Nordic botanical (chosen)',
-        blurb: 'The Scandinavian mood with more life: spruce, marigold, heather, fjord. SELECTED as the site palette.',
-        series: ['#3E7C59', '#E8A33D', '#8C5A7A', '#4A6FA5'],
-        pos: '#3E7C59', neg: '#B3552F',
-        rangeFill: 'rgba(62,124,89,0.12)', rangeBorder: 'rgba(62,124,89,0.3)',
-      },
-      {
-        name: 'C — Dublin Bay',
-        blurb: 'Continuity with today\u2019s site: sea blue, shamrock, sand, brick. Safest, least distinctive.',
-        series: ['#0E5C8A', '#009A44', '#E8A33D', '#C15B3F'],
-        pos: '#009A44', neg: '#C0392B',
-        rangeFill: 'rgba(14,92,138,0.10)', rangeBorder: 'rgba(14,92,138,0.28)',
-      },
-      {
-        name: 'D — Ink & citrus',
-        blurb: 'Print-graphics bold: near-black ink as a series colour, citrus accent. Striking, riskier.',
-        series: ['#1F2933', '#E8871E', '#3A7CA5', '#7A9E7E'],
-        pos: '#7A9E7E', neg: '#B3552F',
-        rangeFill: 'rgba(31,41,51,0.10)', rangeBorder: 'rgba(31,41,51,0.3)',
-      },
-    ];
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const host = document.getElementById('palettes');
-      PALETTES.forEach((p, i) => {
-        const block = document.createElement('div');
-        block.className = 'palette-block';
-        block.innerHTML = `
-          <div class="palette-head">
-            <h2>${p.name}</h2>
-            <span class="blurb">${p.blurb}</span>
-          </div>
-          <div class="swatches">
-            ${p.series.map(c => `<div class="swatch" style="background:${c}"><span>${c}</span></div>`).join('')}
-          </div>
-          <div class="fig-row">
-            <div class="figure">
-              <h3>Output growth, year on year</h3>
-              <div class="chart-wrap"><canvas id="line-${i}"></canvas></div>
-              <p class="caption">3-series line chart (the density case).</p>
-            </div>
-            <div class="figure">
-              <h3>Net employment change by sector</h3>
-              <div class="chart-wrap tall"><canvas id="range-${i}"></canvas></div>
-              <p class="caption">Range plot with semantic pos/neg dots (the bars stay neutral).</p>
-            </div>
-          </div>`;
-        host.appendChild(block);
-      });
-
-      // render charts per palette
-      PALETTES.forEach((p, i) => {
-        // line chart
-        const ctxL = document.getElementById('line-' + i);
-        if (ctxL) {
-          const datasets = [];
-          [['GDP', GDP_DATA], ['GNI*', GNP_DATA], ['MDD', MDD_DATA]].forEach(([key, data], di) => {
-            if (!data) return;
-            const five = lastNYears(data, 5).filter(d => d.yoy !== null && d.yoy !== undefined);
-            datasets.push(nvLineDataset(key, five.map(d => ({ x: quarterToDate(d.quarter).getTime(), y: d.yoy })), { color: p.series[di], fill: false }));
-          });
-          const cfg = quarterlyLineConfig(datasets, {
-            yTitle: '%',
-            tooltipLabel: item => `${item.dataset.label}: ${item.parsed.y >= 0 ? '+' : ''}${item.parsed.y.toFixed(1)}%`,
-          });
-          quietChart(cfg, p);
-          new Chart(ctxL, cfg);
-        }
-        // range plot
-        const ctxR = document.getElementById('range-' + i);
-        if (ctxR && typeof LABOUR_DATA !== 'undefined' && LABOUR_DATA.sector_change) {
-          const cfg = rangePlotConfig(LABOUR_DATA.sector_change, sectorLabel, {
-            barLabel: '5-year range',
-            dotLabel: 'Latest quarter',
-            xTitle: 'Thousands of persons',
-          });
-          cfg.data.datasets[0].backgroundColor = p.rangeFill;
-          cfg.data.datasets[0].borderColor = p.rangeBorder;
-          cfg.data.datasets[1].backgroundColor = ctx => (ctx.raw && ctx.raw.x >= 0 ? p.pos : p.neg);
-          quietChart(cfg, p);
-          new Chart(ctxR, cfg);
-        }
-      });
-
-      function quietChart(cfg, p) {
-        cfg.options.scales.x.ticks.color = '#9a9a9a';
-        cfg.options.scales.x.ticks.padding = 14;
-        if (cfg.options.scales.y) cfg.options.scales.y.ticks.color = '#9a9a9a';
-        if (cfg.options.scales.yChange) cfg.options.scales.yChange.ticks.color = '#9a9a9a';
-        cfg.options.plugins.legend = cfg.options.plugins.legend || {};
-        cfg.options.plugins.legend.display = true;
-        cfg.options.plugins.legend.position = 'bottom';
-        cfg.options.plugins.legend.labels = { boxWidth: 10, usePointStyle: true, color: '#6b6b6b', font: { size: 12 } };
-      }
-    });
-  </script>
 </body>
 </html>

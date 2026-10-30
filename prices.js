@@ -76,10 +76,10 @@ function initPriceCharts() {
   if (ctx1 && P.cpi && P.hicp) {
     const datasets = [];
     if (P.cpi.length) {
-      datasets.push(nvLineDataset('CPI', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#009a44', fill: false }));
+      datasets.push(nvLineDataset('CPI', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#3E7C59', fill: false }));
     }
     if (P.hicp.length) {
-      datasets.push(nvLineDataset('HICP', P.hicp.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#0e5c8a', fill: false }));
+      datasets.push(nvLineDataset('HICP', P.hicp.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#E8A33D', fill: false }));
     }
     const config = quarterlyLineConfig(datasets, {
       yTitle: 'Annual rate, %',
@@ -141,8 +141,8 @@ function initPriceCharts() {
         {
           label: `Contribution, pp`,
           data: items.map((g) => g.contribution),
-          backgroundColor: items.map((g) => (g.contribution >= 0 ? 'rgba(0,154,68,0.35)' : 'rgba(192,57,43,0.35)')),
-          borderColor: items.map((g) => (g.contribution >= 0 ? 'rgba(0,154,68,0.8)' : 'rgba(192,57,43,0.8)')),
+          backgroundColor: items.map((g) => (g.contribution >= 0 ? 'rgba(62,124,89,0.35)' : 'rgba(179,85,47,0.35)')),
+          borderColor: items.map((g) => (g.contribution >= 0 ? 'rgba(62,124,89,0.8)' : 'rgba(179,85,47,0.8)')),
           borderWidth: 1,
           borderRadius: 3,
         },
@@ -188,9 +188,9 @@ function initPriceCharts() {
   if (ctx4 && P.cpi) {
     const datasets = [];
     if (P.cpi.length) {
-      datasets.push(nvLineDataset('CPI', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#009a44', fill: false }));
+      datasets.push(nvLineDataset('CPI', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#3E7C59', fill: false }));
     }
-    const palette = { excl_energy: '#0e5c8a' };
+    const palette = { excl_energy: '#E8A33D' };
     const names = { excl_energy: 'CPI excl. energy' };
     for (const key of ['excl_energy']) {
       const series = ((P.core || {})[key] || {}).series || [];

@@ -83,7 +83,7 @@ function fmtMillions(v) {
 
 
 function buildGrowthDatasets(metric) {
-  const palette = { GDP: '#009a44', GNP: '#0e5c8a', MDD: '#c28a00' };
+  const palette = { GDP: '#3E7C59', GNP: '#E8A33D', MDD: '#8C5A7A' };
   const datasets = [];
   for (const def of OUTPUT_SERIES) {
     const data = lastNYears(getSeriesData(def.varName), 5).filter((d) => d[metric] !== null);
@@ -150,7 +150,7 @@ function initForecastChart() {
   const foot = document.getElementById('forecast-footnote');
   if (foot) foot.style.display = 'block';
 
-  const palette = { GDP: '#009a44', 'GNI*': '#0e5c8a', MDD: '#c28a00' };
+  const palette = { GDP: '#3E7C59', 'GNI*': '#E8A33D', MDD: '#8C5A7A' };
   const points = (pts) => pts.filter((p) => p.value !== null).map((p) => ({ x: Date.UTC(Number(p.year), 0, 1), y: p.value }));
   const actuals = (pts) => points(pts.filter((p) => !p.forecast));
   const forecastFrom = (pts) => {

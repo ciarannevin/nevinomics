@@ -1,9 +1,9 @@
 'use strict';
 
 const NEVINOMICS = {
-  accent: '#009a44',
-  accentSoft: 'rgba(0,154,68,0.08)',
-  negative: '#c0392b',
+  accent: '#3E7C59',
+  accentSoft: 'rgba(62,124,89,0.08)',
+  negative: '#B3552F',
   muted: '#5b6b62',
 };
 
@@ -16,7 +16,7 @@ const nevinomicsWatermark = {
     ctx.save();
     ctx.font = '600 10px "Space Grotesk", system-ui, sans-serif';
     const w = ctx.measureText(text).width;
-    ctx.fillStyle = 'rgba(0,154,68,0.55)';
+    ctx.fillStyle = 'rgba(140,90,122,0.55)';  // heather
     // centred in the 14px band between the axis line and the tick labels
     ctx.fillText(text, chartArea.right - w, chartArea.bottom + 11);
     ctx.restore();

@@ -123,7 +123,7 @@ function rangePlotConfig(breakdown, labelFmt, opts = {}) {
   );
   const dotColour = opts.dotColour || ((ctx) => {
     const v = ctx.raw ? ctx.raw.x : 0;
-    return v >= 0 ? '#009a44' : '#c0392b';
+    return v >= 0 ? '#3E7C59' : '#B3552F';
   });
   const data = {
     labels: groups.map(name),
@@ -131,8 +131,8 @@ function rangePlotConfig(breakdown, labelFmt, opts = {}) {
       {
         label: opts.barLabel || '5-year range of quarterly changes',
         data: barSeries,
-        backgroundColor: 'rgba(0,154,68,0.14)',
-        borderColor: 'rgba(0,154,68,0.35)',
+        backgroundColor: 'rgba(62,124,89,0.14)',
+        borderColor: 'rgba(62,124,89,0.35)',
         borderWidth: 1,
         borderRadius: 3,
         borderSkipped: false,
