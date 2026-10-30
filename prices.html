@@ -8,22 +8,67 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
   <div class="page">
     <div class="page-head">
       <h1>Prices</h1>
-      <p>Consumer prices and the cost of living in Ireland.</p>
     </div>
+
     <section class="card">
-      <div class="coming-soon">
-        <h2>Coming soon</h2>
-        <p>Indicators for this theme are on the roadmap. Data will come from official sources such as the CSO, Eurostat and the Central Bank of Ireland.</p>
-        <p><a class="badge" href="about.html">See the roadmap on the About page</a></p>
+      <div class="card-header">
+        <h2>Highlights — latest period</h2>
       </div>
+      <div id="prices-highlights"></div>
+      <p class="footnote">All series are annual rates of change unless stated. CPI is Ireland's official measure of inflation; the HICP is the EU-harmonised measure (excludes mortgage interest). Core measures exclude the stated components. Sources: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM20</a>), (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM21</a>), (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM23</a>). Forecasts: Central Bank of Ireland <a href="https://www.centralbank.ie/publication/quarterly-bulletins/quarterly-bulletins-list" target="_blank" rel="noopener">Quarterly Bulletin</a>. Hover the tiles for details.</p>
     </section>
+
+    <div class="chart-grid">
+      <section class="card">
+        <div class="card-header">
+          <h2>Headline inflation</h2>
+          <span class="badge live" id="headline-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="headline-chart"></canvas></div>
+        <p class="footnote">Annual rates of change, CPI and HICP, all items, past 5 years. The CPI includes mortgage interest; the HICP does not. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM20</a>), (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM23</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Inflation by commodity group</h2>
+          <span class="badge live" id="groups-updated"></span>
+        </div>
+        <div class="chart-wrap" style="height: 380px;"><canvas id="groups-chart"></canvas></div>
+        <p class="footnote">Bars: range of annual CPI inflation rates over the past 5 years by ECOICOP division; dots: latest annual rate (green positive, red negative). Divisions sorted by latest rate. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM20</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Contributions to inflation</h2>
+          <span class="badge live" id="contributions-updated"></span>
+        </div>
+        <div class="chart-wrap" style="height: 380px;"><canvas id="contributions-chart"></canvas></div>
+        <p class="footnote">Percentage-point contributions of each ECOICOP division to the annual CPI inflation rate, latest month. Positive bars in green, negative in red. Contributions sum to the headline rate. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM22</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Core measures</h2>
+          <span class="badge live" id="core-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="core-chart"></canvas></div>
+        <p class="footnote">Annual rates of change for CPI excluding energy and CPI excluding tobacco, past 5 years, versus the headline CPI (dotted). Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM21</a>), (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table CPM20</a>).</p>
+      </section>
+    </div>
   </div>
 
   <script src="nav.js"></script>
+  <script src="chart-theme.js"></script>
+  <script src="common.js"></script>
+  <script src="data/prices.js"></script>
+  <script src="data/forecasts.js"></script>
+  <script src="prices.js"></script>
 </body>
 </html>
