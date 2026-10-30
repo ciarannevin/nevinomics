@@ -64,7 +64,7 @@
   </style>
 </head>
 <body>
-  <div class="mock-note">Brand mark exploration, round 2 — refined C (heather, standardised circle geometry) and new option E (chart-line N). Same viewBox geometry at every size, so proportions never drift.</div>
+  <div class="mock-note">Brand mark exploration, round 3 — refined C, plus trend-line N variants (E1/E2/E3) with jagged chart geometry: tilted uprights, mitred joins. Same viewBox geometry at every size, so proportions never drift.</div>
 
   <div class="page">
     <div class="page-head">
@@ -90,10 +90,21 @@
               <circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/>
             </g>
             <g id="mark-e">
-              <!-- N drawn as a single chart line: round caps/joins, spruce -->
-              <path d="M7 24 V6 L21 24 V6" fill="none" stroke="#3E7C59" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <!-- data-point marker at the line's end -->
-              <circle cx="21" cy="6" r="2.6" fill="#3E7C59"/>
+              <!-- Trend-line N: verticals tilt forward (chart-axis-like), sharp joins, square caps -->
+              <path d="M6.5 24.5 L8.2 5.5 L21.5 24.5 L23.2 5.5" fill="none" stroke="#3E7C59" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter"/>
+              <!-- data-point marker at the trend's end -->
+              <circle cx="23.2" cy="5.5" r="2.8" fill="#3E7C59"/>
+            </g>
+            <g id="mark-e2">
+              <!-- Trend-line N, ink-coloured stroke with spruce data point -->
+              <path d="M6.5 24.5 L8.2 5.5 L21.5 24.5 L23.2 5.5" fill="none" stroke="#1a1a1a" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter"/>
+              <circle cx="23.2" cy="5.5" r="2.8" fill="#3E7C59"/>
+            </g>
+            <g id="mark-e3">
+              <!-- Trend-line N, thicker, chart-line proportions; point marker larger -->
+              <path d="M6.5 24.5 L8.2 5.5 L21.5 24.5 L23.2 5.5" fill="none" stroke="#3E7C59" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter"/>
+              <circle cx="23.2" cy="5.5" r="3.6" fill="#3E7C59"/>
+              <circle cx="23.2" cy="5.5" r="3.6" fill="none" stroke="#fafafa" stroke-width="1.2"/>
             </g>
           </defs>
         </svg>
@@ -114,16 +125,26 @@
 
       <!-- E: chart-line N -->
       <section class="brand-block">
-        <h2>E — N as a chart line</h2>
-        <p class="blurb">No circles: the N drawn as one continuous line the way a data series is drawn — rounded joins, spruce — ending in a data-point marker. The monogram literally behaves like one of the site’s charts.</p>
-        <div class="lockup">
-          <svg width="30" height="30" viewBox="0 0 30 30"><use href="#mark-e"/></svg>
-          <span class="word">nevin<em>omics</em></span>
+        <h2>E — N as a trend line (three treatments)</h2>
+        <p class="blurb">The N drawn as a data series: forward-tilting uprights, sharp mitred corners, square caps — jagged like a chart line, not smooth like a letterform. Ends in a data-point marker. E1: all spruce. E2: ink line, spruce point. E3: heavier chart-line weight with a ringed point marker.</p>
+        <div class="sizes" style="align-items: center; gap: 2.5rem;">
+          <div class="lockup" style="padding: 0;">
+            <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-e"/></svg>
+            <span class="word">nevin<em>omics</em></span>
+          </div>
+          <div class="lockup" style="padding: 0;">
+            <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-e2"/></svg>
+            <span class="word">nevin<em>omics</em></span>
+          </div>
+          <div class="lockup" style="padding: 0;">
+            <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-e3"/></svg>
+            <span class="word">nevin<em>omics</em></span>
+          </div>
         </div>
         <div class="sizes">
-          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">30px</div></div>
-          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">20px</div></div>
-          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">16px favicon</div></div>
+          <div class="cell"><svg width="30" height="30" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">E1 30px</div></div>
+          <div class="cell"><svg width="20" height="20" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">E1 20px</div></div>
+          <div class="cell"><svg width="16" height="16" viewBox="0 0 30 30"><use href="#mark-e"/></svg><div class="label">E1 16px</div></div>
           <div class="cell">
             <span class="tab-chip"><svg width="14" height="14" viewBox="0 0 30 30"><use href="#mark-e"/></svg> nevinomics — Output <span class="x">×</span></span>
           </div>
@@ -133,15 +154,23 @@
       <!-- combined: C and E side by side for direct comparison -->
       <section class="brand-block">
         <h2>Direct comparison</h2>
-        <p class="blurb">The two finalists side by side at header size.</p>
-        <div class="sizes" style="align-items: center; gap: 3rem;">
+        <p class="blurb">All candidates at header size. C (monogram + Venn overlap) vs the three trend-line Ns.</p>
+        <div class="sizes" style="align-items: center; gap: 2.5rem; flex-wrap: wrap;">
           <div class="lockup" style="padding: 0;">
             <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-c"/></svg>
             <span class="word">nevin<em>omics</em></span>
           </div>
           <div class="lockup" style="padding: 0;">
             <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-e"/></svg>
-            <span class="word">nevin<em>omics</em></span>
+            <span class="word">E1</span>
+          </div>
+          <div class="lockup" style="padding: 0;">
+            <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-e2"/></svg>
+            <span class="word">E2</span>
+          </div>
+          <div class="lockup" style="padding: 0;">
+            <svg width="34" height="34" viewBox="0 0 30 30"><use href="#mark-e3"/></svg>
+            <span class="word">E3</span>
           </div>
         </div>
       </section>
