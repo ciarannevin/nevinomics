@@ -3,39 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design mockup — nevinomics</title>
+  <title>Palette comparison — nevinomics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <style>
-    /* ============================================================
-       MOCKUP ONLY: Scandinavian minimal data aesthetic
-       Self-contained styles — does not touch the live design.
-       Qualities: generous whitespace, quiet neutrals, strong
-       typographic hierarchy, hairline rules instead of shadows,
-       restrained colour used only for data.
-       ============================================================ */
     :root {
-      --bg: #fafafa;
-      --card: #ffffff;
       --text: #1a1a1a;
       --muted: #6b6b6b;
       --faint: #9a9a9a;
       --rule: #e8e8e8;
       --rule-strong: #1a1a1a;
-      --accent: #2f6b4f;          /* muted pine rather than vivid green */
-      --negative: #b3552f;        /* warm rust rather than alarm red */
       --font-head: 'Space Grotesk', system-ui, sans-serif;
       --font-body: 'Inter', system-ui, sans-serif;
-      --font-mono: 'Space Grotesk', ui-monospace, monospace;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: var(--font-body);
-      background: var(--bg);
+      background: #fafafa;
       color: var(--text);
       font-size: 15px;
       line-height: 1.6;
@@ -48,258 +36,83 @@
       font-size: 12.5px;
       padding: 8px 24px;
       text-align: center;
-      letter-spacing: 0.01em;
     }
-    .page {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 24px 96px;
-    }
-
-    /* --- masthead: hairline-ruled, no dark bar --- */
-    .masthead {
-      padding: 40px 0 0;
-    }
-    .masthead .brand {
+    .page { max-width: 1080px; margin: 0 auto; padding: 0 24px 96px; }
+    h1 {
       font-family: var(--font-head);
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .masthead .brand em { color: var(--accent); font-style: normal; }
-    .masthead .meta {
-      font-size: 12.5px;
-      color: var(--faint);
-      letter-spacing: 0.02em;
-    }
-    .masthead-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding-bottom: 16px;
-    }
-    .masthead h1 {
-      font-family: var(--font-head);
-      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 500;
       letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin: 18px 0 10px;
+      margin: 36px 0 8px;
     }
-    .masthead .lede {
-      font-size: 16.5px;
-      color: var(--muted);
-      max-width: 640px;
-      margin: 0 0 28px;
-    }
-    .masthead .rule {
-      border: 0;
+    .lede { color: var(--muted); max-width: 640px; margin: 0 0 24px; }
+    .rule { border: 0; border-top: 1px solid var(--rule-strong); margin: 0; }
+
+    .palette-block {
+      margin-top: 48px;
       border-top: 1px solid var(--rule-strong);
-      margin: 0;
+      padding-top: 16px;
     }
-
-    /* --- nav: plain text links, underline on hover --- */
-    .nav {
+    .palette-head {
       display: flex;
-      gap: 28px;
-      padding: 14px 0;
-      font-size: 13.5px;
-      border-bottom: 1px solid var(--rule);
-    }
-    .nav a {
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.01em;
-      padding-bottom: 2px;
-      border-bottom: 1px solid transparent;
-    }
-    .nav a:hover { color: var(--text); border-bottom-color: var(--text); }
-    .nav a.here { color: var(--text); font-weight: 500; }
-
-    /* --- section headers: small caps + hairline --- */
-    .section-head {
-      display: flex;
-      align-items: baseline;
       justify-content: space-between;
-      margin: 56px 0 20px;
-    }
-    .section-head h2 {
-      font-family: var(--font-head);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin: 0;
-    }
-    .section-head .period {
-      font-size: 12.5px;
-      color: var(--faint);
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* --- stats row: number-first, no tiles/borders --- */
-    .stats {
-      display: flex;
+      align-items: baseline;
       flex-wrap: wrap;
-      gap: 12px 48px;
-    }
-    .stat {
-      min-width: 150px;
-      flex: 1 1 180px;
-    }
-    .stat .label {
-      font-size: 12px;
-      color: var(--faint);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    .stat .value {
-      font-family: var(--font-head);
-      font-size: 30px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      font-variant-numeric: tabular-nums;
-    }
-    .stat .sub {
-      font-size: 12.5px;
-      color: var(--muted);
-      margin-top: 2px;
-      font-variant-numeric: tabular-nums;
-    }
-    .pos { color: var(--accent); }
-    .neg { color: var(--negative); }
-
-    /* --- chart figure: no card, hairline rules top/bottom --- */
-    .figure {
-      border-top: 1px solid var(--rule);
-      padding: 20px 0 8px;
-    }
-    .figure + .figure { margin-top: 8px; }
-    .figure .fig-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
+      gap: 8px;
       margin-bottom: 12px;
     }
-    .figure h3 {
+    .palette-head h2 {
       font-family: var(--font-head);
-      font-size: 15.5px;
+      font-size: 18px;
       font-weight: 600;
       margin: 0;
       letter-spacing: -0.01em;
     }
-    .figure .unit {
-      font-size: 12px;
-      color: var(--faint);
-      letter-spacing: 0.03em;
+    .palette-head .blurb { font-size: 12.5px; color: var(--faint); }
+    .swatches { display: flex; gap: 6px; margin-bottom: 16px; }
+    .swatch {
+      width: 100%;
+      height: 10px;
+      border-radius: 2px;
+      flex: 1;
+      position: relative;
     }
-    .figure .chart-wrap { height: 300px; position: relative; }
-    .figure figcaption, .source {
-      font-size: 12px;
+    .swatch span {
+      position: absolute;
+      top: 14px;
+      left: 0;
+      font-size: 10.5px;
+      color: var(--faint);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .fig-row { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 900px) { .fig-row { grid-template-columns: 1fr 1fr; } }
+    .figure { border-top: 1px solid var(--rule); padding-top: 14px; }
+    .figure h3 {
+      font-family: var(--font-head);
+      font-size: 14.5px;
+      font-weight: 600;
+      margin: 0 0 10px;
+    }
+    .figure .chart-wrap { height: 260px; position: relative; }
+    .figure .chart-wrap.tall { height: 340px; }
+    .figure .caption {
+      font-size: 11.5px;
       color: var(--faint);
       margin: 8px 0 0;
-      line-height: 1.5;
-    }
-    .source a { color: inherit; }
-
-    /* --- footer --- */
-    footer {
-      margin-top: 72px;
-      padding-top: 20px;
-      border-top: 1px solid var(--rule-strong);
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      font-size: 12.5px;
-      color: var(--muted);
     }
   </style>
 </head>
 <body>
-  <div class="mock-note">Design mockup — Scandinavian minimal direction. Not the live design; a proposal on the Fiscal shell. Fiscal content is still coming; real data below is from the Output page for demonstration.</div>
+  <div class="mock-note">Palette exploration — four candidate chart palettes rendered on the same two charts (3-series line; range plot). Not the live design.</div>
 
   <div class="page">
-    <header class="masthead">
-      <div class="masthead-top">
-        <a class="brand" href="index.html">nevin<em>omics</em></a>
-        <span class="meta">Irish economic data · updated quarterly</span>
-      </div>
-      <h1>Output</h1>
-      <p class="lede">Gross domestic product, GNI* and modified domestic demand — the three headline measures of Irish economic activity, with Central Bank forecasts.</p>
-      <hr class="rule">
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a class="here" href="output.html">Output</a>
-        <a href="labour.html">Labour</a>
-        <a href="prices.html">Prices</a>
-        <a href="fiscal.html">Fiscal</a>
-        <a href="financial.html">Financial</a>
-        <a href="global.html">Global</a>
-        <a href="about.html">About</a>
-      </nav>
-    </header>
+    <h1>Chart palettes</h1>
+    <p class="lede">The same data under four candidate colour families. Judged for distinctiveness at small sizes, beauty on white, and coherence as a family — the qualities that matter when a chart is screenshotted and shared.</p>
+    <hr class="rule">
 
-    <section>
-      <div class="section-head">
-        <h2>At a glance</h2>
-        <span class="period">2026 Q2</span>
-      </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="label">GDP growth, YoY</div>
-          <div class="value neg">−0.4%</div>
-          <div class="sub">−10.2% QoQ</div>
-        </div>
-        <div class="stat">
-          <div class="label">GNI* growth, YoY</div>
-          <div class="value pos">+5.2%</div>
-          <div class="sub">−5.0% QoQ</div>
-        </div>
-        <div class="stat">
-          <div class="label">MDD growth, YoY</div>
-          <div class="value pos">+1.4%</div>
-          <div class="sub">−0.8% QoQ</div>
-        </div>
-        <div class="stat">
-          <div class="label">CBI forecast, GDP 2026</div>
-          <div class="value">−1.4%</div>
-          <div class="sub">+4.3% in 2027</div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
-        <h2>Charts</h2>
-        <span class="period">5-year view</span>
-      </div>
-      <figure class="figure">
-        <div class="fig-head">
-          <h3>Output growth, year on year</h3>
-          <span class="unit">%</span>
-        </div>
-        <div class="chart-wrap"><canvas id="m-growth"></canvas></div>
-        <figcaption>GDP, GNI* and modified domestic demand. Source: Central Statistics Office, Table NAQ04/NAQ05.</figcaption>
-      </figure>
-      <figure class="figure">
-        <div class="fig-head">
-          <h3>Net employment change by sector</h3>
-          <span class="unit">thousands, QoQ</span>
-        </div>
-        <div class="chart-wrap" style="height: 360px;"><canvas id="m-sector"></canvas></div>
-        <figcaption>Bars: 5-year range of quarterly changes; dot: latest quarter. Source: Central Statistics Office, Table QLF03.</figcaption>
-      </figure>
-    </section>
-
-    <footer>
-      <span>nevinomics — Irish economic data, clearly.</span>
-      <span>Data: CSO · Forecasts: Central Bank of Ireland</span>
-    </footer>
+    <div id="palettes"></div>
   </div>
 
   <script src="nav.js"></script>
@@ -310,47 +123,108 @@
   <script src="data/mdd.js"></script>
   <script src="data/labour.js"></script>
   <script>
-    // Mockup chart theming: quiet neutrals, data-first
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. line chart: GDP/GNI*/MDD YoY
-      const ctx1 = document.getElementById('m-growth');
-      if (ctx1 && typeof GDP_DATA !== 'undefined') {
-        const palette = { GDP: '#2f6b4f', 'GNI*': '#31586e', MDD: '#a8842c' };
-        const datasets = [];
-        for (const [key, data] of [['GDP', GDP_DATA], ['GNI*', GNP_DATA], ['MDD', MDD_DATA]]) {
-          if (!data) continue;
-          const five = lastNYears(data, 5).filter(d => d.yoy !== null && d.yoy !== undefined);
-          datasets.push(nvLineDataset(key, five.map(d => ({ x: quarterToDate(d.quarter).getTime(), y: d.yoy })), { color: palette[key], fill: false }));
-        }
-        const config = quarterlyLineConfig(datasets, {
-          yTitle: '%',
-          tooltipLabel: item => `${item.dataset.label}: ${item.parsed.y >= 0 ? '+' : ''}${item.parsed.y.toFixed(1)}%`,
-        });
-        config.options.plugins.legend = { display: true, position: 'bottom', labels: { boxWidth: 10, usePointStyle: true, color: '#6b6b6b', font: { size: 12 } } };
-        config.options.scales.x.ticks.color = '#9a9a9a';
-        config.options.scales.x.ticks.padding = 14;
-        config.options.scales.y.ticks.color = '#9a9a9a';
-        config.options.scales.y.grid.color = 'rgba(0,0,0,0.05)';
-        new Chart(ctx1, config);
-      }
+    const PALETTES = [
+      {
+        name: 'A — Terracotta editorial',
+        blurb: 'Warm, publication-grade; terracotta hero is instantly recognisable in a feed of blue dashboards.',
+        series: ['#C15B3F', '#2E5E73', '#D9A441', '#5B7553'],
+        pos: '#5B7553', neg: '#B3552F',
+        rangeFill: 'rgba(193,91,63,0.10)', rangeBorder: 'rgba(193,91,63,0.28)',
+      },
+      {
+        name: 'B — Nordic botanical',
+        blurb: 'The Scandinavian mood with more life: spruce, marigold, fjord, heather.',
+        series: ['#3E7C59', '#E8A33D', '#4A6FA5', '#8C5A7A'],
+        pos: '#3E7C59', neg: '#B3552F',
+        rangeFill: 'rgba(62,124,89,0.12)', rangeBorder: 'rgba(62,124,89,0.3)',
+      },
+      {
+        name: 'C — Dublin Bay',
+        blurb: 'Continuity with today\u2019s site: sea blue, shamrock, sand, brick. Safest, least distinctive.',
+        series: ['#0E5C8A', '#009A44', '#E8A33D', '#C15B3F'],
+        pos: '#009A44', neg: '#C0392B',
+        rangeFill: 'rgba(14,92,138,0.10)', rangeBorder: 'rgba(14,92,138,0.28)',
+      },
+      {
+        name: 'D — Ink & citrus',
+        blurb: 'Print-graphics bold: near-black ink as a series colour, citrus accent. Striking, riskier.',
+        series: ['#1F2933', '#E8871E', '#3A7CA5', '#7A9E7E'],
+        pos: '#7A9E7E', neg: '#B3552F',
+        rangeFill: 'rgba(31,41,51,0.10)', rangeBorder: 'rgba(31,41,51,0.3)',
+      },
+    ];
 
-      // 2. range plot: sector employment change
-      const ctx2 = document.getElementById('m-sector');
-      if (ctx2 && typeof LABOUR_DATA !== 'undefined' && LABOUR_DATA.sector_change) {
-        const config = rangePlotConfig(LABOUR_DATA.sector_change, sectorLabel, {
-          barLabel: '5-year range',
-          dotLabel: 'Latest quarter',
-          xTitle: 'Thousands of persons',
-        });
-        config.options.scales.x.ticks.color = '#9a9a9a';
-        config.options.scales.x.ticks.padding = 14;
-        config.options.scales.y.ticks.color = '#1a1a1a';
-        config.data.datasets[0].backgroundColor = 'rgba(47,107,79,0.12)';
-        config.data.datasets[0].borderColor = 'rgba(47,107,79,0.3)';
-        config.data.datasets[1].backgroundColor = ctx => (ctx.raw && ctx.raw.x >= 0 ? '#2f6b4f' : '#b3552f');
-        config.options.plugins.legend.display = true;
-        config.options.plugins.legend.labels = { boxWidth: 10, usePointStyle: true, color: '#6b6b6b', font: { size: 12 } };
-        new Chart(ctx2, config);
+    document.addEventListener('DOMContentLoaded', () => {
+      const host = document.getElementById('palettes');
+      PALETTES.forEach((p, i) => {
+        const block = document.createElement('div');
+        block.className = 'palette-block';
+        block.innerHTML = `
+          <div class="palette-head">
+            <h2>${p.name}</h2>
+            <span class="blurb">${p.blurb}</span>
+          </div>
+          <div class="swatches">
+            ${p.series.map(c => `<div class="swatch" style="background:${c}"><span>${c}</span></div>`).join('')}
+          </div>
+          <div class="fig-row">
+            <div class="figure">
+              <h3>Output growth, year on year</h3>
+              <div class="chart-wrap"><canvas id="line-${i}"></canvas></div>
+              <p class="caption">3-series line chart (the density case).</p>
+            </div>
+            <div class="figure">
+              <h3>Net employment change by sector</h3>
+              <div class="chart-wrap tall"><canvas id="range-${i}"></canvas></div>
+              <p class="caption">Range plot with semantic pos/neg dots (the bars stay neutral).</p>
+            </div>
+          </div>`;
+        host.appendChild(block);
+      });
+
+      // render charts per palette
+      PALETTES.forEach((p, i) => {
+        // line chart
+        const ctxL = document.getElementById('line-' + i);
+        if (ctxL) {
+          const datasets = [];
+          [['GDP', GDP_DATA], ['GNI*', GNP_DATA], ['MDD', MDD_DATA]].forEach(([key, data], di) => {
+            if (!data) return;
+            const five = lastNYears(data, 5).filter(d => d.yoy !== null && d.yoy !== undefined);
+            datasets.push(nvLineDataset(key, five.map(d => ({ x: quarterToDate(d.quarter).getTime(), y: d.yoy })), { color: p.series[di], fill: false }));
+          });
+          const cfg = quarterlyLineConfig(datasets, {
+            yTitle: '%',
+            tooltipLabel: item => `${item.dataset.label}: ${item.parsed.y >= 0 ? '+' : ''}${item.parsed.y.toFixed(1)}%`,
+          });
+          quietChart(cfg, p);
+          new Chart(ctxL, cfg);
+        }
+        // range plot
+        const ctxR = document.getElementById('range-' + i);
+        if (ctxR && typeof LABOUR_DATA !== 'undefined' && LABOUR_DATA.sector_change) {
+          const cfg = rangePlotConfig(LABOUR_DATA.sector_change, sectorLabel, {
+            barLabel: '5-year range',
+            dotLabel: 'Latest quarter',
+            xTitle: 'Thousands of persons',
+          });
+          cfg.data.datasets[0].backgroundColor = p.rangeFill;
+          cfg.data.datasets[0].borderColor = p.rangeBorder;
+          cfg.data.datasets[1].backgroundColor = ctx => (ctx.raw && ctx.raw.x >= 0 ? p.pos : p.neg);
+          quietChart(cfg, p);
+          new Chart(ctxR, cfg);
+        }
+      });
+
+      function quietChart(cfg, p) {
+        cfg.options.scales.x.ticks.color = '#9a9a9a';
+        cfg.options.scales.x.ticks.padding = 14;
+        if (cfg.options.scales.y) cfg.options.scales.y.ticks.color = '#9a9a9a';
+        if (cfg.options.scales.yChange) cfg.options.scales.yChange.ticks.color = '#9a9a9a';
+        cfg.options.plugins.legend = cfg.options.plugins.legend || {};
+        cfg.options.plugins.legend.display = true;
+        cfg.options.plugins.legend.position = 'bottom';
+        cfg.options.plugins.legend.labels = { boxWidth: 10, usePointStyle: true, color: '#6b6b6b', font: { size: 12 } };
       }
     });
   </script>
