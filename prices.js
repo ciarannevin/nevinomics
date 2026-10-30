@@ -188,9 +188,7 @@ function initPriceCharts() {
   if (ctx4 && P.cpi) {
     const datasets = [];
     if (P.cpi.length) {
-      const headline = nvLineDataset('CPI (headline)', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#009a44', fill: false });
-      headline.borderDash = [4, 4];
-      datasets.push(headline);
+      datasets.push(nvLineDataset('CPI', P.cpi.map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#009a44', fill: false }));
     }
     const palette = { excl_energy: '#0e5c8a' };
     const names = { excl_energy: 'CPI excl. energy' };
