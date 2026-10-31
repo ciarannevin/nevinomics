@@ -23,7 +23,13 @@
     const current = currentPage();
     bar.innerHTML =
       '<div class="topbar-inner">' +
-      '<a class="wordmark" href="index.html">nevin<span>omics</span></a>' +
+      '<a class="wordmark" href="index.html">' +
+      '<svg class="brand-mark" width="22" height="22" viewBox="0 0 30 30" aria-hidden="true">' +
+      '<path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/>' +
+      '<circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/>' +
+      '<circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/>' +
+      '</svg>' +
+      'nevin<span>omics</span></a>' +
       '<nav class="site-nav">' +
       pages
         .map(

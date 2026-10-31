@@ -59,7 +59,14 @@ body {
   padding: 1rem 0;
 }
 
-.wordmark span { color: var(--accent); }
+ .wordmark span { color: var(--accent); }
+
+.wordmark .brand-mark {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  margin-top: -2px;
+}
 .wordmark em { color: var(--accent); font-style: normal; }
 
 .site-nav { display: flex; gap: 0.15rem; flex-wrap: wrap; }
