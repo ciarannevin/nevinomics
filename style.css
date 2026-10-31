@@ -578,19 +578,19 @@ body {
   align-items: flex-start;
   gap: 0.75rem;
   margin-top: 0.85rem;
-  min-height: 22px;
+  min-height: 33px;
 }
 
 .sparkline-wrap {
   flex: 0 0 auto;
-  width: 80px;
-  height: 22px;
+  width: 120px;
+  height: 33px;
   overflow: hidden;
 }
 .tile-foot .sparkline {
   display: block;
-  width: 80px;
-  height: 22px;
+  width: 120px;
+  height: 33px;
 }
 
 /* caption column beside the chart: series label directly above the period, right-aligned */

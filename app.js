@@ -153,10 +153,10 @@ function initSparklines() {
     const key = canvas.getAttribute('data-spark');
     const points = sparkSeries(key);
     if (!points.length) return;
-    canvas.width = 160;
-    canvas.height = 44;
-    canvas.style.width = '80px';
-    canvas.style.height = '22px';
+    canvas.width = 240;
+    canvas.height = 66;
+    canvas.style.width = '120px';
+    canvas.style.height = '33px';
     new Chart(canvas, {
       type: 'line',
       data: {
