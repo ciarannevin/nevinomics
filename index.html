@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <header class="masthead">
@@ -39,7 +39,10 @@
           <p>GDP, growth and economic activity in Ireland.</p>
           <div class="tile-foot">
             <div class="sparkline-wrap"><canvas class="sparkline" data-spark="gdp"></canvas></div>
-            <div class="tile-caption"><span class="tile-series">GDP growth, YoY</span><span class="tile-period" data-period="gdp"></span></div>
+            <div class="tile-caption">
+              <span class="tile-series">GDP growth, YoY</span>
+              <span class="tile-period" data-period="gdp"></span>
+            </div>
           </div>
         </a>
         <a class="tile" href="labour.html" data-theme="labour">
@@ -47,7 +50,10 @@
           <p>Employment, unemployment, earnings and vacancies.</p>
           <div class="tile-foot">
             <div class="sparkline-wrap"><canvas class="sparkline" data-spark="unemployment"></canvas></div>
-            <div class="tile-caption"><span class="tile-series">Unemployment rate</span><span class="tile-period" data-period="unemployment"></span></div>
+            <div class="tile-caption">
+              <span class="tile-series">Unemployment rate</span>
+              <span class="tile-period" data-period="unemployment"></span>
+            </div>
           </div>
         </a>
         <a class="tile" href="prices.html" data-theme="prices">
@@ -55,7 +61,10 @@
           <p>Consumer prices, inflation and the cost of living.</p>
           <div class="tile-foot">
             <div class="sparkline-wrap"><canvas class="sparkline" data-spark="cpi"></canvas></div>
-            <div class="tile-caption"><span class="tile-series">CPI inflation, YoY</span><span class="tile-period" data-period="cpi"></span></div>
+            <div class="tile-caption">
+              <span class="tile-series">CPI inflation, YoY</span>
+              <span class="tile-period" data-period="cpi"></span>
+            </div>
           </div>
         </a>
         <a class="tile" href="fiscal.html" data-theme="fiscal">
@@ -106,6 +115,6 @@
   <script src="data/labour.js?v=2"></script>
   <script src="data/prices.js?v=2"></script>
   <script src="data/forecasts.js?v=2"></script>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

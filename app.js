@@ -155,6 +155,8 @@ function initSparklines() {
     if (!points.length) return;
     canvas.width = 160;
     canvas.height = 44;
+    canvas.style.width = '80px';
+    canvas.style.height = '22px';
     new Chart(canvas, {
       type: 'line',
       data: {
