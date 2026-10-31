@@ -574,9 +574,6 @@ body {
 
 /* theme tiles with sparklines */
 .tile-foot {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.75rem;
   margin-top: 0.85rem;
   min-height: 22px;
 }
@@ -584,7 +581,6 @@ body {
 .sparkline-wrap {
   width: 80px;
   height: 22px;
-  flex: 0 0 auto;
 }
 .tile-foot .sparkline {
   display: block;
@@ -592,11 +588,18 @@ body {
   height: 22px;
 }
 
+/* caption row below the sparkline: series left, period right, full tile width */
+.tile-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.3rem;
+}
+
 .tile-series {
   font-size: 0.72rem;
   color: var(--faint);
   white-space: nowrap;
-  margin-left: 0.5rem;
   line-height: 1.5;
 }
 
@@ -605,8 +608,13 @@ body {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-  margin-left: auto;
   line-height: 1.5;
+}
+
+/* coming-soon tiles: single-line foot */
+.tile-foot > .tile-period.soon {
+  display: block;
+  margin-top: 0.3rem;
 }
 
 .tile-period.soon {
