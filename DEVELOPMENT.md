@@ -70,3 +70,14 @@ Rationale: distinctive-but-beautiful for shared screenshots; chosen over terraco
 Dublin Bay (continuity), and ink & citrus in a four-way rendered comparison (fiscal.html mock).
 When restyling live charts: line charts take series colours in order; multi-series charts never
 exceed four series; watermark and neutral greys per the Scandinavian mock.
+
+## Cache-busting convention (Oct 2026)
+
+All local CSS/JS references carry `?v=N` (currently v2). **Whenever style.css or a shared JS file
+changes, bump the version in every HTML file** (`?v=2` -> `?v=3`). Browsers cache per-URL, so a
+version bump forces every visitor onto fresh assets. This was added after a stale stylesheet
+served a mixed old/new layout (label overlapping sparkline) while the HTML was fresh.
+
+Data files are versioned too; bump all versions together in one pass (the fetch scripts should
+also append the version when they regenerate - or simpler: keep versions in HTML only and bump
+on data refresh).
