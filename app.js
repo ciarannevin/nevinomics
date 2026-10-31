@@ -11,12 +11,12 @@ function fmtPctSigned(v, dp = 1) {
 function heroFigures() {
   const figs = [];
 
-  // Output: GDP YoY
-  if (typeof GDP_DATA !== 'undefined' && GDP_DATA.length) {
-    const withGrowth = GDP_DATA.filter((d) => d.yoy !== null);
-    const latest = withGrowth[withGrowth.length - 1] || GDP_DATA[GDP_DATA.length - 1];
+  // Output: MDD growth (preferred over GDP for Irish economic activity)
+  if (typeof MDD_DATA !== 'undefined' && MDD_DATA.length) {
+    const withGrowth = MDD_DATA.filter((d) => d.yoy !== null);
+    const latest = withGrowth[withGrowth.length - 1] || MDD_DATA[MDD_DATA.length - 1];
     figs.push({
-      label: 'GDP growth',
+      label: 'MDD growth',
       value: fmtPctSigned(latest.yoy),
       dir: latest.yoy >= 0 ? 'up' : 'down',
       period: `YoY, ${latest.quarter}`,
@@ -51,12 +51,12 @@ function heroFigures() {
     });
   }
 
-  // CBI forecast: GDP next-year
-  if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series && FORECAST_DATA.series.GDP) {
-    const pts = FORECAST_DATA.series.GDP.filter((p) => p.forecast && p.value !== null).slice(0, 2);
+  // CBI forecast: MDD next-year (MDD preferred over GDP)
+  if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series && FORECAST_DATA.series.MDD) {
+    const pts = FORECAST_DATA.series.MDD.filter((p) => p.forecast && p.value !== null).slice(0, 2);
     if (pts.length) {
       figs.push({
-        label: `CBI forecast, GDP ${pts[0].year}`,
+        label: `CBI forecast, MDD ${pts[0].year}`,
         value: fmtPctSigned(pts[0].value),
         dir: pts[0].value >= 0 ? 'up' : 'down',
         period: bulletinName(),
@@ -90,11 +90,11 @@ function initLatestReadings() {
   if (!host) return;
   const tiles = [];
 
-  if (typeof GDP_DATA !== 'undefined' && GDP_DATA.length) {
-    const withGrowth = GDP_DATA.filter((d) => d.yoy !== null);
-    const latest = withGrowth[withGrowth.length - 1] || GDP_DATA[GDP_DATA.length - 1];
+  if (typeof MDD_DATA !== 'undefined' && MDD_DATA.length) {
+    const withGrowth = MDD_DATA.filter((d) => d.yoy !== null);
+    const latest = withGrowth[withGrowth.length - 1] || MDD_DATA[MDD_DATA.length - 1];
     tiles.push(
-      tile('GDP — growth', 'Gross Domestic Product growth (CSO NAQ04)', [
+      tile('MDD — growth', 'Modified Final Domestic Demand growth (CSO NAQ05)', [
         { label: 'QoQ', value: fmtPctSigned(latest.qoq), dir: latest.qoq < 0 ? 'down' : 'up' },
         { label: 'YoY', value: fmtPctSigned(latest.yoy), dir: latest.yoy < 0 ? 'down' : 'up' },
       ])

@@ -8,14 +8,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
   <header class="masthead">
     <div class="inner">
-      <p class="eyebrow">Your window to the Irish economy</p>
-      <h1>nevinomics</h1>
-      <p class="lede">Official Irish economic data — clearly presented, always current, free for everyone.</p>
+      <h1 class="masthead-wordmark">
+        <svg class="brand-mark" width="34" height="34" viewBox="0 0 30 30" aria-hidden="true">
+          <path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/>
+          <circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/>
+          <circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/>
+        </svg>
+        nevin<span>omics</span>
+      </h1>
+      <p class="lede">Irish economic data — carefully selected, clearly presented, freely available.</p>
       <div id="hero-strip" class="hero-strip"></div>
     </div>
   </header>
@@ -87,34 +93,31 @@
 
     <section id="about-data" class="home-section">
       <div class="section-head-row">
-        <h2 class="section-label">About the data</h2>
+        <h2 class="section-label">Disclaimer</h2>
       </div>
-      <div class="about-data-grid">
-        <div>
-          <h3>Sources</h3>
-          <p>All data comes from official sources: the <a href="https://data.cso.ie" target="_blank" rel="noopener">Central Statistics Office</a> (national accounts, labour market, prices) and the <a href="https://www.centralbank.ie/publication/quarterly-bulletins/quarterly-bulletins-list" target="_blank" rel="noopener">Central Bank of Ireland Quarterly Bulletin</a> (forecasts). Neither organisation is responsible for this site.</p>
-        </div>
-        <div>
-          <h3>Cadence</h3>
-          <p>The site updates as the official statistics are published — monthly for prices and unemployment, quarterly for the national accounts and labour force survey. Figures are revised when the sources revise them.</p>
-        </div>
-        <div>
-          <h3>Methodology</h3>
-          <p>Growth rates are computed from seasonally adjusted, constant-price series where available. Forecasts are clearly distinguished from outturns. Read more on the <a href="about.html">About page</a>.</p>
-        </div>
+      <p class="disclaimer-text">This website is automated. Data is drawn from a variety of official sources — always stated alongside the figures — and while efforts are made to validate it, errors may appear. Nothing on this site constitutes financial, investment or professional advice. Figures are revised when official sources revise them.</p>
+      <div class="social-links">
+        <a href="#" title="Substack — coming soon">Substack</a>
+        <span></span>
+        <a href="#" title="Bluesky — coming soon">Bluesky</a>
+        <span></span>
+        <a href="#" title="Instagram — coming soon">Instagram</a>
+        <span></span>
+        <a href="#" title="LinkedIn — coming soon">LinkedIn</a>
       </div>
     </section>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-  <script src="nav.js?v=2"></script>
+  <script src="nav.js?v=3"></script>
   <script src="chart-theme.js?v=2"></script>
   <script src="common.js?v=2"></script>
   <script src="data/gdp.js?v=2"></script>
+  <script src="data/mdd.js?v=2"></script>
   <script src="data/labour.js?v=2"></script>
   <script src="data/prices.js?v=2"></script>
   <script src="data/forecasts.js?v=2"></script>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
