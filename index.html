@@ -15,51 +15,88 @@
     <div class="inner">
       <p class="eyebrow">Your window to the Irish economy</p>
       <h1>nevinomics</h1>
-      <div id="hero-gdp"><p class="sub">Loading latest data…</p></div>
+      <p class="lede">Official Irish economic data — clearly presented, always current, free for everyone.</p>
+      <div id="hero-strip" class="hero-strip"></div>
     </div>
   </header>
 
   <div class="page">
-    <h2 class="section-label">Explore the themes</h2>
-    <div class="tiles">
-      <a class="tile" href="output.html">
-        <h3>Economic Output</h3>
-        <p>GDP, growth and economic activity in Ireland.</p>
-        <span class="badge live">Live — GDP growth</span>
-      </a>
-      <a class="tile" href="labour.html">
-        <h3>Labour Market</h3>
-        <p>Employment, unemployment and participation.</p>
-        <span class="badge">Coming soon</span>
-      </a>
-      <a class="tile" href="prices.html">
-        <h3>Prices</h3>
-        <p>Consumer prices and the cost of living.</p>
-        <span class="badge">Coming soon</span>
-      </a>
-      <a class="tile" href="fiscal.html">
-        <h3>Fiscal</h3>
-        <p>Government revenue, spending, deficit and debt.</p>
-        <span class="badge">Coming soon</span>
-      </a>
-      <a class="tile" href="financial.html">
-        <h3>Financial</h3>
-        <p>Interest rates, mortgages and credit conditions.</p>
-        <span class="badge">Coming soon</span>
-      </a>
-      <a class="tile" href="global.html">
-        <h3>Global</h3>
-        <p>Ireland in European and global context.</p>
-        <span class="badge">Coming soon</span>
-      </a>
-    </div>
+    <section id="latest-readings" class="home-section">
+      <div class="section-head-row">
+        <h2 class="section-label">Latest readings</h2>
+        <span class="badge live" id="readings-updated"></span>
+      </div>
+      <div id="readings-tiles" class="kpis"></div>
+    </section>
+
+    <section id="themes" class="home-section">
+      <div class="section-head-row">
+        <h2 class="section-label">Explore the themes</h2>
+      </div>
+      <div class="tiles">
+        <a class="tile" href="output.html" data-theme="output">
+          <h3>Economic Output</h3>
+          <p>GDP, growth and economic activity in Ireland.</p>
+          <div class="tile-foot"><canvas class="sparkline" data-spark="gdp"></canvas><span class="tile-period" data-period="gdp"></span></div>
+        </a>
+        <a class="tile" href="labour.html" data-theme="labour">
+          <h3>Labour Market</h3>
+          <p>Employment, unemployment, earnings and vacancies.</p>
+          <div class="tile-foot"><canvas class="sparkline" data-spark="unemployment"></canvas><span class="tile-period" data-period="unemployment"></span></div>
+        </a>
+        <a class="tile" href="prices.html" data-theme="prices">
+          <h3>Prices</h3>
+          <p>Consumer prices, inflation and the cost of living.</p>
+          <div class="tile-foot"><canvas class="sparkline" data-spark="cpi"></canvas><span class="tile-period" data-period="cpi"></span></div>
+        </a>
+        <a class="tile" href="fiscal.html" data-theme="fiscal">
+          <h3>Fiscal</h3>
+          <p>Government revenue, spending, deficit and debt.</p>
+          <div class="tile-foot"><span class="tile-period soon">Coming soon</span></div>
+        </a>
+        <a class="tile" href="financial.html" data-theme="financial">
+          <h3>Financial</h3>
+          <p>Interest rates, mortgages and credit conditions.</p>
+          <div class="tile-foot"><span class="tile-period soon">Coming soon</span></div>
+        </a>
+        <a class="tile" href="global.html" data-theme="global">
+          <h3>Global</h3>
+          <p>Ireland in European and global context.</p>
+          <div class="tile-foot"><span class="tile-period soon">Coming soon</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section id="about-data" class="home-section">
+      <div class="section-head-row">
+        <h2 class="section-label">About the data</h2>
+      </div>
+      <div class="about-data-grid">
+        <div>
+          <h3>Sources</h3>
+          <p>All data comes from official sources: the <a href="https://data.cso.ie" target="_blank" rel="noopener">Central Statistics Office</a> (national accounts, labour market, prices) and the <a href="https://www.centralbank.ie/publication/quarterly-bulletins/quarterly-bulletins-list" target="_blank" rel="noopener">Central Bank of Ireland Quarterly Bulletin</a> (forecasts). Neither organisation is responsible for this site.</p>
+        </div>
+        <div>
+          <h3>Cadence</h3>
+          <p>The site updates as the official statistics are published — monthly for prices and unemployment, quarterly for the national accounts and labour force survey. Figures are revised when the sources revise them.</p>
+        </div>
+        <div>
+          <h3>Methodology</h3>
+          <p>Growth rates are computed from seasonally adjusted, constant-price series where available. Forecasts are clearly distinguished from outturns. Read more on the <a href="about.html">About page</a>.</p>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
   <script src="nav.js"></script>
   <script src="chart-theme.js"></script>
+  <script src="common.js"></script>
   <script src="data/gdp.js"></script>
+  <script src="data/labour.js"></script>
+  <script src="data/prices.js"></script>
+  <script src="data/forecasts.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
