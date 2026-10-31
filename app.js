@@ -158,7 +158,7 @@ function initSparklines() {
       data: {
         datasets: [
           {
-            data: points,
+            data: points.map((p) => p.y),
             borderColor: '#3E7C59',
             backgroundColor: 'transparent',
             borderWidth: 1.5,
