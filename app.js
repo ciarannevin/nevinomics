@@ -153,6 +153,8 @@ function initSparklines() {
     const key = canvas.getAttribute('data-spark');
     const points = sparkSeries(key);
     if (!points.length) return;
+    canvas.width = 160;
+    canvas.height = 44;
     new Chart(canvas, {
       type: 'line',
       data: {
@@ -161,7 +163,7 @@ function initSparklines() {
             data: points.map((p) => p.y),
             borderColor: '#3E7C59',
             backgroundColor: 'transparent',
-            borderWidth: 1.5,
+            borderWidth: 2,
             pointRadius: 0,
             pointHitRadius: 4,
             tension: 0.25,
@@ -170,9 +172,9 @@ function initSparklines() {
         ],
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
+        responsive: false,
         animation: false,
+        devicePixelRatio: 2,
         plugins: { legend: { display: false }, tooltip: { enabled: false } },
         scales: { x: { display: false }, y: { display: false } },
       },

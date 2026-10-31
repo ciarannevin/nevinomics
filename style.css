@@ -586,7 +586,11 @@ body {
   height: 22px;
   flex: 0 0 auto;
 }
-.tile-foot .sparkline { display: block; }
+.tile-foot .sparkline {
+  display: block;
+  width: 80px;
+  height: 22px;
+}
 
 .tile-period {
   font-size: 0.72rem;
