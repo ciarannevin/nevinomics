@@ -56,8 +56,8 @@
       'nevin<span>omics</span></a>' +
       '<span class="footer-sep">|</span>' +
       '<span class="footer-tagline">Irish economic data — carefully selected, clearly presented, freely available.</span>' +
-      '</div>' +
-      '<div class="social-links">' +
+      '<span class="footer-sep socials-sep">|</span>' +
+      '<span class="social-links">' +
       '<a href="#" title="Substack — coming soon">Substack</a>' +
       '<span></span>' +
       '<a href="#" title="Bluesky — coming soon">Bluesky</a>' +
@@ -65,7 +65,7 @@
       '<a href="#" title="Instagram — coming soon">Instagram</a>' +
       '<span></span>' +
       '<a href="#" title="LinkedIn — coming soon">LinkedIn</a>' +
-      '</div>' +
+      '</span>' +
       '</div>';
     document.body.append(footer);
   }

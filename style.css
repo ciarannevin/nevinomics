@@ -685,7 +685,11 @@ body {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  row-gap: 0.5rem;
 }
 .site-footer .footer-sep { color: var(--faint); }
 .site-footer .footer-tagline { font-size: 0.88rem; color: var(--muted); }
-.site-footer .social-links { margin-top: 0.6rem; }
+.site-footer .social-links { margin-top: 0; display: inline-flex; align-items: center; gap: 0.9rem; }
+.site-footer .social-links a { font-size: 0.8rem; }
+.social-links a { color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; }
+.social-links a:hover { color: var(--text); border-bottom-color: var(--text); }

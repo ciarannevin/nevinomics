@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordmark fonts — nevinomics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Sora:wght@500;600;700&family=Archivo:wght@500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+  <link rel="stylesheet" href="style.css?v=10">
+  <style>
+    .mock-note {
+      background: #fff8e6;
+      border-bottom: 1px solid #e8ddc0;
+      color: #6b5d3a;
+      font-size: 12.5px;
+      padding: 8px 24px;
+      text-align: center;
+    }
+    .font-row {
+      border-top: 1px solid var(--rule-strong);
+      padding: 1.4rem 0 1.6rem;
+    }
+    .font-row h2 {
+      font-family: Inter, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0 0 0.5rem;
+    }
+    .font-row .meta { font-size: 0.8rem; color: var(--muted); margin: 0 0 0.9rem; }
+    .wm-demo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .wm-demo.small { font-size: 1rem; }
+    .wm-demo.big { font-size: 1.6rem; letter-spacing: 0.14em; }
+    .wm-demo svg { flex: 0 0 auto; }
+  </style>
+</head>
+<body>
+  <div class="mock-note">Wordmark typeface exploration — the same mark in eight typefaces. Header bar below shows the current (Space Grotesk) live version.</div>
+
+  <div class="page">
+    <div class="page-head">
+      <h1>Wordmark fonts</h1>
+      <p>Same lockup — C mark + all-spruce NEVINOMICS — rendered in different typefaces. Each shows header size (top) and footer/small size (bottom).</p>
+    </div>
+
+    <div id="font-demos">
+      <section class="font-row">
+        <h2>1 — Space Grotesk (current)</h2>
+        <p class="meta">Geometric grotesque, slightly quirky. What the site uses everywhere today.</p>
+        <div class="wm-demo small" style="font-family:'Space Grotesk'"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'Space Grotesk'; margin-top:0.7rem;">nevinomics</div>
+      </section>
+
+      <section class="font-row">
+        <h2>2 — Sora</h2>
+        <p class="meta">Modern geometric sans, rounder and friendlier than Space Grotesk; tech-forward.</p>
+        <div class="wm-demo small" style="font-family:'Sora'"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'Sora'; margin-top:0.7rem;">nevinomics</div>
+      </section>
+
+      <section class="font-row">
+        <h2>3 — Fraunces</h2>
+        <p class="meta">Soft serif with character — the "financial journal" register; more editorial than dashboard.</p>
+        <div class="wm-demo small" style="font-family:'Fraunces'; letter-spacing:0.04em;"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'Fraunces'; letter-spacing:0.06em; margin-top:0.7rem;">nevinomics</div>
+      </section>
+
+      <section class="font-row">
+        <h2>4 — Bricolage Grotesque</h2>
+        <p class="meta">Contemporary grotesque with distinctive letterforms; bold and current.</p>
+        <div class="wm-demo small" style="font-family:'Bricolage Grotesque'"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'Bricolage Grotesque'; margin-top:0.7rem;">nevinomics</div>
+      </section>
+
+      <section class="font-row">
+        <h2>5 — Archivo</h2>
+        <p class="meta">Workhorse grotesque, compact and sturdy; the most conventional news-brand option.</p>
+        <div class="wm-demo small" style="font-family:'Archivo'"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'Archivo'; margin-top:0.7rem;">nevinomics</div>
+      </section>
+
+      <section class="font-row">
+        <h2>6 — IBM Plex Sans</h2>
+        <p class="meta">Engineered, credible, data-ish; the "statistics office" register.</p>
+        <div class="wm-demo small" style="font-family:'IBM Plex Sans'"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'IBM Plex Sans'; margin-top:0.7rem;">nevinomics</div>
+      </section>
+
+      <section class="font-row">
+        <h2>7 — Newsreader (serif)</h2>
+        <p class="meta">Readably serious text serif; understated authority, broadsheet-adjacent.</p>
+        <div class="wm-demo small" style="font-family:'Newsreader'; letter-spacing:0.04em; font-weight:600;"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'Newsreader'; letter-spacing:0.06em; font-weight:600; margin-top:0.7rem;">nevinomics</div>
+      </section>
+
+      <section class="font-row">
+        <h2>8 — Inter (site body font)</h2>
+        <p class="meta">The site's existing body typeface — perfectly coherent, least distinctive as a brand.</p>
+        <div class="wm-demo small" style="font-family:'Inter'"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/><circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/><circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/></svg>nevinomics</div>
+        <div class="wm-demo big" style="font-family:'Inter'; margin-top:0.7rem;">nevinomics</div>
+      </section>
+    </div>
+
+    <p class="footnote">All candidates are Google Fonts (same loading mechanism as today's Space Grotesk). Swapping the wordmark is a one-line font-family change in the CSS; headings could follow or stay with Space Grotesk.</p>
+  </div>
+
+  <script src="nav.js?v=5"></script>
+</body>
+</html>
