@@ -61,7 +61,7 @@ body {
   padding: 1rem 0;
 }
 
- .wordmark span { color: var(--accent); }
+ .wordmark, .wordmark span { color: var(--accent); }
 
 .wordmark .brand-mark {
   display: inline-block;
@@ -346,9 +346,7 @@ body {
   padding: 1.35rem 1.5rem;
   font-size: 0.8rem;
   color: var(--muted);
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  display: block;
   flex-wrap: wrap;
 }
 
@@ -649,7 +647,7 @@ body {
 /* masthead wordmark (home) */
 .masthead-wordmark {
   font-family: var(--font-head);
-  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.35rem, 2.6vw, 1.8rem);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.15;
