@@ -160,13 +160,15 @@ function initSparklines() {
       data: {
         datasets: [
           {
-            data: points.map((p) => p.y),
+            // Chart.js 4 line charts need explicit {x, y} points; bare numeric arrays with
+            // hidden scales draw nothing (NaN x-positions). x = index, y = value.
+            data: points.map((p, i) => ({ x: i, y: p.y })),
             borderColor: '#3E7C59',
             backgroundColor: 'transparent',
             borderWidth: 2,
             pointRadius: 0,
             pointHitRadius: 4,
-            tension: 0.25,
+            tension: 0,
             fill: false,
           },
         ],
@@ -176,7 +178,10 @@ function initSparklines() {
         animation: false,
         devicePixelRatio: 2,
         plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: { x: { display: false }, y: { display: false } },
+        scales: {
+          x: { type: 'linear', display: false },
+          y: { display: false },
+        },
       },
     });
     // period label under the sparkline
