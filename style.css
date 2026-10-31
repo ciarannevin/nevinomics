@@ -648,18 +648,15 @@ body {
 
 /* masthead wordmark (home) */
 .masthead-wordmark {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
   font-family: var(--font-head);
-  font-size: 2.6rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   color: var(--text);
-  margin: 0;
+  margin: 0 0 0.75rem;
+  max-width: 760px;
 }
-.masthead-wordmark span { color: var(--accent); }
 
 /* disclaimer + social links */
 .disclaimer-text {
@@ -684,14 +681,13 @@ body {
 .social-links a:hover { color: var(--text); border-bottom-color: var(--text); }
 .social-links span { color: var(--border); }
 
-/* footer brand */
-.site-footer .footer-brand {
-  display: inline-flex;
+/* footer: brand row + social row */
+.site-footer .footer-row {
+  display: flex;
   align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 0.9rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
-.site-footer .footer-brand span { color: var(--accent); }
-.site-footer .brand-mark { flex: 0 0 auto; }
+.site-footer .footer-sep { color: var(--faint); }
+.site-footer .footer-tagline { font-size: 0.88rem; color: var(--muted); }
+.site-footer .social-links { margin-top: 0.6rem; }
