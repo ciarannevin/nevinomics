@@ -592,6 +592,14 @@ body {
   height: 22px;
 }
 
+.tile-series {
+  font-size: 0.72rem;
+  color: var(--faint);
+  white-space: nowrap;
+  margin-left: 0.5rem;
+  line-height: 1.5;
+}
+
 .tile-period {
   font-size: 0.72rem;
   color: var(--muted);
