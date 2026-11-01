@@ -67,7 +67,7 @@
       '<a href="#" title="LinkedIn — coming soon">LinkedIn</a>' +
       '</span>' +
       '</div>' +
-      '<div class="footer-legal">© 2026 Ciarán Nevin. All rights reserved. | Data: CSO and Central Bank of Ireland, used with attribution.</div>';
+      '<div class="footer-legal">© ' + new Date().getFullYear() + ' Ciarán Nevin. All rights reserved. | All data used with attribution.</div>';
     document.body.append(footer);
   }
 
