@@ -29,7 +29,7 @@
       '<circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/>' +
       '<circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/>' +
       '</svg>' +
-      'nevin<span>omics</span></a>' +
+      'nevinomics<span>.ie</span></a>' +
       '<nav class="site-nav">' +
       pages
         .map(
@@ -53,7 +53,7 @@
       '<circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/>' +
       '<circle cx="22.4" cy="5.2" r="3.4" fill="rgba(140,90,122,0.6)"/>' +
       '</svg>' +
-      'nevin<span>omics</span></a>' +
+      'nevinomics<span>.ie</span></a>' +
       '<span class="footer-sep">|</span>' +
       '<span class="footer-tagline">Irish economic data — carefully selected, clearly presented, freely available.</span>' +
       '<span class="footer-sep socials-sep">|</span>' +

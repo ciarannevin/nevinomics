@@ -17,7 +17,7 @@ const nevinomicsWatermark = {
     // uppercase NEVINOMICS in Sora.
     const fontSize = 9;
     ctx.font = `600 ${fontSize}px "Sora", "Space Grotesk", system-ui, sans-serif`;
-    const text = 'NEVINOMICS';
+    const text = 'nevinomics.ie';
     const textW = ctx.measureText(text).width;
     // Mark geometry: 30-unit viewBox scaled to 12px, centred on the band's vertical centre.
     // The mark and the text share the same midline so the lockup reads as one line.
