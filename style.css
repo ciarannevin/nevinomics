@@ -466,13 +466,17 @@ body {
 .data-table td:first-child {
   position: sticky;
   left: 0;
-  background: var(--card);
+  /* opaque surface: --card is transparent (open design), so use the page background.
+     Without this, scrolled cells show through the frozen column. */
+  background: var(--bg);
   z-index: 1;
   min-width: 130px;
+  box-shadow: 1px 0 0 var(--border); /* hairline at the cut edge */
 }
 
 .data-table tr.strong td:first-child {
-  background: rgba(62,124,89,0.08);
+  background: #f2f6f3; /* opaque tint-on-white equivalent of the 8% spruce wash */
+  box-shadow: 1px 0 0 var(--border);
 }
 
 .data-table td:first-child { box-shadow: 1px 0 0 var(--border); }
