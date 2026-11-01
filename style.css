@@ -54,14 +54,14 @@ body {
   font-family: var(--font-head);
   font-weight: 700;
   font-size: 1rem;
-  color: var(--text);
+  color: var(--accent);
   text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-transform: none;
   padding: 1rem 0;
 }
 
- .wordmark, .wordmark span { color: var(--accent); }
+ .wordmark span { color: var(--text); }
 
 .wordmark .brand-mark {
   display: inline-block;
