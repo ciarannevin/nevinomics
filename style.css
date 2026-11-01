@@ -706,3 +706,10 @@ body {
   display: block;
   width: 100%;
 }
+
+/* footer legal line */
+.site-footer .footer-legal {
+  margin-top: 0.55rem;
+  font-size: 0.72rem;
+  color: var(--faint);
+}
