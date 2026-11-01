@@ -44,9 +44,12 @@ const nevinomicsWatermark = {
     ctx.arc(22.4, 5.2, 3.4, 0, 2 * Math.PI);
     ctx.fill();
     ctx.restore();
-    // text after the mark, same midline: baseline = bandMid + half cap-height
+    // text after the mark, aligned by the browser's own vertical metrics:
+    // textBaseline 'middle' centres the text box on y, so y = bandMid centres it on the
+    // same midline as the mark - no manual cap-height arithmetic.
     ctx.fillStyle = 'rgba(62,124,89,0.65)';    // spruce, subtle
-    ctx.fillText(text, ox + markSize + 6, bandMid + 3.2);
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, ox + markSize + 6, bandMid + 1);
     ctx.restore();
   },
 };
