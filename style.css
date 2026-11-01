@@ -697,3 +697,12 @@ body {
 .site-footer .social-links a { font-size: 0.8rem; }
 .social-links a { color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; }
 .social-links a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+/* newsletter embed */
+.substack-embed {
+  max-width: 420px;
+}
+.substack-embed iframe {
+  display: block;
+  width: 100%;
+}
