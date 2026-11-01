@@ -19,10 +19,13 @@ const nevinomicsWatermark = {
     ctx.font = `600 ${fontSize}px "Sora", "Space Grotesk", system-ui, sans-serif`;
     const text = 'NEVINOMICS';
     const textW = ctx.measureText(text).width;
-    // mark geometry (30x30 viewBox scaled to ~12px, like the 22px header mark at small size)
-    const m = 0.4;                // scale factor: 30 -> 12
-    const ox = chartArea.right - textW - 16;  // mark origin x
-    const oy = chartArea.bottom + 5;          // mark origin y (band centre)
+    // Mark geometry: 30-unit viewBox scaled to 12px, centred on the band's vertical centre.
+    // The mark and the text share the same midline so the lockup reads as one line.
+    const m = 0.4;                          // scale: 30 -> 12
+    const markSize = 30 * m;                // 12px
+    const bandMid = chartArea.bottom + 11;  // centre of the 14px tick band
+    const ox = chartArea.right - textW - markSize - 6;  // mark right edge leaves 6px before text
+    const oy = bandMid - markSize / 2;      // mark vertically centred in the band
     ctx.save();
     ctx.translate(ox, oy);
     ctx.scale(m, m);
@@ -41,9 +44,9 @@ const nevinomicsWatermark = {
     ctx.arc(22.4, 5.2, 3.4, 0, 2 * Math.PI);
     ctx.fill();
     ctx.restore();
-    // text after the mark
+    // text after the mark, same midline: baseline = bandMid + half cap-height
     ctx.fillStyle = 'rgba(62,124,89,0.65)';    // spruce, subtle
-    ctx.fillText(text, ox + 14, oy + 9);
+    ctx.fillText(text, ox + markSize + 6, bandMid + 3.2);
     ctx.restore();
   },
 };
