@@ -14,7 +14,7 @@ const nevinomicsWatermark = {
     if (!chartArea) return;
     const text = 'nevinomics';
     ctx.save();
-    ctx.font = '600 10px "Space Grotesk", system-ui, sans-serif';
+    ctx.font = '600 10px "Sora", "Space Grotesk", system-ui, sans-serif';
     const w = ctx.measureText(text).width;
     ctx.fillStyle = 'rgba(140,90,122,0.55)';  // heather
     // centred in the 14px band between the axis line and the tick labels

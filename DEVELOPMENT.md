@@ -81,3 +81,4 @@ served a mixed old/new layout (label overlapping sparkline) while the HTML was f
 Data files are versioned too; bump all versions together in one pass (the fetch scripts should
 also append the version when they regenerate - or simpler: keep versions in HTML only and bump
 on data refresh).
+
