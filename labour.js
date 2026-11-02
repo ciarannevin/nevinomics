@@ -22,7 +22,7 @@ function initHighlights() {
   const latestTiles = [];
   if (muLatest) {
     latestTiles.push(
-      tile('Unemployment rate — monthly', 'Seasonally adjusted monthly unemployment rate, ages 15–74 (CSO MUM01)', [
+      tile('Monthly unemployment rate', 'Seasonally adjusted monthly unemployment rate, ages 15–74 (CSO MUM01)', [
         { label: 'Rate', value: fmtPctV(muLatest.value), dir: '' },
         { label: 'MoM', value: fmtDelta(muLatest.mom), dir: muLatest.mom < 0 ? 'down' : 'up' },
         { label: 'YoY', value: fmtDelta(muLatest.yoy), dir: muLatest.yoy < 0 ? 'down' : 'up' },
@@ -55,19 +55,19 @@ function initHighlights() {
     const un = (FORECAST_DATA.series.Unemployment || []).filter((p) => p.forecast && p.value !== null).slice(0, 3);
     if (un.length) {
       forecastTiles.push(
-        tile('Unemployment rate — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, unemployment rate (%)', un.map((p) => ({ label: p.year, value: fmtPctV(p.value), dir: '' })))
+        tile('Unemployment rate', 'Central Bank of Ireland Quarterly Bulletin forecasts, unemployment rate (%)', un.map((p) => ({ label: p.year, value: fmtPctV(p.value), dir: '' })))
       );
     }
     const emp = (FORECAST_DATA.series.Employment || []).filter((p) => p.forecast && p.value !== null).slice(0, 3);
     if (emp.length) {
       forecastTiles.push(
-        tile('Total employment — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, annual growth in total employment (%)', emp.map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' })))
+        tile('Total employment', 'Central Bank of Ireland Quarterly Bulletin forecasts, annual growth in total employment (%)', emp.map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' })))
       );
     }
     const comp = (FORECAST_DATA.series['Compensation per employee'] || []).filter((p) => p.forecast && p.value !== null).slice(0, 3);
     if (comp.length) {
       forecastTiles.push(
-        tile('Compensation per employee — forecast', 'Central Bank of Ireland Quarterly Bulletin forecasts, annual growth in compensation per employee (%)', comp.map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' })))
+        tile('Compensation per employee', 'Central Bank of Ireland Quarterly Bulletin forecasts, annual growth in compensation per employee (%)', comp.map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' })))
       );
     }
   }
