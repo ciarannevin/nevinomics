@@ -34,7 +34,7 @@ function stripKpi(series, rec) {
     )
     .join('');
   if (!cols) return '';
-  return `<div class="kpi kpi-wide" title="${series.full} — quarter-on-quarter and year-on-year growth, latest quarter"><span class="label">${series.short} — growth</span><div class="mini-cols">${cols}</div></div>`;
+  return `<div class="kpi kpi-wide" title="${series.full} — quarter-on-quarter and year-on-year growth, latest quarter"><span class="label">${series.short}</span><div class="mini-cols">${cols}</div></div>`;
 }
 
 function initSummaryStrip() {
@@ -60,7 +60,7 @@ function initSummaryStrip() {
       const names = { 'GNI*': 'Modified Gross National Income', GDP: 'Gross Domestic Product', MDD: 'Modified Final Domestic Demand' };
       forecastTiles.push(
         tile(
-          `${key} — forecast annual growth`,
+          `${key}`,
           `${names[key]} — Central Bank of Ireland Quarterly Bulletin forecast annual growth`,
           pts.slice(0, 3).map((p) => ({ label: p.year, value: `${p.value >= 0 ? '+' : ''}${p.value.toFixed(1)}%`, dir: p.value < 0 ? 'down' : 'up' }))
         )
@@ -71,7 +71,7 @@ function initSummaryStrip() {
 
   host.innerHTML =
     (growthHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Growth rates</span><span class="badge live">${latestQuarter || ''}</span></div><div class="kpis">${growthHtml}</div>` : '') +
-    (forecastHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual growth forecasts</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastHtml}</div>` : '');
+    (forecastHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Growth forecasts</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastHtml}</div>` : '');
 
 
 }
