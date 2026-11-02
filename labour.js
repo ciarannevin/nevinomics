@@ -16,24 +16,12 @@ function initHighlights() {
 
   const L = LABOUR_DATA;
   const mu = (L.monthly_unemployment || {})['15-74'] || {};
-  const youth = (L.monthly_unemployment || {})['15-24'] || {};
-  const part = (L.participation || {}).both || [];
-  const ilo = (L.ilo_unemployment || {}).both || [];
-
   const muLatest = mu.both ? mu.both[mu.both.length - 1] : null;
-  const youthLatest = youth.both ? youth.both[youth.both.length - 1] : null;
-  const partLatest = part.length ? part[part.length - 1] : null;
-  const iloLatest = ilo.length ? ilo[ilo.length - 1] : null;
-  const iloMale = ((L.ilo_unemployment || {}).male || []).slice(-1)[0] || null;
-  const iloFemale = ((L.ilo_unemployment || {}).female || []).slice(-1)[0] || null;
 
-  let latest = '';
-  if (muLatest) latest = muLatest.month;
-  if (partLatest && (!latest || partLatest.quarter > latest)) latest = partLatest.quarter;
-
-  const monthlyTiles = [];
+  // Row 1: latest readings — unemployment, earnings, vacancies
+  const latestTiles = [];
   if (muLatest) {
-    monthlyTiles.push(
+    latestTiles.push(
       tile('Unemployment rate — monthly', 'Seasonally adjusted monthly unemployment rate, ages 15–74 (CSO MUM01)', [
         { label: 'Rate', value: fmtPctV(muLatest.value), dir: '' },
         { label: 'MoM', value: fmtDelta(muLatest.mom), dir: muLatest.mom < 0 ? 'down' : 'up' },
@@ -41,39 +29,23 @@ function initHighlights() {
       ])
     );
   }
-  if (youthLatest) {
-    monthlyTiles.push(
-      tile('Youth unemployment — monthly', 'Seasonally adjusted monthly unemployment rate, ages 15–24 (CSO MUM01)', [
-        { label: 'Rate', value: fmtPctV(youthLatest.value), dir: '' },
-        { label: 'MoM', value: fmtDelta(youthLatest.mom), dir: youthLatest.mom < 0 ? 'down' : 'up' },
-        { label: 'YoY', value: fmtDelta(youthLatest.yoy), dir: youthLatest.yoy < 0 ? 'down' : 'up' },
+  const earnings = (L.earnings || []).slice(-1)[0] || null;
+  if (earnings) {
+    latestTiles.push(
+      tile('Average hourly earnings', 'Seasonally adjusted average hourly earnings, all sectors (CSO EHQ08)', [
+        { label: 'Level', value: `€${earnings.value.toFixed(2)}`, dir: '' },
+        { label: 'QoQ', value: `${earnings.qoq >= 0 ? '+' : ''}${earnings.qoq.toFixed(1)}%`, dir: earnings.qoq < 0 ? 'down' : 'up' },
+        { label: 'YoY', value: `${earnings.yoy >= 0 ? '+' : ''}${earnings.yoy.toFixed(1)}%`, dir: earnings.yoy < 0 ? 'down' : 'up' },
       ])
     );
   }
-  const quarterlyTiles = [];
-  if (iloLatest) {
-    quarterlyTiles.push(
-      tile('ILO unemployment rate', 'ILO unemployment rate, ages 15–74, seasonally adjusted (CSO QLF02)', [
-        { label: 'Rate', value: fmtPctV(iloLatest.value), dir: '' },
-        { label: 'QoQ', value: fmtDelta(iloLatest.qoq), dir: iloLatest.qoq < 0 ? 'down' : 'up' },
-        { label: 'YoY', value: fmtDelta(iloLatest.yoy), dir: iloLatest.yoy < 0 ? 'down' : 'up' },
-      ])
-    );
-  }
-  if (partLatest) {
-    quarterlyTiles.push(
-      tile('Participation rate', 'ILO participation rate, ages 15 and over, seasonally adjusted (CSO QLF02)', [
-        { label: 'Rate', value: fmtPctV(partLatest.value), dir: '' },
-        { label: 'QoQ', value: fmtDelta(partLatest.qoq), dir: partLatest.qoq < 0 ? 'down' : 'up' },
-        { label: 'YoY', value: fmtDelta(partLatest.yoy), dir: partLatest.yoy < 0 ? 'down' : 'up' },
-      ])
-    );
-  }
-  if (iloMale && iloFemale) {
-    quarterlyTiles.push(
-      tile('Unemployment by sex', 'ILO unemployment rate by sex, ages 15–74, seasonally adjusted (CSO QLF02)', [
-        { label: 'Male', value: fmtPctV(iloMale.value), dir: '' },
-        { label: 'Female', value: fmtPctV(iloFemale.value), dir: '' },
+  const vac = (((L.vacancies || {}).overall) || []).slice(-1)[0] || null;
+  if (vac) {
+    latestTiles.push(
+      tile('Job vacancy rate', 'Seasonally adjusted job vacancy rate, all sectors (CSO QJV23)', [
+        { label: 'Rate', value: fmtPctV(vac.value), dir: '' },
+        { label: 'QoQ', value: fmtDelta(vac.qoq), dir: vac.qoq < 0 ? 'down' : 'up' },
+        { label: 'YoY', value: fmtDelta(vac.yoy), dir: vac.yoy < 0 ? 'down' : 'up' },
       ])
     );
   }
@@ -100,10 +72,10 @@ function initHighlights() {
     }
   }
 
+  const latestBadge = muLatest ? monthLabel(muLatest.month) : (earnings ? earnings.quarter : '');
   host.innerHTML =
-    (monthlyTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Monthly unemployment (CSO MUM01)</span><span class="badge live">${muLatest ? monthLabel(muLatest.month) : ''}</span></div><div class="kpis">${monthlyTiles.join('')}</div>` : '') +
-    (quarterlyTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">ILO labour market (CSO QLF02)</span><span class="badge live">${partLatest ? partLatest.quarter : ''}</span></div><div class="kpis">${quarterlyTiles.join('')}</div>` : '') +
-    (forecastTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Annual forecasts (Central Bank of Ireland)</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastTiles.join('')}</div>` : '');
+    (latestTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Latest readings</span><span class="badge live">${latestBadge}</span></div><div class="kpis">${latestTiles.join('')}</div>` : '') +
+    (forecastTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Forecasts (Central Bank of Ireland)</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastTiles.join('')}</div>` : '');
 
 }
 
