@@ -42,7 +42,7 @@ function initHighlights() {
   const vac = (((L.vacancies || {}).overall) || []).slice(-1)[0] || null;
   if (vac) {
     latestTiles.push(
-      tile('Job vacancy rate', 'Seasonally adjusted job vacancy rate, all sectors (CSO QJV23)', [
+      tile('Job vacancy rate', 'Seasonally adjusted job vacancy rate, all sectors (CSO EHQ59)', [
         { label: 'Rate', value: fmtPctV(vac.value), dir: '' },
         { label: 'QoQ', value: fmtDelta(vac.qoq), dir: vac.qoq < 0 ? 'down' : 'up' },
         { label: 'YoY', value: fmtDelta(vac.yoy), dir: vac.yoy < 0 ? 'down' : 'up' },
