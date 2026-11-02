@@ -82,3 +82,14 @@ Data files are versioned too; bump all versions together in one pass (the fetch 
 also append the version when they regenerate - or simpler: keep versions in HTML only and bump
 on data refresh).
 
+
+## Pre-go-live checklist (Nov 2026)
+
+Privacy/legal items to resolve before public launch:
+- [x] Fonts self-hosted (no third-party requests for Inter/Sora; OFL licenses in fonts/)
+- [ ] Substack embed vs plain link decision - the embed iframe loads Substack's domain and
+      may set cookies in that context; the plain link avoids the question entirely
+- [ ] Cookie notice NOT required while the site sets no non-essential cookies; revisit the
+      moment any analytics/tracking is added (consent required BEFORE any non-essential storage)
+- [ ] Privacy policy page when the newsletter/any personal data collection goes live
+- [ ] nevinomics.ie domain DNS + GitHub Pages custom domain (parked, user handling)
