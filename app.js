@@ -99,8 +99,6 @@ function initLatestReadings() {
         { label: 'YoY', value: fmtPctSigned(latest.yoy), dir: latest.yoy < 0 ? 'down' : 'up' },
       ])
     );
-    const badge = document.getElementById('readings-updated');
-    if (badge) badge.textContent = latest.quarter;
   }
 
   if (typeof LABOUR_DATA !== 'undefined') {
@@ -186,28 +184,9 @@ function initSparklines() {
         },
       },
     });
-    // period label under the sparkline
-    const periodEl = document.querySelector(`[data-period="${key}"]`);
-    if (periodEl) {
-      const last = points[points.length - 1];
-      if (key === 'unemployment') {
-        periodEl.textContent = monthLabel(lastPtMonth(points));
-      } else {
-        periodEl.textContent = key === 'gdp' ? lastPtQuarter(points) : monthLabel(lastPtMonth(points));
-      }
-    }
   });
 }
 
-function lastPtQuarter(points) {
-  const d = new Date(points[points.length - 1].t);
-  return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
-}
-
-function lastPtMonth(points) {
-  const d = new Date(points[points.length - 1].t);
-  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeroStrip();

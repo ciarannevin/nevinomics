@@ -20,7 +20,6 @@
     <section id="latest-readings" class="home-section">
       <div class="section-head-row">
         <h2 class="section-label">Latest readings</h2>
-        <span class="badge live" id="readings-updated"></span>
       </div>
       <div id="readings-tiles" class="kpis"></div>
     </section>
@@ -35,10 +34,6 @@
           <p>GDP, growth and economic activity in Ireland.</p>
           <div class="tile-foot">
             <div class="sparkline-wrap"><canvas class="sparkline" data-spark="gdp"></canvas></div>
-            <div class="tile-caption">
-              <span class="tile-series">GDP growth, YoY</span>
-              <span class="tile-period" data-period="gdp"></span>
-            </div>
           </div>
         </a>
         <a class="tile" href="labour.html" data-theme="labour">
@@ -46,10 +41,6 @@
           <p>Employment, unemployment, earnings and vacancies.</p>
           <div class="tile-foot">
             <div class="sparkline-wrap"><canvas class="sparkline" data-spark="unemployment"></canvas></div>
-            <div class="tile-caption">
-              <span class="tile-series">Unemployment rate</span>
-              <span class="tile-period" data-period="unemployment"></span>
-            </div>
           </div>
         </a>
         <a class="tile" href="prices.html" data-theme="prices">
@@ -57,10 +48,6 @@
           <p>Consumer prices, inflation and the cost of living.</p>
           <div class="tile-foot">
             <div class="sparkline-wrap"><canvas class="sparkline" data-spark="cpi"></canvas></div>
-            <div class="tile-caption">
-              <span class="tile-series">CPI inflation, YoY</span>
-              <span class="tile-period" data-period="cpi"></span>
-            </div>
           </div>
         </a>
         <a class="tile" href="fiscal.html" data-theme="fiscal">
@@ -109,6 +96,6 @@
   <script src="data/labour.js?v=6"></script>
   <script src="data/prices.js?v=3"></script>
   <script src="data/forecasts.js?v=2"></script>
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>
