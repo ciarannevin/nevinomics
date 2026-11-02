@@ -93,3 +93,8 @@ Privacy/legal items to resolve before public launch:
       moment any analytics/tracking is added (consent required BEFORE any non-essential storage)
 - [ ] Privacy policy page when the newsletter/any personal data collection goes live
 - [ ] nevinomics.ie domain DNS + GitHub Pages custom domain (parked, user handling)
+- [ ] Scheduled data-fetch workflow: GitHub Actions cron (weekly) running the CSO/CBI fetch
+      scripts, validating new data (range/quarter sanity checks BEFORE commit), regenerating
+      data/*.js and auto-committing -> triggers Pages deploy. Currently data updates are
+      manual on-demand only; the site has no way to notice new publications. Required for the
+      'largely automated' claim to be true of data as well as publishing.
