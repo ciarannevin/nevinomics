@@ -19,7 +19,7 @@ function initPriceHighlights() {
     rateTiles.push(
       tile('CPI inflation', 'Consumer Price Index, annual rate of change, all items (CSO CPM20)', [
         { label: 'YoY', value: fmtPctV(cpiLatest.value), dir: cpiLatest.value >= 2 ? 'up' : 'down' },
-        { label: 'M-o-M', value: `${cpiLatest.mom >= 0 ? '+' : ''}${cpiLatest.mom.toFixed(1)}%`, dir: cpiLatest.mom < 0 ? 'down' : 'up' },
+        { label: 'MoM', value: `${cpiLatest.mom >= 0 ? '+' : ''}${cpiLatest.mom.toFixed(1)}%`, dir: cpiLatest.mom < 0 ? 'down' : 'up' },
       ])
     );
   }
@@ -27,7 +27,7 @@ function initPriceHighlights() {
     rateTiles.push(
       tile('HICP inflation', 'EU Harmonised Index of Consumer Prices, annual rate of change, all items (CSO CPM23)', [
         { label: 'YoY', value: fmtPctV(hicpLatest.value), dir: hicpLatest.value >= 2 ? 'up' : 'down' },
-        { label: 'M-o-M', value: `${hicpLatest.mom >= 0 ? '+' : ''}${hicpLatest.mom.toFixed(1)}%`, dir: hicpLatest.mom < 0 ? 'down' : 'up' },
+        { label: 'MoM', value: `${hicpLatest.mom >= 0 ? '+' : ''}${hicpLatest.mom.toFixed(1)}%`, dir: hicpLatest.mom < 0 ? 'down' : 'up' },
       ])
     );
   }

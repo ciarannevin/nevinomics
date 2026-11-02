@@ -110,8 +110,8 @@ function initLatestReadings() {
       tiles.push(
         tile('Unemployment — monthly', 'Seasonally adjusted monthly unemployment rate, ages 15-74 (CSO MUM01)', [
           { label: 'Rate', value: `${latest.value.toFixed(1)}%`, dir: '' },
-          { label: 'M-o-M', value: `${latest.mom >= 0 ? '+' : ''}${latest.mom.toFixed(1)}pp`, dir: latest.mom < 0 ? 'down' : 'up' },
-          { label: 'Y-o-Y', value: `${latest.yoy >= 0 ? '+' : ''}${latest.yoy.toFixed(1)}pp`, dir: latest.yoy < 0 ? 'down' : 'up' },
+          { label: 'MoM', value: `${latest.mom >= 0 ? '+' : ''}${latest.mom.toFixed(1)}pp`, dir: latest.mom < 0 ? 'down' : 'up' },
+          { label: 'YoY', value: `${latest.yoy >= 0 ? '+' : ''}${latest.yoy.toFixed(1)}pp`, dir: latest.yoy < 0 ? 'down' : 'up' },
         ])
       );
     }
@@ -122,7 +122,7 @@ function initLatestReadings() {
     tiles.push(
       tile('CPI — inflation', 'Consumer Price Index, annual rate (CSO CPM20)', [
         { label: 'YoY', value: fmtPctSigned(latest.value), dir: latest.value >= 2 ? 'up' : 'down' },
-        { label: 'M-o-M', value: fmtPctSigned(latest.mom), dir: latest.mom < 0 ? 'down' : 'up' },
+        { label: 'MoM', value: fmtPctSigned(latest.mom), dir: latest.mom < 0 ? 'down' : 'up' },
       ])
     );
   }
