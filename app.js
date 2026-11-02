@@ -94,7 +94,7 @@ function initLatestReadings() {
     const withGrowth = MDD_DATA.filter((d) => d.yoy !== null);
     const latest = withGrowth[withGrowth.length - 1] || MDD_DATA[MDD_DATA.length - 1];
     tiles.push(
-      tile('MDD — growth', 'Modified Final Domestic Demand growth (CSO NAQ05)', [
+      tile('MDD', 'Modified Final Domestic Demand growth (CSO NAQ05)', [
         { label: 'QoQ', value: fmtPctSigned(latest.qoq), dir: latest.qoq < 0 ? 'down' : 'up' },
         { label: 'YoY', value: fmtPctSigned(latest.yoy), dir: latest.yoy < 0 ? 'down' : 'up' },
       ])
@@ -108,7 +108,7 @@ function initLatestReadings() {
     if (mu.length) {
       const latest = mu[mu.length - 1];
       tiles.push(
-        tile('Unemployment — monthly', 'Seasonally adjusted monthly unemployment rate, ages 15-74 (CSO MUM01)', [
+        tile('Monthly unemployment rate', 'Seasonally adjusted monthly unemployment rate, ages 15-74 (CSO MUM01)', [
           { label: 'Rate', value: `${latest.value.toFixed(1)}%`, dir: '' },
           { label: 'MoM', value: `${latest.mom >= 0 ? '+' : ''}${latest.mom.toFixed(1)}pp`, dir: latest.mom < 0 ? 'down' : 'up' },
           { label: 'YoY', value: `${latest.yoy >= 0 ? '+' : ''}${latest.yoy.toFixed(1)}pp`, dir: latest.yoy < 0 ? 'down' : 'up' },
@@ -120,7 +120,7 @@ function initLatestReadings() {
   if (typeof PRICES_DATA !== 'undefined' && PRICES_DATA.cpi && PRICES_DATA.cpi.length) {
     const latest = PRICES_DATA.cpi[PRICES_DATA.cpi.length - 1];
     tiles.push(
-      tile('CPI — inflation', 'Consumer Price Index, annual rate (CSO CPM20)', [
+      tile('CPI', 'Consumer Price Index, annual rate (CSO CPM20)', [
         { label: 'YoY', value: fmtPctSigned(latest.value), dir: latest.value >= 2 ? 'up' : 'down' },
         { label: 'MoM', value: fmtPctSigned(latest.mom), dir: latest.mom < 0 ? 'down' : 'up' },
       ])
