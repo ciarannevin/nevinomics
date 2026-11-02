@@ -70,8 +70,8 @@ function initSummaryStrip() {
   }
 
   host.innerHTML =
-    (growthHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Growth rates</span><span class="badge live">${latestQuarter || ''}</span></div><div class="kpis">${growthHtml}</div>` : '') +
-    (forecastHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Growth forecasts</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastHtml}</div>` : '');
+    (growthHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Latest</span><span class="badge live">${latestQuarter || ''}</span></div><div class="kpis">${growthHtml}</div>` : '') +
+    (forecastHtml ? `<div class="kpi-heading-row"><span class="kpi-heading">Forecasts</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastHtml}</div>` : '');
 
 
 }

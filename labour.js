@@ -74,8 +74,8 @@ function initHighlights() {
 
   const latestBadge = muLatest ? monthLabel(muLatest.month) : (earnings ? earnings.quarter : '');
   host.innerHTML =
-    (latestTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Latest readings</span><span class="badge live">${latestBadge}</span></div><div class="kpis">${latestTiles.join('')}</div>` : '') +
-    (forecastTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Forecasts (Central Bank of Ireland)</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastTiles.join('')}</div>` : '');
+    (latestTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Latest</span><span class="badge live">${latestBadge}</span></div><div class="kpis">${latestTiles.join('')}</div>` : '') +
+    (forecastTiles.length ? `<div class="kpi-heading-row"><span class="kpi-heading">Forecasts</span><span class="badge live">${bulletinName()}</span></div><div class="kpis">${forecastTiles.join('')}</div>` : '');
 
 }
 
