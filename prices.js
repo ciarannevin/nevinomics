@@ -42,8 +42,8 @@ function initPriceHighlights() {
   const forecastTiles = [];
   if (typeof FORECAST_DATA !== 'undefined' && FORECAST_DATA.series) {
     for (const [key, label] of [
-      ['HICP', 'HICP inflation — forecast'],
-      ['Core HICP', 'Core HICP (excluding food and energy) — forecast'],
+      ['HICP', 'HICP inflation'],
+      ['Core HICP', 'Core HICP (excluding food and energy)'],
     ]) {
       const pts = (FORECAST_DATA.series[key] || []).filter((p) => p.forecast && p.value !== null).slice(0, 3);
       if (pts.length) {
@@ -60,10 +60,10 @@ function initPriceHighlights() {
 
   host.innerHTML =
     (rateTiles.length
-      ? kpiHeadingRow('Inflation rates', latestMonth ? monthLabel(latestMonth) : '') + `<div class="kpis">${rateTiles.join('')}</div>`
+      ? kpiHeadingRow('Latest', latestMonth ? monthLabel(latestMonth) : '') + `<div class="kpis">${rateTiles.join('')}</div>`
       : '') +
     (forecastTiles.length
-      ? kpiHeadingRow('Annual forecasts (Central Bank of Ireland)', bulletinName()) + `<div class="kpis">${forecastTiles.join('')}</div>`
+      ? kpiHeadingRow('Forecasts', bulletinName()) + `<div class="kpis">${forecastTiles.join('')}</div>`
       : '');
 }
 
