@@ -6,22 +6,85 @@
   <title>Fiscal — nevinomics.ie</title>
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="style.css?v=16">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
   <div class="page">
     <div class="page-head">
       <h1>Fiscal</h1>
-      <p>Government revenue, spending, deficit and debt.</p>
     </div>
-    <section class="card">
-      <div class="coming-soon">
-        <h2>Coming soon</h2>
-        <p>Indicators for this theme are on the roadmap. Data will come from official sources such as the CSO, Eurostat and the Central Bank of Ireland.</p>
-        <p><a class="badge" href="about.html">See the roadmap on the About page</a></p>
-      </div>
+
+    <section class="card" id="highlights-card">
+      <div class="card-header">
+        <h2>Highlights</h2>
+              </div>
+      <div id="fiscal-highlights"></div>
+      <p class="footnote">Revenue, expenditure and balance: seasonally adjusted quarterly general government transactions, EUR millions. Debt: gross general government debt (EDP face value) at end of quarter. Debt to GNI*: end-year debt as a share of Modified Gross National Income (our derivation from CSO data). Forecasts: Central Bank of Ireland Quarterly Bulletin, percent of GNI*. Sources: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Tables GFQ01</a>, <a href="https://data.cso.ie" target="_blank" rel="noopener">GFQ02</a>, <a href="https://data.cso.ie" target="_blank" rel="noopener">NA001</a>); Central Bank of Ireland <a href="https://www.centralbank.ie/publication/quarterly-bulletins/quarterly-bulletins-list" target="_blank" rel="noopener">Quarterly Bulletin</a>.</p>
     </section>
+
+    <div class="chart-grid">
+      <section class="card">
+        <div class="card-header">
+          <h2>Revenue and expenditure</h2>
+          <span class="badge live" id="revexp-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="revexp-chart"></canvas></div>
+        <p class="footnote">Seasonally adjusted quarterly general government revenue and expenditure, past 5 years, EUR millions. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table GFQ01</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Government balance</h2>
+          <span class="badge live" id="balance-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="balance-chart"></canvas></div>
+        <p class="footnote">General government surplus/deficit (net lending, B9), trailing four quarters, seasonally adjusted, since 2000. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table GFQ01</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Balance and primary balance</h2>
+          <span class="badge live" id="primary-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="primary-chart"></canvas></div>
+        <p class="footnote">Overall balance (B9) and primary balance (B9 plus interest expenditure), trailing four quarters, not seasonally adjusted, since 2000. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table GFQ01</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Debt ratios</h2>
+          <span class="badge live" id="ratios-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="ratios-chart"></canvas></div>
+        <p class="footnote">End-year gross general government debt (EDP face value) as a share of GDP and of Modified GNI (GNI*), since 2009. GDP and GNI* flattered by multinational activity; debt to GNI* is the more meaningful ratio. Ratios derived by nevinomics from CSO data. Sources: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Tables GFQ02</a>, <a href="https://data.cso.ie" target="_blank" rel="noopener">NA001</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>General government debt</h2>
+          <span class="badge live" id="debt-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="debt-chart"></canvas></div>
+        <p class="footnote">Gross general government debt (EDP face value), end of quarter, EUR millions, since 2009. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table GFQ02</a>).</p>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Interest expenditure</h2>
+          <span class="badge live" id="interest-updated"></span>
+        </div>
+        <div class="chart-wrap"><canvas id="interest-chart"></canvas></div>
+        <p class="footnote">General government interest expenditure (excluding FISIM), trailing four quarters, not seasonally adjusted, EUR millions, since 2000. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table GFQ01</a>).</p>
+      </section>
+    </div>
   </div>
 
   <script src="nav.js?v=8"></script>
+  <script src="chart-theme.js?v=6"></script>
+  <script src="common.js?v=2"></script>
+  <script src="data/fiscal.js?v=1"></script>
+  <script src="data/forecasts.js?v=2"></script>
+  <script src="fiscal.js?v=1"></script>
 </body>
 </html>

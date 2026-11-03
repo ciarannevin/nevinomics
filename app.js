@@ -139,6 +139,9 @@ function sparkSeries(key) {
     const mu = ((LABOUR_DATA.monthly_unemployment || {})['15-74'] || {}).both || [];
     return lastNYearsMonthly(mu, 5).map((d) => ({ t: monthToDate(d.month).getTime(), y: d.value }));
   }
+  if (key === 'fiscal' && typeof FISCAL_DATA !== 'undefined') {
+    return (FISCAL_DATA.balance_sa || []).filter((d) => d.value !== null).map((d) => ({ t: quarterToDate(d.quarter).getTime(), y: d.value }));
+  }
   if (key === 'cpi' && typeof PRICES_DATA !== 'undefined') {
     return (PRICES_DATA.cpi || []).map((d) => ({ t: monthToDate(d.month).getTime(), y: d.value }));
   }

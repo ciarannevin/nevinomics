@@ -27,6 +27,9 @@ TRACKED_ROWS = {
     "Harmonised Index of Consumer Prices (HICP)": "HICP",
     "HICP Excluding Food and Energy (Core HICP)": "Core HICP",
     "Compensation per Employee": "Compensation per employee",
+    "General Government Balance (% of GNI*)": "GG balance",
+    "\u2018Underlying\u2019 General Government Balance (% of GNI*)": "GG balance underlying",
+    "General Government Gross Debt (% of GNI*)": "GG debt",
 }
 
 

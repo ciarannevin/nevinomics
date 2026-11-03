@@ -217,6 +217,87 @@
     "forecast": true,
     "value": 3.5
    }
+  ],
+  "GG balance": [
+   {
+    "year": "2024",
+    "forecast": false,
+    "value": 7.2
+   },
+   {
+    "year": "2025",
+    "forecast": false,
+    "value": 3.4
+   },
+   {
+    "year": "2026",
+    "forecast": true,
+    "value": 2.8
+   },
+   {
+    "year": "2027",
+    "forecast": true,
+    "value": 3.1
+   },
+   {
+    "year": "2028",
+    "forecast": true,
+    "value": 2.1
+   }
+  ],
+  "GG balance underlying": [
+   {
+    "year": "2024",
+    "forecast": false,
+    "value": -1.6
+   },
+   {
+    "year": "2025",
+    "forecast": false,
+    "value": -1.5
+   },
+   {
+    "year": "2026",
+    "forecast": true,
+    "value": -2.2
+   },
+   {
+    "year": "2027",
+    "forecast": true,
+    "value": -2.1
+   },
+   {
+    "year": "2028",
+    "forecast": true,
+    "value": -3.1
+   }
+  ],
+  "GG debt": [
+   {
+    "year": "2024",
+    "forecast": false,
+    "value": 67.0
+   },
+   {
+    "year": "2025",
+    "forecast": false,
+    "value": 62.9
+   },
+   {
+    "year": "2026",
+    "forecast": true,
+    "value": 58.1
+   },
+   {
+    "year": "2027",
+    "forecast": true,
+    "value": 54.3
+   },
+   {
+    "year": "2028",
+    "forecast": true,
+    "value": 52.5
+   }
   ]
  }
 }
