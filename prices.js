@@ -23,18 +23,18 @@ function initPriceHighlights() {
       ])
     );
   }
+  if (coreEnergyLatest) {
+    rateTiles.push(
+      tile('CPI excluding energy', 'Consumer Price Index excluding energy products, annual rate of change (CSO CPM21)', [
+        { label: 'YoY', value: fmtPctV(coreEnergyLatest.value), dir: coreEnergyLatest.value >= 2 ? 'up' : 'down' },
+      ])
+    );
+  }
   if (hicpLatest) {
     rateTiles.push(
       tile('HICP inflation', 'EU Harmonised Index of Consumer Prices, annual rate of change, all items (CSO CPM23)', [
         { label: 'YoY', value: fmtPctV(hicpLatest.value), dir: hicpLatest.value >= 2 ? 'up' : 'down' },
         { label: 'MoM', value: `${hicpLatest.mom >= 0 ? '+' : ''}${hicpLatest.mom.toFixed(1)}%`, dir: hicpLatest.mom < 0 ? 'down' : 'up' },
-      ])
-    );
-  }
-  if (coreEnergyLatest) {
-    rateTiles.push(
-      tile('CPI excluding energy', 'Consumer Price Index excluding energy products, annual rate of change (CSO CPM21)', [
-        { label: 'YoY', value: fmtPctV(coreEnergyLatest.value), dir: coreEnergyLatest.value >= 2 ? 'up' : 'down' },
       ])
     );
   }
