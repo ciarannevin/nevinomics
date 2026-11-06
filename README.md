@@ -11,10 +11,10 @@ Personal learning project, built to make official statistics easy to read and sh
 |---|---|---|
 | `index.html` | Home — latest key indicator, theme tiles | Live |
 | `output.html` | Economic Output — GDP growth | Live (GNI*, industrial production planned) |
-| `labour.html` | Labour market | Coming soon |
-| `inflation.html` | Inflation & prices | Coming soon |
-| `fiscal.html` | Government finances | Coming soon |
-| `financial.html` | Rates & credit | Coming soon |
+| `labour.html` | Labour market | Live |
+| `prices.html` | Inflation & prices | Live |
+| `fiscal.html` | Government finances | Live |
+| `financial.html` | Rates & credit | Live |
 | `global.html` | Ireland in global context | Coming soon |
 | `about.html` | Sources, methodology, roadmap | Live |
 

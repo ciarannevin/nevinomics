@@ -142,6 +142,9 @@ function sparkSeries(key) {
   if (key === 'fiscal' && typeof FISCAL_DATA !== 'undefined') {
     return (FISCAL_DATA.balance_sa || []).filter((d) => d.value !== null).map((d) => ({ t: quarterToDate(d.quarter).getTime(), y: d.value }));
   }
+  if (key === 'financial' && typeof FINANCIAL_DATA !== 'undefined') {
+    return lastNYearsMonthly((FINANCIAL_DATA.rates || {}).mortgage_ie || [], 5).map((d) => ({ t: monthToDate(d.month).getTime(), y: d.value }));
+  }
   if (key === 'cpi' && typeof PRICES_DATA !== 'undefined') {
     return (PRICES_DATA.cpi || []).map((d) => ({ t: monthToDate(d.month).getTime(), y: d.value }));
   }

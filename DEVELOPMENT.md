@@ -38,7 +38,17 @@ Conventions and lessons learned while building the Output page. Apply these on e
 ## Page inventory
 
 - Output page complete: highlights (growth + forecasts), growth chart (YoY/QoQ toggle), forecast chart (GDP/GNI*/MDD, solid/dashed), components table (with investment breakdown + contributions).
-- Other pages are styled shells awaiting content, following the same patterns.
+- Labour, Prices and Fiscal pages complete, same patterns (see their page scripts).
+- Financial page complete: highlights (Latest only - the CBI bulletin series scraped carry no rate forecasts), 7 charts: ECB policy rates (FM daily DFR/MRO), new lending rates HH (MIR A2C/A2B IE + A2C EA), NFC (MIR A2I IE/EA), household deposit rates (MIR L21/L22 IE + L21 EA), loans outstanding and annual growth (BSI A22/A20 stocks, YoY derived), net mortgage lending (BSI A22 flows, trailing 3 months). Homepage financial tile sparkline = IE new mortgage rate, last 5 years.
+- Global page is a styled shell awaiting content, following the same patterns.
+
+## ECB Data Portal (SDW) notes (Financial page, Nov 2026)
+
+- Keyless REST API: `https://data-api.ecb.europa.eu/service/data/{DATAFLOW}/{series key}?startPeriod=YYYY-MM-DD` with `Accept: text/csv`; response columns include `TIME_PERIOD`, `OBS_VALUE`. No wildcards (`+` returns 400); a well-formed but absent key returns 404, a malformed one 400.
+- Key rates (daily, euro area): `FM/D.U2.EUR.4F.KR.DFR.LEV`, `FM/D.U2.EUR.4F.KR.MRR_FR.LEV` (marginal lending `ML` no longer exists under that code).
+- MIR (10-dim keys): `MIR.{FREQ}.{AREA}.{BS_ITEM}.{INSTRUMENT}.{FIXATION}.{BUSINESS}.{AMOUNT}.{SECTOR}.{CURRENCY}.{RATE_TYPE}` - e.g. `MIR.M.IE.B.A2C.A.R.A.2250.EUR.N` (IE new mortgage rate, AAR narrow); HH products use sector 2250, NFC loans use 2240 with instrument A2I (cost of borrowing, fixation AM) or A2A; deposits L21 overnight / L22 agreed maturity / L23 redeemable at notice.
+- BSI (11-dim keys): `BSI.M.IE.N.A.{BS_ITEM}.A.{1=outstanding|4=flows}.U2.{SECTOR}.Z01.E` - A22 = house purchase loans (HH, 2250), A20 = NFC loans (2240); currency dim must be `A` (all currencies combined), dim8 is `U2` even for country data. NOTE: ECB recoded BSI keys under Regulation ECB/2021/2 (old keys still resolve as of Nov 2026, may be removed later).
+- CSO PxStat CBM01/CBM02/HSQ08 money & banking tables are ARCHIVED (end 2023/2016) - do not use for current credit/rates; ECB BSI/MIR (CBI-submitted) are the current source.
 
 ## Conventions (established during Labour page build, 2026)
 
