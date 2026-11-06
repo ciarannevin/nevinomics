@@ -1,4 +1,4 @@
-name: Weekly data refresh
+name: Daily data refresh
 
 # Keeps data/*.js|json current without anyone opening a session: runs DAILY at
 # 06:00 UTC and on demand (Actions tab -> Run workflow). Daily, not weekly:
