@@ -151,7 +151,8 @@ def main():
 
     js = "const FISCAL_DATA = " + json.dumps(data, separators=(",", ":")) + ";\n"
     (ROOT / "data" / "fiscal.js").write_text(js)
-    print(f"Wrote data/fiscal.js")
+    (ROOT / "data" / "fiscal.json").write_text(json.dumps(data, indent=1))
+    print(f"Wrote data/fiscal.js and data/fiscal.json")
     for k in data:
         v = data[k]
         n = len(v) if isinstance(v, list) else len(v)
