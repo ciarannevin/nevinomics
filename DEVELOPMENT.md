@@ -119,8 +119,9 @@ branches were intact on origin; only the local checkout and /tmp scratch files w
 3. Update this file / README if conventions or page status changed.
 
 **Long-run automation (no session required)**
-- `.github/workflows/update-data.yml` refreshes `data/*.js|json` weekly (Mon 06:00 UTC) and on
-  demand, validates via `scripts/validate_data.py` + `node tests/dom-harness.js`, and only then
+- `.github/workflows/update-data.yml` refreshes `data/*.js|json` DAILY (06:00 UTC; CSO/CBI
+  releases land on arbitrary weekday mornings, so daily keeps lag under 24h) and on demand,
+  validates via `scripts/validate_data.py` + `node tests/dom-harness.js`, and only then
   auto-commits to main (each push triggers a Pages deploy). The site stays current for months
   even if nobody opens a session.
 
@@ -134,7 +135,7 @@ Privacy/legal items to resolve before public launch:
       moment any analytics/tracking is added (consent required BEFORE any non-essential storage)
 - [ ] Privacy policy page when the newsletter/any personal data collection goes live
 - [ ] nevinomics.ie domain DNS + GitHub Pages custom domain (parked, user handling)
-- [x] Scheduled data-fetch workflow: `.github/workflows/update-data.yml` (weekly cron +
-      manual dispatch) runs all `scripts/fetch_*.py`, gates the auto-commit on
+- [x] Scheduled data-fetch workflow: `.github/workflows/update-data.yml` (daily cron 06:00 UTC
+      + manual dispatch) runs all `scripts/fetch_*.py`, gates the auto-commit on
       `scripts/validate_data.py` + `tests/dom-harness.js`, pushes to main -> Pages deploy.
       See "Session workflow & work safety" above.

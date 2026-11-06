@@ -1,14 +1,17 @@
 name: Weekly data refresh
 
-# Keeps data/*.js|json current without anyone opening a session: runs every
-# Monday 06:00 UTC and on demand (Actions tab -> Run workflow). Each fetch
-# script is best-effort (a failure is logged, others still run); the commit
-# step is gated on validation passing, so bad data is never published.
+# Keeps data/*.js|json current without anyone opening a session: runs DAILY at
+# 06:00 UTC and on demand (Actions tab -> Run workflow). Daily, not weekly:
+# CSO/CBI monthly releases land on arbitrary weekday mornings, so a weekly cron
+# can leave the site up to 6 days stale (first run after enabling was the issue
+# that prompted this). Runs are cheap and only commit when data actually changed.
+# Each fetch script is best-effort (a failure is logged, others still run); the
+# commit step is gated on validation passing, so bad data is never published.
 # Every push to main triggers a GitHub Pages deploy automatically.
 
 on:
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -45,6 +48,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No data changes - nothing to commit."
           else
-            git commit -m "chore: weekly data refresh ($(date -u +%Y-%m-%d))"
+            git commit -m "chore: daily data refresh ($(date -u +%Y-%m-%d))"
             git push
           fi
