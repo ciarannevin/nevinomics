@@ -122,16 +122,7 @@ function initFiscalCharts() {
     setBadge('revexp-updated', last ? last.quarter : '');
   }
 
-  // 2. Government balance, trailing 4 quarters, since 2000 (SA)
-  const c2 = document.getElementById('balance-chart');
-  if (c2) {
-    const bal = nvLineDataset('Balance (trailing 4 quarters)', trailing4(lastNYears(F.balance_sa, 5)), { color: palette.accent });
-    new Chart(c2, quarterlyLineConfig([bal], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
-    const last = F.balance_sa[F.balance_sa.length - 1];
-    setBadge('balance-updated', last ? last.quarter : '');
-  }
-
-  // 3. Balance and primary balance, trailing 4 quarters, since 2000 (NSA)
+  // 2. Balance and primary balance, trailing 4 quarters (NSA)
   const c3 = document.getElementById('primary-chart');
   if (c3) {
     const overall = nvLineDataset('Overall balance', trailing4(lastNYears(F.balance, 5)), { color: palette.accent, fill: false });
@@ -141,7 +132,7 @@ function initFiscalCharts() {
     setBadge('primary-updated', last ? last.quarter : '');
   }
 
-  // 4. Debt ratios, annual since 2009
+  // 3. Debt ratios, annual, past 5 years
   const c4 = document.getElementById('ratios-chart');
   if (c4) {
     const yPoints = (recs) => recs.map((r) => ({ x: Date.UTC(Number(r.year), 0, 1), y: r.value }));
@@ -159,7 +150,7 @@ function initFiscalCharts() {
     setBadge('ratios-updated', last ? last.year : '');
   }
 
-  // 5. Debt level, quarterly since 2009
+  // 4. Debt level, quarterly, past 5 years
   const c5 = document.getElementById('debt-chart');
   if (c5) {
     const debt = nvLineDataset('Gross debt', qPoints(lastNYears(F.debt, 5)), { color: palette.accent, fill: false });
@@ -168,7 +159,7 @@ function initFiscalCharts() {
     setBadge('debt-updated', last ? last.quarter : '');
   }
 
-  // 6. Interest expenditure, trailing 4 quarters, since 2000 (NSA)
+  // 5. Interest expenditure, trailing 4 quarters, past 5 years (NSA)
   const c6 = document.getElementById('interest-chart');
   if (c6) {
     const int = nvLineDataset('Interest (trailing 4 quarters)', trailing4(lastNYears(F.interest, 5)), { color: palette.accent, fill: false });
