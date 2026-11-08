@@ -161,7 +161,7 @@ function initFiscalCharts() {
   // 6. Interest expenditure, trailing 4 quarters, since 2000 (NSA)
   const c6 = document.getElementById('interest-chart');
   if (c6) {
-    const int = nvLineDataset('Interest (trailing 4 quarters)', trailing4(F.interest), { color: palette.negative, fill: false });
+    const int = nvLineDataset('Interest (trailing 4 quarters)', trailing4(F.interest), { color: palette.accent, fill: false });
     new Chart(c6, quarterlyLineConfig([int], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
     const last = F.interest[F.interest.length - 1];
     setBadge('interest-updated', last ? last.quarter : '');

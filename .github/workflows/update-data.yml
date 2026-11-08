@@ -39,6 +39,7 @@ jobs:
           python3 scripts/validate_data.py
           for f in data/*.js *.js; do node --check "$f" || exit 1; done
           node tests/dom-harness.js
+          node tests/palette-audit.js
 
       - name: Commit and push if data changed
         run: |

@@ -93,7 +93,7 @@ function initCharts() {
       datasets.push(nvLineDataset('Unemployment rate (15-74)', lastNYearsMonthly(mu, 5).map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#3E7C59', fill: false }));
     }
     if (youth.length) {
-      datasets.push(nvLineDataset('Youth unemployment (15-24)', lastNYearsMonthly(youth, 5).map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#8C5A7A', fill: false }));
+      datasets.push(nvLineDataset('Youth unemployment (15-24)', lastNYearsMonthly(youth, 5).map((d) => ({ x: monthToDate(d.month).getTime(), y: d.value })), { color: '#E8A33D', fill: false }));
     }
     const config = quarterlyLineConfig(datasets, {
       yTitle: '%',
@@ -309,7 +309,7 @@ function dualAxisLevelChangeConfig(records, opts = {}) {
   const change = nvLineDataset(
     'Quarterly change (%)',
     five.filter((d) => d.qoq !== null).map((d) => ({ x: quarterToDate(d.quarter).getTime(), y: d.qoq })),
-    { color: '#8C5A7A', fill: false }
+    { color: '#E8A33D', fill: false }
   );
   change.yAxisID = 'yChange';
   const config = quarterlyLineConfig([level, change], {

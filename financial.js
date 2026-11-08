@@ -165,7 +165,7 @@ function initFinancialCharts() {
   if (c5 && F.credit) {
     const datasets = [];
     if (F.credit.hh_house_outstanding) datasets.push(nvLineDataset('House purchase loans (households)', mPoints(F.credit.hh_house_outstanding, 'value'), { color: palette.accent, fill: false }));
-    if (F.credit.nfc_outstanding) datasets.push(nvLineDataset('Loans to non-financial corporations', mPoints(F.credit.nfc_outstanding, 'value'), { color: '#4A6FA5', fill: false }));
+    if (F.credit.nfc_outstanding) datasets.push(nvLineDataset('Loans to non-financial corporations', mPoints(F.credit.nfc_outstanding, 'value'), { color: '#E8A33D', fill: false }));
     if (datasets.length) {
       new Chart(c5, monthlyLineConfig(datasets, { yTitle: '\u20acm', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
       setBadge('loans-updated', monthLabel(F.credit.hh_house_outstanding[F.credit.hh_house_outstanding.length - 1].month));
