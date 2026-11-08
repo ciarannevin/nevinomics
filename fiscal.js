@@ -197,8 +197,8 @@ function initFiscalCharts() {
         plugins: {
           legend: {
             display: true,
-            position: 'bottom',
-            maxWidth: 340,
+            position: 'right',
+            maxWidth: 220,
             padding: 4,
             labels: { boxWidth: 10, padding: 8, font: { size: 11 }, usePointStyle: true },
           },
