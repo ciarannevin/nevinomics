@@ -106,11 +106,11 @@ function initFiscalCharts() {
   };
   const palette = NEVINOMICS;
   const fmtBn = (v) => `€${(v / 1000).toFixed(1)}bn`;
+  const toBn = (pts) => pts.map((p) => ({ x: p.x, y: p.y / 1000 }));
 
   // 1. Government revenue vs expenditure, past 5 years (SA), EUR billions
   const c1 = document.getElementById('revexp-chart');
   if (c1) {
-    const toBn = (pts) => pts.map((p) => ({ x: p.x, y: p.y / 1000 }));
     const rev = nvLineDataset('Revenue', toBn(qPoints(lastNYears(F.revenue_sa, 5))), { color: palette.accent, fill: false });
     const exp = nvLineDataset('Expenditure', toBn(qPoints(lastNYears(F.expenditure_sa, 5))), { color: '#E8A33D', fill: false });
     new Chart(c1, quarterlyLineConfig([rev, exp], {
@@ -122,12 +122,16 @@ function initFiscalCharts() {
     setBadge('revexp-updated', last ? last.quarter : '');
   }
 
-  // 2. Balance and primary balance, trailing 4 quarters (NSA)
+  // 2. Government balance (overall and primary), trailing 4 quarters (NSA), EUR billions
   const c3 = document.getElementById('primary-chart');
   if (c3) {
-    const overall = nvLineDataset('Overall balance', trailing4(lastNYears(F.balance, 5)), { color: palette.accent, fill: false });
-    const primary = nvLineDataset('Primary balance', trailing4(lastNYears(F.primary_balance, 5)), { color: '#E8A33D', fill: false });
-    new Chart(c3, quarterlyLineConfig([overall, primary], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
+    const overall = nvLineDataset('Overall balance', toBn(trailing4(lastNYears(F.balance, 5))), { color: palette.accent, fill: false });
+    const primary = nvLineDataset('Primary balance', toBn(trailing4(lastNYears(F.primary_balance, 5))), { color: '#E8A33D', fill: false });
+    new Chart(c3, quarterlyLineConfig([overall, primary], {
+      yTitle: '€bn',
+      yTicks: (v) => v.toLocaleString('en-IE', { maximumFractionDigits: 1 }),
+      tooltipLabel: (i) => `${i.dataset.label}: €${i.parsed.y.toFixed(1)}bn`,
+    }));
     const last = F.primary_balance[F.primary_balance.length - 1];
     setBadge('primary-updated', last ? last.quarter : '');
   }
