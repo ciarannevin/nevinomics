@@ -107,12 +107,17 @@ function initFiscalCharts() {
   const palette = NEVINOMICS;
   const fmtBn = (v) => `€${(v / 1000).toFixed(1)}bn`;
 
-  // 1. Revenue vs expenditure, past 5 years (SA)
+  // 1. Government revenue vs expenditure, past 5 years (SA), EUR billions
   const c1 = document.getElementById('revexp-chart');
   if (c1) {
-    const rev = nvLineDataset('Revenue', qPoints(lastNYears(F.revenue_sa, 5)), { color: palette.accent, fill: false });
-    const exp = nvLineDataset('Expenditure', qPoints(lastNYears(F.expenditure_sa, 5)), { color: '#E8A33D', fill: false });
-    new Chart(c1, quarterlyLineConfig([rev, exp], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
+    const toBn = (pts) => pts.map((p) => ({ x: p.x, y: p.y / 1000 }));
+    const rev = nvLineDataset('Revenue', toBn(qPoints(lastNYears(F.revenue_sa, 5))), { color: palette.accent, fill: false });
+    const exp = nvLineDataset('Expenditure', toBn(qPoints(lastNYears(F.expenditure_sa, 5))), { color: '#E8A33D', fill: false });
+    new Chart(c1, quarterlyLineConfig([rev, exp], {
+      yTitle: '€bn',
+      yTicks: (v) => v.toLocaleString('en-IE', { maximumFractionDigits: 0 }),
+      tooltipLabel: (i) => `${i.dataset.label}: €${i.parsed.y.toFixed(1)}bn`,
+    }));
     const last = F.revenue_sa[F.revenue_sa.length - 1];
     setBadge('revexp-updated', last ? last.quarter : '');
   }
