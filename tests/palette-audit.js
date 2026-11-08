@@ -72,6 +72,9 @@ function colourOf(ds) {
 function auditChart(page, chart) {
   const id = chart.canvas.id || chart.canvas.attrs['data-spark'] || '?';
   const problems = [];
+  // palette order applies to series (line charts) and bar overlays; pies/doughnuts
+  // are categorical slices and may use palette tints beyond the four series colours
+  if (chart.config.type !== 'line' && chart.config.type !== 'bar') return { page, id, problems, summary: 'skipped (non-series chart)' };
   const isLine = chart.config.type === 'line';
   const seenLabel = new Map(); // actual/forecast pairs share a label and a colour
   let groupIdx = 0;

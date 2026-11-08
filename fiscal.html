@@ -71,11 +71,11 @@
 
       <section class="card">
         <div class="card-header">
-          <h2>Interest expenditure, quarterly</h2>
-          <span class="badge live" id="interest-q-updated"></span>
+          <h2>Gross national debt by instrument</h2>
+          <span class="badge live" id="debt-pie-updated"></span>
         </div>
-        <div class="chart-wrap"><canvas id="interest-q-chart"></canvas></div>
-        <p class="footnote">General government interest expenditure (excluding FISIM), quarterly, not seasonally adjusted, EUR millions, past 5 years. Source: Central Statistics Office (<a href="https://data.cso.ie" target="_blank" rel="noopener">Table GFQ01</a>).</p>
+        <div class="chart-wrap"><canvas id="debt-pie-chart"></canvas></div>
+        <p class="footnote">Gross National Debt by instrument, EUR billions. Source: <a href="https://www.ntma.ie/business-areas/funding-and-debt-management/statistics" target="_blank" rel="noopener">NTMA Composition of Debt statistics</a> (provisional, unaudited).</p>
       </section>
     </div>
   </div>
@@ -85,6 +85,7 @@
   <script src="common.js?v=3"></script>
   <script src="data/fiscal.js?v=1"></script>
   <script src="data/forecasts.js?v=2"></script>
-  <script src="fiscal.js?v=10"></script>
+  <script src="data/ntma.js?v=1"></script>
+  <script src="fiscal.js?v=11"></script>
 </body>
 </html>

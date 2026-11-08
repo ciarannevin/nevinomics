@@ -178,13 +178,35 @@ function initFiscalCharts() {
     setBadge('interest-updated', last ? last.quarter : '');
   }
 
-  // 6. Interest expenditure, quarterly (not trailing), past 5 years (NSA), EUR millions
-  const c7 = document.getElementById('interest-q-chart');
-  if (c7) {
-    const intq = nvLineDataset('Interest (quarterly)', qPoints(lastNYears(F.interest, 5)), { color: palette.accent, fill: false });
-    new Chart(c7, quarterlyLineConfig([intq], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
-    const last = F.interest[F.interest.length - 1];
-    setBadge('interest-q-updated', last ? last.quarter : '');
+  // 6. Gross National Debt by instrument (NTMA Composition of Debt), doughnut, EUR billions
+  const c7 = document.getElementById('debt-pie-chart');
+  if (c7 && typeof NTMA_DATA !== 'undefined') {
+    const PIE = ['#3E7C59', '#E8A33D', '#8C5A7A', '#4A6FA5', '#6fa287', '#f0c377', '#5b6b62', '#a8c3b5'];
+    const labels = NTMA_DATA.instruments.map((i) => i.label);
+    const vals = NTMA_DATA.instruments.map((i) => i.value_bn);
+    new Chart(c7, {
+      type: 'doughnut',
+      data: { labels, datasets: [{ data: vals, backgroundColor: PIE.slice(0, labels.length), borderColor: '#ffffff', borderWidth: 2 }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
+          tooltip: {
+            callbacks: {
+              label: (item) => {
+                const pct = ((item.parsed / NTMA_DATA.total_bn) * 100).toFixed(1);
+                return `${item.label}: €${item.parsed.toFixed(2)}bn (${pct}%)`;
+              },
+            },
+          },
+        },
+      },
+      plugins: [nevinomicsWatermark],
+    });
+    const asOf = NTMA_DATA.as_of || '';
+    const badge = asOf ? new Date(asOf + '-02T00:00:00Z').toLocaleDateString('en-IE', { month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
+    setBadge('debt-pie-updated', badge);
   }
 }
 

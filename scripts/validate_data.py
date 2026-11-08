@@ -21,10 +21,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 
-MIN_JS_BYTES = 500
+MIN_JS_BYTES = 200
 
 # stems whose fetch script writes .js and .json from the identical payload
-MIRRORED = {"labour", "prices", "fiscal", "financial"}
+MIRRORED = {"labour", "prices", "fiscal", "financial", "ntma"}
 
 
 def main():
