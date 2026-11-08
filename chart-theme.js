@@ -23,7 +23,11 @@ const nevinomicsWatermark = {
     // The mark and the text share the same midline so the lockup reads as one line.
     const m = 0.4;                          // scale: 30 -> 12
     const markSize = 30 * m;                // 12px
-    const bandMid = chartArea.bottom + 11;  // centre of the 14px tick band
+    // Line/bar charts have a 14px x-tick band below the chart area - centre the mark there.
+    // Pies/doughnuts have no tick band (that space is the legend's), so drawing below the
+    // chart area clips the mark off-canvas; use the empty top-right corner of the chart area.
+    const isPie = chart.config.type === 'doughnut' || chart.config.type === 'pie';
+    const bandMid = isPie ? chartArea.top + 11 : chartArea.bottom + 11;
     const ox = chartArea.right - textW - markSize - 6;  // mark right edge leaves 6px before text
     const oy = bandMid - markSize / 2;      // mark vertically centred in the band
     ctx.save();
