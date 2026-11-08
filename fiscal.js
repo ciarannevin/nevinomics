@@ -96,6 +96,7 @@ function initFiscalCharts() {
     return recs.filter((r) => quarterToDate(r.quarter).getTime() >= cutoff);
   };
   const lastNYearsAnnual = (recs, years) => {
+    if (!recs.length) return recs;
     const last = recs[recs.length - 1];
     const cutoff = Number(last.year) - years;
     return recs.filter((r) => Number(r.year) >= cutoff);

@@ -5,12 +5,15 @@ regenerate data/fiscal.js.
 Sources:
 - GFQ01: General Government Transactions ESA2010 (revenue, expenditure, balance B9, interest;
   seasonally adjusted variants of the first three)
-- GFQ02: General Government Net Worth, Gross and Net Debt (gross debt, EDP face value)
+- GFQ02: General Government Net Worth, Gross and Net Debt (quarterly gross debt, EDP face value)
 - NA001: Modified Gross National Income at Current Market Prices (annual nominal GDP, GNI*)
+- GFA12: annual General Government gross debt as % of GDP (official CSO ratio)
+- GFA13: annual General Government gross debt, EDP face value (for the GNI* ratio)
 
 Derived by this script (flagged as our methodology in the page footnotes):
 - primary balance = B9 + interest expenditure (non-SA, ESA concept)
-- debt/GDP and debt/GNI* annual ratios = end-year gross debt / annual nominal aggregate
+- debt/GNI* annual ratio = GFA13 end-year gross debt / NA001 GNI* (debt/GDP comes
+  directly from the official GFA12 series)
 
 Usage: python3 scripts/fetch_fiscal.py
 """
@@ -27,6 +30,8 @@ ROOT = Path(__file__).resolve().parent.parent
 GFQ01_CSV = f"{CSO}/GFQ01/CSV/1.0/en"
 GFQ02_CSV = f"{CSO}/GFQ02/CSV/1.0/en"
 NA001_CSV = f"{CSO}/NA001/CSV/1.0/en"
+GFA12_CSV = f"{CSO}/GFA12/CSV/1.0/en"
+GFA13_CSV = f"{CSO}/GFA13/CSV/1.0/en"
 
 # GFQ01 item codes
 GFQ01_REVENUE = "01"        # Total revenue (NSA)
@@ -83,6 +88,8 @@ def main():
     gfq01 = fetch_csv(GFQ01_CSV)
     gfq02 = fetch_csv(GFQ02_CSV)
     na001 = fetch_csv(NA001_CSV)
+    gfa12 = fetch_csv(GFA12_CSV)
+    gfa13 = fetch_csv(GFA13_CSV)
 
     def gfq01_series(item):
         return quarter_records(gfq01, "C03144V03796", item)
@@ -110,24 +117,29 @@ def main():
         elif row["C03399V04176"] == NA001_GNI_STAR:
             gni_star[year] = float(row["VALUE"])
 
-    # annual ratios: end-year gross debt / nominal aggregate (percent)
-    debt_gdp, debt_gni = [], []
-    for year in sorted(gdp_nominal):
-        t = year * 4 + 3  # Q4 index
-        if t not in debt:
+    # annual debt/GDP ratio: official CSO series (GFA12), percent
+    debt_gdp = []
+    for row in csv.DictReader(io.StringIO(gfa12)):
+        if not row["VALUE"]:
             continue
-        d = debt[t]
-        rec = {"year": str(year), "value": round(d / gdp_nominal[year] * 100, 1)}
-        rec["yoy"] = (
-            round(rec["value"] - debt_gdp[-1]["value"], 1) if debt_gdp else None
-        )
+        rec = {"year": row["Year"], "value": round(float(row["VALUE"]), 1)}
+        rec["yoy"] = round(rec["value"] - debt_gdp[-1]["value"], 1) if debt_gdp else None
         debt_gdp.append(rec)
-        if year in gni_star:
-            rec2 = {"year": str(year), "value": round(d / gni_star[year] * 100, 1)}
-            rec2["yoy"] = (
-                round(rec2["value"] - debt_gni[-1]["value"], 1) if debt_gni else None
-            )
-            debt_gni.append(rec2)
+
+    # annual gross debt, EDP face value (GFA13), EUR millions
+    gfa13_debt = {}
+    for row in csv.DictReader(io.StringIO(gfa13)):
+        if "EDP face value" in row.get("Item", "") and row["VALUE"]:
+            gfa13_debt[int(row["Year"])] = float(row["VALUE"])
+
+    # debt/GNI*: derived = GFA13 debt / NA001 GNI* (percent)
+    debt_gni = []
+    for year in sorted(gni_star):
+        if year not in gfa13_debt:
+            continue
+        rec = {"year": str(year), "value": round(gfa13_debt[year] / gni_star[year] * 100, 1)}
+        rec["yoy"] = round(rec["value"] - debt_gni[-1]["value"], 1) if debt_gni else None
+        debt_gni.append(rec)
 
     data = {
         # quarterly flows, EUR millions
