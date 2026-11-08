@@ -110,7 +110,7 @@ function initLevelsChart() {
     plugins: [nevinomicsWatermark],
   };
   config.options.scales.y.title = { display: true, text: '%' };
-  config.options.scales.x.time.unit = 'quarter';
+  config.options.scales.x.time.unit = 'year';
   config.options.scales.x.time.tooltipFormat = 'yyyy QQQ';
   config.options.plugins.legend = {
     display: true,

@@ -140,7 +140,7 @@ function sparkSeries(key) {
     return lastNYearsMonthly(mu, 5).map((d) => ({ t: monthToDate(d.month).getTime(), y: d.value }));
   }
   if (key === 'fiscal' && typeof FISCAL_DATA !== 'undefined') {
-    return (FISCAL_DATA.balance_sa || []).filter((d) => d.value !== null).map((d) => ({ t: quarterToDate(d.quarter).getTime(), y: d.value }));
+    return lastNYears(FISCAL_DATA.balance_sa || [], 5).filter((d) => d.value !== null).map((d) => ({ t: quarterToDate(d.quarter).getTime(), y: d.value }));
   }
   if (key === 'financial' && typeof FINANCIAL_DATA !== 'undefined') {
     return lastNYearsMonthly((FINANCIAL_DATA.rates || {}).mortgage_ie || [], 5).map((d) => ({ t: monthToDate(d.month).getTime(), y: d.value }));
