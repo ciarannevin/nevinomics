@@ -156,22 +156,35 @@ function initFiscalCharts() {
     setBadge('ratios-updated', last ? last.year : '');
   }
 
-  // 4. Debt level, quarterly, past 5 years
+  // 4. Debt level, quarterly, past 5 years, EUR billions
   const c5 = document.getElementById('debt-chart');
   if (c5) {
-    const debt = nvLineDataset('Gross debt', qPoints(lastNYears(F.debt, 5)), { color: palette.accent, fill: false });
-    new Chart(c5, quarterlyLineConfig([debt], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
+    const debt = nvLineDataset('Gross debt', toBn(qPoints(lastNYears(F.debt, 5))), { color: palette.accent, fill: false });
+    new Chart(c5, quarterlyLineConfig([debt], {
+      yTitle: '€bn',
+      yTicks: (v) => v.toLocaleString('en-IE', { maximumFractionDigits: 0 }),
+      tooltipLabel: (i) => `${i.dataset.label}: €${i.parsed.y.toFixed(1)}bn`,
+    }));
     const last = F.debt[F.debt.length - 1];
     setBadge('debt-updated', last ? last.quarter : '');
   }
 
-  // 5. Interest expenditure, trailing 4 quarters, past 5 years (NSA)
+  // 5. Interest expenditure, trailing 4 quarters, past 5 years (NSA), EUR millions
   const c6 = document.getElementById('interest-chart');
   if (c6) {
     const int = nvLineDataset('Interest (trailing 4 quarters)', trailing4(lastNYears(F.interest, 5)), { color: palette.accent, fill: false });
     new Chart(c6, quarterlyLineConfig([int], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
     const last = F.interest[F.interest.length - 1];
     setBadge('interest-updated', last ? last.quarter : '');
+  }
+
+  // 6. Interest expenditure, quarterly (not trailing), past 5 years (NSA), EUR millions
+  const c7 = document.getElementById('interest-q-chart');
+  if (c7) {
+    const intq = nvLineDataset('Interest (quarterly)', qPoints(lastNYears(F.interest, 5)), { color: palette.accent, fill: false });
+    new Chart(c7, quarterlyLineConfig([intq], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
+    const last = F.interest[F.interest.length - 1];
+    setBadge('interest-q-updated', last ? last.quarter : '');
   }
 }
 
