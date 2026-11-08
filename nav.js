@@ -2,14 +2,6 @@
 
 (function () {
   const pages = [
-    { href: 'index.html', label: 'Home' },
-    { href: 'output.html', label: 'Output' },
-    { href: 'labour.html', label: 'Labour' },
-    { href: 'prices.html', label: 'Prices' },
-    { href: 'fiscal.html', label: 'Fiscal' },
-    { href: 'financial.html', label: 'Financial' },
-    { href: 'global.html', label: 'Global' },
-    { href: 'about.html', label: 'About' },
     { href: 'preview.html', label: 'Preview' },
   ];
 
@@ -24,7 +16,7 @@
     const current = currentPage();
     bar.innerHTML =
       '<div class="topbar-inner">' +
-      '<a class="wordmark" href="index.html">' +
+      '<a class="wordmark" href="preview.html">' +
       '<svg class="brand-mark" width="22" height="22" viewBox="0 0 30 30" aria-hidden="true">' +
       '<path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/>' +
       '<circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/>' +
@@ -48,7 +40,7 @@
     footer.innerHTML =
       '<div class="inner">' +
       '<div class="footer-row">' +
-      '<a class="wordmark" href="index.html">' +
+      '<a class="wordmark" href="preview.html">' +
       '<svg class="brand-mark" width="22" height="22" viewBox="0 0 30 30" aria-hidden="true">' +
       '<path d="M8 25 V5 L22 25 V5" fill="none" stroke="#1a1a1a" stroke-width="3.6" stroke-linecap="square"/>' +
       '<circle cx="19.6" cy="7.4" r="3.4" fill="rgba(62,124,89,0.6)"/>' +
