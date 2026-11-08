@@ -106,7 +106,7 @@ function initFiscalCharts() {
   const c1 = document.getElementById('revexp-chart');
   if (c1) {
     const rev = nvLineDataset('Revenue', qPoints(lastNYears(F.revenue_sa, 5)), { color: palette.accent, fill: false });
-    const exp = nvLineDataset('Expenditure', qPoints(lastNYears(F.expenditure_sa, 5)), { color: '#4A6FA5', fill: false });
+    const exp = nvLineDataset('Expenditure', qPoints(lastNYears(F.expenditure_sa, 5)), { color: '#E8A33D', fill: false });
     new Chart(c1, quarterlyLineConfig([rev, exp], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
     const last = F.revenue_sa[F.revenue_sa.length - 1];
     setBadge('revexp-updated', last ? last.quarter : '');
@@ -135,9 +135,9 @@ function initFiscalCharts() {
   const c4 = document.getElementById('ratios-chart');
   if (c4) {
     const yPoints = (recs) => recs.map((r) => ({ x: Date.UTC(Number(r.year), 0, 1), y: r.value }));
-    const gdp = nvLineDataset('Debt to GDP', yPoints(F.debt_gdp), { color: '#4A6FA5', fill: false });
     const gni = nvLineDataset('Debt to GNI*', yPoints(F.debt_gni_star), { color: palette.accent, fill: false });
-    const cfg = quarterlyLineConfig([gdp, gni], {
+    const gdp = nvLineDataset('Debt to GDP', yPoints(F.debt_gdp), { color: '#E8A33D', fill: false });
+    const cfg = quarterlyLineConfig([gni, gdp], {
       yTitle: '%',
       tooltipLabel: (i) => {
         const d = new Date(i.parsed.x);
