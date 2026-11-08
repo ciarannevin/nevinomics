@@ -64,6 +64,15 @@ Conventions and lessons learned while building the Output page. Apply these on e
 - **Python fetch scripts share `scripts/cso_common.py`**: `quarter_index`, `quarter_label`, `pct_change_levels` (ratio % changes), `pp_change_levels` (pp differences for rates), `year_window`.
 - **PxStat quirks**: SA statistics in EHQ03/EHQ04 and occupation rows in EHQ53 are EMPTY in the API; SA earnings live in EHQ08, occupation earnings in EHQ57. EHQ59 uses NACE Rev 2.1 title-case labels - `sectorLabel` normalises both styles.
 
+## Chart windows & axes (Nov 2026)
+
+- **Time-series charts show the latest 5 years by default** (`lastNYears*` helpers). A longer
+  window only when the site owner explicitly specifies it - a footnote written by the builder does
+  NOT count as a specification. Enforced by `tests/window-audit.js` (allowlist inside for
+  owner-specified exceptions).
+- **X-axis is year-only on all time charts** (`scales.x.time.unit = 'year'`); quarter/month detail
+  stays in tooltips. Also enforced by `tests/window-audit.js`.
+
 ## Chart palette (selected Oct 2026)
 
 **Nordic botanical** — series colours in order:

@@ -95,6 +95,11 @@ function initFiscalCharts() {
     const cutoff = Date.now() - years * 365.25 * 24 * 3600 * 1000;
     return recs.filter((r) => quarterToDate(r.quarter).getTime() >= cutoff);
   };
+  const lastNYearsAnnual = (recs, years) => {
+    const last = recs[recs.length - 1];
+    const cutoff = Number(last.year) - years;
+    return recs.filter((r) => Number(r.year) >= cutoff);
+  };
   const setBadge = (id, text) => {
     const el = document.getElementById(id);
     if (el) el.textContent = text;
@@ -115,7 +120,7 @@ function initFiscalCharts() {
   // 2. Government balance, trailing 4 quarters, since 2000 (SA)
   const c2 = document.getElementById('balance-chart');
   if (c2) {
-    const bal = nvLineDataset('Balance (trailing 4 quarters)', trailing4(F.balance_sa), { color: palette.accent });
+    const bal = nvLineDataset('Balance (trailing 4 quarters)', trailing4(lastNYears(F.balance_sa, 5)), { color: palette.accent });
     new Chart(c2, quarterlyLineConfig([bal], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
     const last = F.balance_sa[F.balance_sa.length - 1];
     setBadge('balance-updated', last ? last.quarter : '');
@@ -124,8 +129,8 @@ function initFiscalCharts() {
   // 3. Balance and primary balance, trailing 4 quarters, since 2000 (NSA)
   const c3 = document.getElementById('primary-chart');
   if (c3) {
-    const overall = nvLineDataset('Overall balance', trailing4(F.balance), { color: palette.accent, fill: false });
-    const primary = nvLineDataset('Primary balance', trailing4(F.primary_balance), { color: '#E8A33D', fill: false });
+    const overall = nvLineDataset('Overall balance', trailing4(lastNYears(F.balance, 5)), { color: palette.accent, fill: false });
+    const primary = nvLineDataset('Primary balance', trailing4(lastNYears(F.primary_balance, 5)), { color: '#E8A33D', fill: false });
     new Chart(c3, quarterlyLineConfig([overall, primary], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
     const last = F.primary_balance[F.primary_balance.length - 1];
     setBadge('primary-updated', last ? last.quarter : '');
@@ -135,8 +140,8 @@ function initFiscalCharts() {
   const c4 = document.getElementById('ratios-chart');
   if (c4) {
     const yPoints = (recs) => recs.map((r) => ({ x: Date.UTC(Number(r.year), 0, 1), y: r.value }));
-    const gni = nvLineDataset('Debt to GNI*', yPoints(F.debt_gni_star), { color: palette.accent, fill: false });
-    const gdp = nvLineDataset('Debt to GDP', yPoints(F.debt_gdp), { color: '#E8A33D', fill: false });
+    const gni = nvLineDataset('Debt to GNI*', yPoints(lastNYearsAnnual(F.debt_gni_star, 5)), { color: palette.accent, fill: false });
+    const gdp = nvLineDataset('Debt to GDP', yPoints(lastNYearsAnnual(F.debt_gdp, 5)), { color: '#E8A33D', fill: false });
     const cfg = quarterlyLineConfig([gni, gdp], {
       yTitle: '%',
       tooltipLabel: (i) => {
@@ -152,7 +157,7 @@ function initFiscalCharts() {
   // 5. Debt level, quarterly since 2009
   const c5 = document.getElementById('debt-chart');
   if (c5) {
-    const debt = nvLineDataset('Gross debt', qPoints(F.debt), { color: palette.accent, fill: false });
+    const debt = nvLineDataset('Gross debt', qPoints(lastNYears(F.debt, 5)), { color: palette.accent, fill: false });
     new Chart(c5, quarterlyLineConfig([debt], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
     const last = F.debt[F.debt.length - 1];
     setBadge('debt-updated', last ? last.quarter : '');
@@ -161,7 +166,7 @@ function initFiscalCharts() {
   // 6. Interest expenditure, trailing 4 quarters, since 2000 (NSA)
   const c6 = document.getElementById('interest-chart');
   if (c6) {
-    const int = nvLineDataset('Interest (trailing 4 quarters)', trailing4(F.interest), { color: palette.accent, fill: false });
+    const int = nvLineDataset('Interest (trailing 4 quarters)', trailing4(lastNYears(F.interest, 5)), { color: palette.accent, fill: false });
     new Chart(c6, quarterlyLineConfig([int], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
     const last = F.interest[F.interest.length - 1];
     setBadge('interest-updated', last ? last.quarter : '');

@@ -88,9 +88,11 @@ function initFinancialCharts() {
   const palette = NEVINOMICS;
   const fmtBn = (v) => `\u20ac${(v / 1000).toFixed(1)}bn`;
 
+  const last5 = (recs) => lastNYearsMonthly(recs, 5);
   const mPoints = (recs, field) =>
     recs.filter((r) => r[field] !== null && r[field] !== undefined).map((r) => ({ x: monthToDate(r.month).getTime(), y: r[field] }));
   const dPoints = (recs) => recs.map((r) => ({ x: new Date(r.date + 'T00:00:00Z').getTime(), y: r.value }));
+  const fiveYearsAgo = Date.now() - 5 * 365.25 * 24 * 3600 * 1000;
 
   // Monthly line chart with month tooltip titles (prices-page pattern).
   const monthlyLineConfig = (datasets, opts = {}) => {
@@ -109,8 +111,8 @@ function initFinancialCharts() {
   // 1. ECB policy rates, daily since 2015
   const c1 = document.getElementById('policy-chart');
   if (c1 && F.policy && F.policy.dfr && F.policy.mro) {
-    const dfr = nvLineDataset('Deposit facility rate', dPoints(F.policy.dfr), { color: palette.accent, fill: false });
-    const mro = nvLineDataset('Main refinancing rate', dPoints(F.policy.mro), { color: '#E8A33D', fill: false });
+    const dfr = nvLineDataset('Deposit facility rate', dPoints(F.policy.dfr).filter((p) => p.x >= fiveYearsAgo), { color: palette.accent, fill: false });
+    const mro = nvLineDataset('Main refinancing rate', dPoints(F.policy.mro).filter((p) => p.x >= fiveYearsAgo), { color: '#E8A33D', fill: false });
     const cfg = monthlyLineConfig([dfr, mro], {
       yTitle: '% per annum',
       tooltipFormat: 'dd MMM yyyy',
@@ -126,9 +128,9 @@ function initFinancialCharts() {
   const c2 = document.getElementById('lending-hh-chart');
   if (c2 && F.rates) {
     const datasets = [];
-    if (F.rates.mortgage_ie) datasets.push(nvLineDataset('Mortgages (Ireland)', mPoints(F.rates.mortgage_ie, 'value'), { color: palette.accent, fill: false }));
-    if (F.rates.consumer_ie) datasets.push(nvLineDataset('Consumer credit (Ireland)', mPoints(F.rates.consumer_ie, 'value'), { color: '#E8A33D', fill: false }));
-    if (F.rates.mortgage_ea) datasets.push(nvLineDataset('Mortgages (euro area)', mPoints(F.rates.mortgage_ea, 'value'), { color: '#8C5A7A', fill: false }));
+    if (F.rates.mortgage_ie) datasets.push(nvLineDataset('Mortgages (Ireland)', mPoints(last5(F.rates.mortgage_ie), 'value'), { color: palette.accent, fill: false }));
+    if (F.rates.consumer_ie) datasets.push(nvLineDataset('Consumer credit (Ireland)', mPoints(last5(F.rates.consumer_ie), 'value'), { color: '#E8A33D', fill: false }));
+    if (F.rates.mortgage_ea) datasets.push(nvLineDataset('Mortgages (euro area)', mPoints(last5(F.rates.mortgage_ea), 'value'), { color: '#8C5A7A', fill: false }));
     if (datasets.length) {
       new Chart(c2, monthlyLineConfig(datasets, { yTitle: '%, annualised agreed rate' }));
       setBadge('lending-hh-updated', monthLabel(F.rates.mortgage_ie[F.rates.mortgage_ie.length - 1].month));
@@ -139,8 +141,8 @@ function initFinancialCharts() {
   const c3 = document.getElementById('lending-nfc-chart');
   if (c3 && F.rates) {
     const datasets = [];
-    if (F.rates.loans_nfc_ie) datasets.push(nvLineDataset('Corporate loans (Ireland)', mPoints(F.rates.loans_nfc_ie, 'value'), { color: palette.accent, fill: false }));
-    if (F.rates.loans_nfc_ea) datasets.push(nvLineDataset('Corporate loans (euro area)', mPoints(F.rates.loans_nfc_ea, 'value'), { color: '#E8A33D', fill: false }));
+    if (F.rates.loans_nfc_ie) datasets.push(nvLineDataset('Corporate loans (Ireland)', mPoints(last5(F.rates.loans_nfc_ie), 'value'), { color: palette.accent, fill: false }));
+    if (F.rates.loans_nfc_ea) datasets.push(nvLineDataset('Corporate loans (euro area)', mPoints(last5(F.rates.loans_nfc_ea), 'value'), { color: '#E8A33D', fill: false }));
     if (datasets.length) {
       new Chart(c3, monthlyLineConfig(datasets, { yTitle: '%, annualised agreed rate' }));
       setBadge('lending-nfc-updated', monthLabel(F.rates.loans_nfc_ie[F.rates.loans_nfc_ie.length - 1].month));
@@ -151,9 +153,9 @@ function initFinancialCharts() {
   const c4 = document.getElementById('deposits-chart');
   if (c4 && F.rates) {
     const datasets = [];
-    if (F.rates.dep_overnight_ie) datasets.push(nvLineDataset('Overnight deposits (Ireland)', mPoints(F.rates.dep_overnight_ie, 'value'), { color: palette.accent, fill: false }));
-    if (F.rates.dep_agreed_ie) datasets.push(nvLineDataset('Agreed-maturity deposits (Ireland)', mPoints(F.rates.dep_agreed_ie, 'value'), { color: '#E8A33D', fill: false }));
-    if (F.rates.dep_overnight_ea) datasets.push(nvLineDataset('Overnight deposits (euro area)', mPoints(F.rates.dep_overnight_ea, 'value'), { color: '#8C5A7A', fill: false }));
+    if (F.rates.dep_overnight_ie) datasets.push(nvLineDataset('Overnight deposits (Ireland)', mPoints(last5(F.rates.dep_overnight_ie), 'value'), { color: palette.accent, fill: false }));
+    if (F.rates.dep_agreed_ie) datasets.push(nvLineDataset('Agreed-maturity deposits (Ireland)', mPoints(last5(F.rates.dep_agreed_ie), 'value'), { color: '#E8A33D', fill: false }));
+    if (F.rates.dep_overnight_ea) datasets.push(nvLineDataset('Overnight deposits (euro area)', mPoints(last5(F.rates.dep_overnight_ea), 'value'), { color: '#8C5A7A', fill: false }));
     if (datasets.length) {
       new Chart(c4, monthlyLineConfig(datasets, { yTitle: '%, annualised agreed rate' }));
       setBadge('deposits-updated', monthLabel(F.rates.dep_overnight_ie[F.rates.dep_overnight_ie.length - 1].month));
@@ -164,8 +166,8 @@ function initFinancialCharts() {
   const c5 = document.getElementById('loans-chart');
   if (c5 && F.credit) {
     const datasets = [];
-    if (F.credit.hh_house_outstanding) datasets.push(nvLineDataset('House purchase loans (households)', mPoints(F.credit.hh_house_outstanding, 'value'), { color: palette.accent, fill: false }));
-    if (F.credit.nfc_outstanding) datasets.push(nvLineDataset('Loans to non-financial corporations', mPoints(F.credit.nfc_outstanding, 'value'), { color: '#E8A33D', fill: false }));
+    if (F.credit.hh_house_outstanding) datasets.push(nvLineDataset('House purchase loans (households)', mPoints(last5(F.credit.hh_house_outstanding), 'value'), { color: palette.accent, fill: false }));
+    if (F.credit.nfc_outstanding) datasets.push(nvLineDataset('Loans to non-financial corporations', mPoints(last5(F.credit.nfc_outstanding), 'value'), { color: '#E8A33D', fill: false }));
     if (datasets.length) {
       new Chart(c5, monthlyLineConfig(datasets, { yTitle: '\u20acm', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
       setBadge('loans-updated', monthLabel(F.credit.hh_house_outstanding[F.credit.hh_house_outstanding.length - 1].month));
@@ -176,8 +178,8 @@ function initFinancialCharts() {
   const c6 = document.getElementById('growth-chart');
   if (c6 && F.credit) {
     const datasets = [];
-    if (F.credit.hh_house_outstanding) datasets.push(nvLineDataset('House purchase loans (households)', mPoints(F.credit.hh_house_outstanding, 'yoy'), { color: palette.accent, fill: false }));
-    if (F.credit.nfc_outstanding) datasets.push(nvLineDataset('Loans to non-financial corporations', mPoints(F.credit.nfc_outstanding, 'yoy'), { color: '#E8A33D', fill: false }));
+    if (F.credit.hh_house_outstanding) datasets.push(nvLineDataset('House purchase loans (households)', mPoints(last5(F.credit.hh_house_outstanding), 'yoy'), { color: palette.accent, fill: false }));
+    if (F.credit.nfc_outstanding) datasets.push(nvLineDataset('Loans to non-financial corporations', mPoints(last5(F.credit.nfc_outstanding), 'yoy'), { color: '#E8A33D', fill: false }));
     if (datasets.length) {
       new Chart(c6, monthlyLineConfig(datasets, { yTitle: 'Annual growth, %', tooltipLabel: (i) => `${i.dataset.label}: ${i.parsed.y.toFixed(1)}%` }));
       setBadge('growth-updated', monthLabel(F.credit.nfc_outstanding[F.credit.nfc_outstanding.length - 1].month));
@@ -187,7 +189,7 @@ function initFinancialCharts() {
   // 7. Net mortgage lending, trailing 3 months, EUR m
   const c7 = document.getElementById('flows-chart');
   if (c7 && F.credit && F.credit.hh_house_flows) {
-    const flows = F.credit.hh_house_flows;
+    const flows = last5(F.credit.hh_house_flows);
     const pts = [];
     for (let i = 2; i < flows.length; i++) {
       const sum = flows[i].value + flows[i - 1].value + flows[i - 2].value;
