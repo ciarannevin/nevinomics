@@ -169,11 +169,15 @@ function initFiscalCharts() {
     setBadge('debt-updated', last ? last.quarter : '');
   }
 
-  // 5. Interest expenditure, trailing 4 quarters, past 5 years (NSA), EUR millions
+  // 5. Interest expenditure, trailing 4 quarters, past 5 years (NSA), EUR billions
   const c6 = document.getElementById('interest-chart');
   if (c6) {
-    const int = nvLineDataset('Interest (trailing 4 quarters)', trailing4(lastNYears(F.interest, 5)), { color: palette.accent, fill: false });
-    new Chart(c6, quarterlyLineConfig([int], { yTitle: '€m', tooltipLabel: (i) => `${i.dataset.label}: ${fmtBn(i.parsed.y)}` }));
+    const int = nvLineDataset('Interest (trailing 4 quarters)', toBn(trailing4(lastNYears(F.interest, 5))), { color: palette.accent, fill: false });
+    new Chart(c6, quarterlyLineConfig([int], {
+      yTitle: '€bn',
+      yTicks: (v) => v.toLocaleString('en-IE', { maximumFractionDigits: 1 }),
+      tooltipLabel: (i) => `${i.dataset.label}: €${i.parsed.y.toFixed(2)}bn`,
+    }));
     const last = F.interest[F.interest.length - 1];
     setBadge('interest-updated', last ? last.quarter : '');
   }
@@ -191,7 +195,13 @@ function initFiscalCharts() {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: true, position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } },
+          legend: {
+            display: true,
+            position: 'bottom',
+            maxWidth: 340,
+            padding: 4,
+            labels: { boxWidth: 10, padding: 8, font: { size: 11 }, usePointStyle: true },
+          },
           tooltip: {
             callbacks: {
               label: (item) => {
