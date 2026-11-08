@@ -145,6 +145,7 @@ function initFiscalCharts() {
     const gdp = nvLineDataset('Debt to GDP', yPoints(lastNYearsAnnual(F.debt_gdp, 5)), { color: '#E8A33D', fill: false });
     const cfg = quarterlyLineConfig([gni, gdp], {
       yTitle: '%',
+      tooltipFormat: 'yyyy',
       tooltipLabel: (i) => {
         const d = new Date(i.parsed.x);
         return `${i.dataset.label} (${d.getUTCFullYear()}): ${i.parsed.y.toFixed(1)}%`;

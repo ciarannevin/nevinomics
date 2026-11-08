@@ -215,6 +215,7 @@ function quarterlyLineConfig(datasets, opts = {}) {
   config.options.plugins.tooltip.callbacks = {
     title: (items) => {
       const d = new Date(items[0].parsed.x);
+      if (opts.tooltipFormat === 'yyyy') return `${d.getUTCFullYear()}`; // annual data: year only
       return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
     },
     label: opts.tooltipLabel || ((item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}${opts.unit || '%'}`),
