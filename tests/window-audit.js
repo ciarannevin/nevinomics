@@ -10,7 +10,7 @@ const path = require('path');
 const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
-const PAGES = ['index.html', 'output.html', 'labour.html', 'prices.html', 'fiscal.html', 'financial.html'];
+const PAGES = ['index.html', 'output.html', 'labour.html', 'prices.html', 'fiscal.html', 'financial.html', 'preview.html'];
 
 // charts deliberately allowed to span more than 5 years (owner-specified only)
 const LONG_WINDOW_ALLOWLIST = new Set([]);

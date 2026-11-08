@@ -15,7 +15,7 @@ const PALETTE = ['#3E7C59', '#E8A33D', '#8C5A7A', '#4A6FA5'];
 const SIGN_RICH = /^rgba\(62,124,89,|^rgba\(140,90,122,|^#3E7C59$|^#8C5A7A$/; // per-point sign colours
 const NEUTRAL_BAND = /^rgba\(62,124,89,/; // range-plot translucent bar band (neutral family colour)
 
-const PAGES = ['index.html', 'output.html', 'labour.html', 'prices.html', 'fiscal.html', 'financial.html'];
+const PAGES = ['index.html', 'output.html', 'labour.html', 'prices.html', 'fiscal.html', 'financial.html', 'preview.html'];
 
 function makeElement(id) {
   return {

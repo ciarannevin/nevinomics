@@ -102,6 +102,23 @@ also append the version when they regenerate - or simpler: keep versions in HTML
 on data refresh).
 
 
+## Staging nevinomics.ie via the `live` branch (Nov 2026)
+
+GitHub Pages publishes a whole branch - there is no per-page switch, and both the
+custom domain and the github.io URL serve the configured source. To stage pages
+gradually on nevinomics.ie:
+
+- The `live` branch contains only pages approved for the custom domain, plus shared
+  assets (style.css, fonts/, nav.js). It currently ships just `preview.html`.
+- Go live: repo Settings -> Pages -> Source = branch `live` (folder `/`), add custom
+  domain `nevinomics.ie`, then point DNS at GitHub Pages (ALIAS/ANAME to
+  `ciarannevin.github.io`, or the A/AAAA records GitHub lists). HTTPS cert is automatic.
+- Add a page to live: `git checkout live && git checkout main -- <page>.html <page>.js data/<data>.js ...`
+  then add its entry to the `pages` list in nav.js (on live) and push. Each push redeploys.
+- Publish everything: switch the Pages source back to `main`.
+- Note: the daily data-refresh workflow only runs on the default branch (main), so
+  copy refreshed data files into `live` when staging pages.
+
 ## Session workflow & work safety (Nov 2026)
 
 The sandbox is disposable: it can expire between sessions ("Sandbox expired: the execution

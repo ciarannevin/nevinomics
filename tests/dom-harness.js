@@ -10,7 +10,7 @@ const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 
-const PAGES = ['index.html', 'output.html', 'labour.html', 'prices.html', 'fiscal.html', 'financial.html', 'global.html', 'about.html'];
+const PAGES = ['index.html', 'output.html', 'labour.html', 'prices.html', 'fiscal.html', 'financial.html', 'global.html', 'about.html', 'preview.html'];
 
 function makeElement(id) {
   return {

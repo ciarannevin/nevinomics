@@ -10,6 +10,7 @@
     { href: 'financial.html', label: 'Financial' },
     { href: 'global.html', label: 'Global' },
     { href: 'about.html', label: 'About' },
+    { href: 'preview.html', label: 'Preview' },
   ];
 
   function currentPage() {
