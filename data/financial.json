@@ -1,6 +1,6 @@
 {
  "meta": {
-  "fetched": "2026-11-13",
+  "fetched": "2026-11-14",
   "ecb_keys": {
    "fm_dfr": "FM/D.U2.EUR.4F.KR.DFR.LEV",
    "fm_mro": "FM/D.U2.EUR.4F.KR.MRR_FR.LEV",
@@ -208,7 +208,7 @@
     "value": 2.5
    },
    {
-    "date": "2026-11-13",
+    "date": "2026-11-14",
     "value": 2.5
    }
   ],
@@ -386,7 +386,7 @@
     "value": 2.65
    },
    {
-    "date": "2026-11-13",
+    "date": "2026-11-14",
     "value": 2.65
    }
   ]
