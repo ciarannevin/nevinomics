@@ -19337,63 +19337,69 @@
    },
    {
     "quarter": "2024Q1",
-    "value": 65.4,
-    "qoq": -0.1,
-    "yoy": 0.0
+    "value": 65.5,
+    "qoq": 0.0,
+    "yoy": 0.1
    },
    {
     "quarter": "2024Q2",
     "value": 65.8,
-    "qoq": 0.4,
+    "qoq": 0.3,
     "yoy": 0.3
    },
    {
     "quarter": "2024Q3",
-    "value": 66.3,
-    "qoq": 0.5,
-    "yoy": 0.7
+    "value": 66.2,
+    "qoq": 0.4,
+    "yoy": 0.6
    },
    {
     "quarter": "2024Q4",
-    "value": 65.7,
+    "value": 65.6,
     "qoq": -0.6,
-    "yoy": 0.2
+    "yoy": 0.1
    },
    {
     "quarter": "2025Q1",
     "value": 66.3,
-    "qoq": 0.6,
-    "yoy": 0.9
+    "qoq": 0.7,
+    "yoy": 0.8
    },
    {
     "quarter": "2025Q2",
-    "value": 66.1,
-    "qoq": -0.2,
-    "yoy": 0.3
+    "value": 66.2,
+    "qoq": -0.1,
+    "yoy": 0.4
    },
    {
     "quarter": "2025Q3",
-    "value": 66.1,
-    "qoq": 0.0,
+    "value": 66.0,
+    "qoq": -0.2,
     "yoy": -0.2
    },
    {
     "quarter": "2025Q4",
-    "value": 66.0,
+    "value": 65.9,
     "qoq": -0.1,
     "yoy": 0.3
    },
    {
     "quarter": "2026Q1",
     "value": 65.6,
-    "qoq": -0.4,
+    "qoq": -0.3,
     "yoy": -0.7
    },
    {
     "quarter": "2026Q2",
-    "value": 65.7,
-    "qoq": 0.1,
+    "value": 65.8,
+    "qoq": 0.2,
     "yoy": -0.4
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 66.2,
+    "qoq": 0.4,
+    "yoy": 0.2
    }
   ],
   "male": [
@@ -19945,14 +19951,14 @@
    },
    {
     "quarter": "2020Q4",
-    "value": 67.0,
-    "qoq": 0.1,
-    "yoy": -1.9
+    "value": 66.9,
+    "qoq": 0.0,
+    "yoy": -2.0
    },
    {
     "quarter": "2021Q1",
     "value": 66.4,
-    "qoq": -0.6,
+    "qoq": -0.5,
     "yoy": -2.7
    },
    {
@@ -19971,18 +19977,18 @@
     "quarter": "2021Q4",
     "value": 70.5,
     "qoq": 0.4,
-    "yoy": 3.5
+    "yoy": 3.6
    },
    {
     "quarter": "2022Q1",
-    "value": 70.9,
-    "qoq": 0.4,
-    "yoy": 4.5
+    "value": 71.0,
+    "qoq": 0.5,
+    "yoy": 4.6
    },
    {
     "quarter": "2022Q2",
     "value": 71.0,
-    "qoq": 0.1,
+    "qoq": 0.0,
     "yoy": 1.8
    },
    {
@@ -20001,7 +20007,7 @@
     "quarter": "2023Q1",
     "value": 71.3,
     "qoq": 1.1,
-    "yoy": 0.4
+    "yoy": 0.3
    },
    {
     "quarter": "2023Q2",
@@ -20011,14 +20017,14 @@
    },
    {
     "quarter": "2023Q3",
-    "value": 70.6,
-    "qoq": 0.1,
-    "yoy": 0.2
+    "value": 70.5,
+    "qoq": 0.0,
+    "yoy": 0.1
    },
    {
     "quarter": "2023Q4",
     "value": 70.7,
-    "qoq": 0.1,
+    "qoq": 0.2,
     "yoy": 0.5
    },
    {
@@ -20029,57 +20035,63 @@
    },
    {
     "quarter": "2024Q2",
-    "value": 70.7,
-    "qoq": -0.1,
-    "yoy": 0.2
+    "value": 70.8,
+    "qoq": 0.0,
+    "yoy": 0.3
    },
    {
     "quarter": "2024Q3",
-    "value": 71.1,
-    "qoq": 0.4,
+    "value": 71.0,
+    "qoq": 0.2,
     "yoy": 0.5
    },
    {
     "quarter": "2024Q4",
     "value": 70.7,
-    "qoq": -0.4,
+    "qoq": -0.3,
     "yoy": 0.0
    },
    {
     "quarter": "2025Q1",
-    "value": 71.1,
-    "qoq": 0.4,
-    "yoy": 0.3
+    "value": 71.2,
+    "qoq": 0.5,
+    "yoy": 0.4
    },
    {
     "quarter": "2025Q2",
-    "value": 71.4,
+    "value": 71.5,
     "qoq": 0.3,
     "yoy": 0.7
    },
    {
     "quarter": "2025Q3",
-    "value": 71.0,
-    "qoq": -0.4,
-    "yoy": -0.1
+    "value": 70.8,
+    "qoq": -0.7,
+    "yoy": -0.2
    },
    {
     "quarter": "2025Q4",
     "value": 71.1,
-    "qoq": 0.1,
+    "qoq": 0.3,
     "yoy": 0.4
    },
    {
     "quarter": "2026Q1",
     "value": 70.7,
     "qoq": -0.4,
-    "yoy": -0.4
+    "yoy": -0.5
    },
    {
     "quarter": "2026Q2",
-    "value": 70.5,
-    "qoq": -0.2,
-    "yoy": -0.9
+    "value": 70.7,
+    "qoq": 0.0,
+    "yoy": -0.8
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 71.1,
+    "qoq": 0.4,
+    "yoy": 0.3
    }
   ],
   "female": [
@@ -20766,6 +20778,12 @@
     "value": 61.0,
     "qoq": 0.2,
     "yoy": 0.0
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 61.2,
+    "qoq": 0.2,
+    "yoy": 0.0
    }
   ]
  },
@@ -21037,14 +21055,14 @@
    },
    {
     "quarter": "2009Q1",
-    "value": 10.9,
-    "qoq": 2.3,
-    "yoy": 5.5
+    "value": 10.8,
+    "qoq": 2.2,
+    "yoy": 5.4
    },
    {
     "quarter": "2009Q2",
     "value": 12.6,
-    "qoq": 1.7,
+    "qoq": 1.8,
     "yoy": 6.7
    },
    {
@@ -21063,7 +21081,7 @@
     "quarter": "2010Q1",
     "value": 13.8,
     "qoq": 0.0,
-    "yoy": 2.9
+    "yoy": 3.0
    },
    {
     "quarter": "2010Q2",
@@ -21139,20 +21157,20 @@
    },
    {
     "quarter": "2013Q2",
-    "value": 14.4,
-    "qoq": -0.1,
-    "yoy": -1.1
+    "value": 14.3,
+    "qoq": -0.2,
+    "yoy": -1.2
    },
    {
     "quarter": "2013Q3",
-    "value": 13.4,
+    "value": 13.3,
     "qoq": -1.0,
-    "yoy": -2.1
+    "yoy": -2.2
    },
    {
     "quarter": "2013Q4",
     "value": 12.9,
-    "qoq": -0.5,
+    "qoq": -0.4,
     "yoy": -2.1
    },
    {
@@ -21165,13 +21183,13 @@
     "quarter": "2014Q2",
     "value": 12.2,
     "qoq": -0.6,
-    "yoy": -2.2
+    "yoy": -2.1
    },
    {
     "quarter": "2014Q3",
     "value": 11.7,
     "qoq": -0.5,
-    "yoy": -1.7
+    "yoy": -1.6
    },
    {
     "quarter": "2014Q4",
@@ -21307,14 +21325,14 @@
    },
    {
     "quarter": "2020Q2",
-    "value": 5.1,
-    "qoq": 0.2,
-    "yoy": -0.1
+    "value": 5.2,
+    "qoq": 0.3,
+    "yoy": 0.0
    },
    {
     "quarter": "2020Q3",
     "value": 7.0,
-    "qoq": 1.9,
+    "qoq": 1.8,
     "yoy": 2.0
    },
    {
@@ -21333,7 +21351,7 @@
     "quarter": "2021Q2",
     "value": 7.0,
     "qoq": -0.4,
-    "yoy": 1.9
+    "yoy": 1.8
    },
    {
     "quarter": "2021Q3",
@@ -21421,52 +21439,58 @@
    },
    {
     "quarter": "2025Q1",
-    "value": 4.5,
-    "qoq": 0.2,
-    "yoy": 0.2
+    "value": 4.4,
+    "qoq": 0.1,
+    "yoy": 0.1
    },
    {
     "quarter": "2025Q2",
     "value": 4.6,
-    "qoq": 0.1,
+    "qoq": 0.2,
     "yoy": 0.2
    },
    {
     "quarter": "2025Q3",
-    "value": 4.9,
-    "qoq": 0.3,
-    "yoy": 0.7
+    "value": 5.0,
+    "qoq": 0.4,
+    "yoy": 0.8
    },
    {
     "quarter": "2025Q4",
     "value": 4.7,
-    "qoq": -0.2,
+    "qoq": -0.3,
     "yoy": 0.4
    },
    {
     "quarter": "2026Q1",
     "value": 5.0,
     "qoq": 0.3,
-    "yoy": 0.5
+    "yoy": 0.6
    },
    {
     "quarter": "2026Q2",
     "value": 4.9,
     "qoq": -0.1,
     "yoy": 0.3
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 4.8,
+    "qoq": -0.1,
+    "yoy": -0.2
    }
   ],
   "male": [
    {
     "quarter": "1998Q1",
-    "value": 8.4,
+    "value": 8.5,
     "qoq": null,
     "yoy": null
    },
    {
     "quarter": "1998Q2",
     "value": 7.7,
-    "qoq": -0.7,
+    "qoq": -0.8,
     "yoy": null
    },
    {
@@ -21485,18 +21509,18 @@
     "quarter": "1999Q1",
     "value": 6.1,
     "qoq": -0.3,
-    "yoy": -2.3
+    "yoy": -2.4
    },
    {
     "quarter": "1999Q2",
-    "value": 5.9,
-    "qoq": -0.2,
-    "yoy": -1.8
+    "value": 5.8,
+    "qoq": -0.3,
+    "yoy": -1.9
    },
    {
     "quarter": "1999Q3",
     "value": 5.2,
-    "qoq": -0.7,
+    "qoq": -0.6,
     "yoy": -1.9
    },
    {
@@ -21515,7 +21539,7 @@
     "quarter": "2000Q2",
     "value": 4.3,
     "qoq": -0.2,
-    "yoy": -1.6
+    "yoy": -1.5
    },
    {
     "quarter": "2000Q3",
@@ -21573,14 +21597,14 @@
    },
    {
     "quarter": "2002Q4",
-    "value": 5.2,
-    "qoq": 0.6,
-    "yoy": 0.7
+    "value": 5.3,
+    "qoq": 0.7,
+    "yoy": 0.8
    },
    {
     "quarter": "2003Q1",
     "value": 5.0,
-    "qoq": -0.2,
+    "qoq": -0.3,
     "yoy": 0.4
    },
    {
@@ -21599,18 +21623,18 @@
     "quarter": "2003Q4",
     "value": 4.8,
     "qoq": -0.3,
-    "yoy": -0.4
+    "yoy": -0.5
    },
    {
     "quarter": "2004Q1",
-    "value": 5.2,
-    "qoq": 0.4,
-    "yoy": 0.2
+    "value": 5.1,
+    "qoq": 0.3,
+    "yoy": 0.1
    },
    {
     "quarter": "2004Q2",
     "value": 4.9,
-    "qoq": -0.3,
+    "qoq": -0.2,
     "yoy": 0.0
    },
    {
@@ -21629,7 +21653,7 @@
     "quarter": "2005Q1",
     "value": 4.4,
     "qoq": -0.4,
-    "yoy": -0.8
+    "yoy": -0.7
    },
    {
     "quarter": "2005Q2",
@@ -21837,33 +21861,33 @@
    },
    {
     "quarter": "2013Q4",
-    "value": 13.5,
-    "qoq": -1.1,
-    "yoy": -3.6
+    "value": 13.6,
+    "qoq": -1.0,
+    "yoy": -3.5
    },
    {
     "quarter": "2014Q1",
     "value": 13.7,
-    "qoq": 0.2,
+    "qoq": 0.1,
     "yoy": -2.1
    },
    {
     "quarter": "2014Q2",
-    "value": 13.2,
-    "qoq": -0.5,
-    "yoy": -2.3
+    "value": 13.1,
+    "qoq": -0.6,
+    "yoy": -2.4
    },
    {
     "quarter": "2014Q3",
     "value": 12.3,
-    "qoq": -0.9,
+    "qoq": -0.8,
     "yoy": -2.3
    },
    {
     "quarter": "2014Q4",
     "value": 11.7,
     "qoq": -0.6,
-    "yoy": -1.8
+    "yoy": -1.9
    },
    {
     "quarter": "2015Q1",
@@ -21875,7 +21899,7 @@
     "quarter": "2015Q2",
     "value": 10.7,
     "qoq": -0.8,
-    "yoy": -2.5
+    "yoy": -2.4
    },
    {
     "quarter": "2015Q3",
@@ -21897,14 +21921,14 @@
    },
    {
     "quarter": "2016Q2",
-    "value": 9.5,
-    "qoq": -0.5,
-    "yoy": -1.2
+    "value": 9.4,
+    "qoq": -0.6,
+    "yoy": -1.3
    },
    {
     "quarter": "2016Q3",
     "value": 8.9,
-    "qoq": -0.6,
+    "qoq": -0.5,
     "yoy": -1.4
    },
    {
@@ -21923,7 +21947,7 @@
     "quarter": "2017Q2",
     "value": 7.2,
     "qoq": -0.3,
-    "yoy": -2.3
+    "yoy": -2.2
    },
    {
     "quarter": "2017Q3",
@@ -21939,14 +21963,14 @@
    },
    {
     "quarter": "2018Q1",
-    "value": 6.0,
-    "qoq": -0.8,
-    "yoy": -1.5
+    "value": 6.1,
+    "qoq": -0.7,
+    "yoy": -1.4
    },
    {
     "quarter": "2018Q2",
     "value": 6.0,
-    "qoq": 0.0,
+    "qoq": -0.1,
     "yoy": -1.2
    },
    {
@@ -21963,14 +21987,14 @@
    },
    {
     "quarter": "2019Q1",
-    "value": 5.3,
-    "qoq": -0.4,
+    "value": 5.4,
+    "qoq": -0.3,
     "yoy": -0.7
    },
    {
     "quarter": "2019Q2",
     "value": 5.3,
-    "qoq": 0.0,
+    "qoq": -0.1,
     "yoy": -0.7
    },
    {
@@ -21987,14 +22011,14 @@
    },
    {
     "quarter": "2020Q1",
-    "value": 5.0,
-    "qoq": 0.0,
+    "value": 5.1,
+    "qoq": 0.1,
     "yoy": -0.3
    },
    {
     "quarter": "2020Q2",
     "value": 5.2,
-    "qoq": 0.2,
+    "qoq": 0.1,
     "yoy": -0.1
    },
    {
@@ -22013,7 +22037,7 @@
     "quarter": "2021Q1",
     "value": 7.4,
     "qoq": 1.0,
-    "yoy": 2.4
+    "yoy": 2.3
    },
    {
     "quarter": "2021Q2",
@@ -22035,14 +22059,14 @@
    },
    {
     "quarter": "2022Q1",
-    "value": 4.9,
-    "qoq": -0.3,
-    "yoy": -2.5
+    "value": 5.0,
+    "qoq": -0.2,
+    "yoy": -2.4
    },
    {
     "quarter": "2022Q2",
     "value": 4.2,
-    "qoq": -0.7,
+    "qoq": -0.8,
     "yoy": -2.8
    },
    {
@@ -22061,7 +22085,7 @@
     "quarter": "2023Q1",
     "value": 4.5,
     "qoq": 0.2,
-    "yoy": -0.4
+    "yoy": -0.5
    },
    {
     "quarter": "2023Q2",
@@ -22089,14 +22113,14 @@
    },
    {
     "quarter": "2024Q2",
-    "value": 4.4,
-    "qoq": 0.2,
-    "yoy": 0.1
+    "value": 4.3,
+    "qoq": 0.1,
+    "yoy": 0.0
    },
    {
     "quarter": "2024Q3",
     "value": 4.1,
-    "qoq": -0.3,
+    "qoq": -0.2,
     "yoy": -0.4
    },
    {
@@ -22113,14 +22137,14 @@
    },
    {
     "quarter": "2025Q2",
-    "value": 4.8,
-    "qoq": 0.3,
+    "value": 4.7,
+    "qoq": 0.2,
     "yoy": 0.4
    },
    {
     "quarter": "2025Q3",
     "value": 5.0,
-    "qoq": 0.2,
+    "qoq": 0.3,
     "yoy": 0.9
    },
    {
@@ -22131,15 +22155,21 @@
    },
    {
     "quarter": "2026Q1",
-    "value": 4.8,
-    "qoq": 0.1,
-    "yoy": 0.3
+    "value": 4.9,
+    "qoq": 0.2,
+    "yoy": 0.4
    },
    {
     "quarter": "2026Q2",
     "value": 4.7,
-    "qoq": -0.1,
-    "yoy": -0.1
+    "qoq": -0.2,
+    "yoy": 0.0
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 4.7,
+    "qoq": 0.0,
+    "yoy": -0.3
    }
   ],
   "female": [
@@ -22505,14 +22535,14 @@
    },
    {
     "quarter": "2013Q1",
-    "value": 12.9,
-    "qoq": 0.4,
-    "yoy": -0.3
+    "value": 13.0,
+    "qoq": 0.5,
+    "yoy": -0.2
    },
    {
     "quarter": "2013Q2",
     "value": 13.0,
-    "qoq": 0.1,
+    "qoq": 0.0,
     "yoy": 0.4
    },
    {
@@ -22531,7 +22561,7 @@
     "quarter": "2014Q1",
     "value": 11.8,
     "qoq": -0.2,
-    "yoy": -1.1
+    "yoy": -1.2
    },
    {
     "quarter": "2014Q2",
@@ -22709,62 +22739,62 @@
    },
    {
     "quarter": "2021Q3",
-    "value": 5.3,
-    "qoq": -1.6,
-    "yoy": -2.1
+    "value": 5.4,
+    "qoq": -1.5,
+    "yoy": -2.0
    },
    {
     "quarter": "2021Q4",
     "value": 5.2,
-    "qoq": -0.1,
+    "qoq": -0.2,
     "yoy": -0.9
    },
    {
     "quarter": "2022Q1",
-    "value": 4.9,
-    "qoq": -0.3,
-    "yoy": -2.5
+    "value": 4.8,
+    "qoq": -0.4,
+    "yoy": -2.6
    },
    {
     "quarter": "2022Q2",
     "value": 4.4,
-    "qoq": -0.5,
+    "qoq": -0.4,
     "yoy": -2.5
    },
    {
     "quarter": "2022Q3",
-    "value": 4.4,
-    "qoq": 0.0,
+    "value": 4.5,
+    "qoq": 0.1,
     "yoy": -0.9
    },
    {
     "quarter": "2022Q4",
     "value": 4.6,
-    "qoq": 0.2,
+    "qoq": 0.1,
     "yoy": -0.6
    },
    {
     "quarter": "2023Q1",
     "value": 3.9,
     "qoq": -0.7,
-    "yoy": -1.0
+    "yoy": -0.9
    },
    {
     "quarter": "2023Q2",
-    "value": 4.1,
-    "qoq": 0.2,
-    "yoy": -0.3
+    "value": 4.0,
+    "qoq": 0.1,
+    "yoy": -0.4
    },
    {
     "quarter": "2023Q3",
-    "value": 4.2,
-    "qoq": 0.1,
+    "value": 4.3,
+    "qoq": 0.3,
     "yoy": -0.2
    },
    {
     "quarter": "2023Q4",
     "value": 4.7,
-    "qoq": 0.5,
+    "qoq": 0.4,
     "yoy": 0.1
    },
    {
@@ -22777,18 +22807,18 @@
     "quarter": "2024Q2",
     "value": 4.4,
     "qoq": 0.0,
-    "yoy": 0.3
+    "yoy": 0.4
    },
    {
     "quarter": "2024Q3",
-    "value": 4.3,
-    "qoq": -0.1,
+    "value": 4.4,
+    "qoq": 0.0,
     "yoy": 0.1
    },
    {
     "quarter": "2024Q4",
     "value": 4.1,
-    "qoq": -0.2,
+    "qoq": -0.3,
     "yoy": -0.6
    },
    {
@@ -22799,20 +22829,20 @@
    },
    {
     "quarter": "2025Q2",
-    "value": 4.5,
-    "qoq": 0.1,
-    "yoy": 0.1
+    "value": 4.4,
+    "qoq": 0.0,
+    "yoy": 0.0
    },
    {
     "quarter": "2025Q3",
-    "value": 4.9,
-    "qoq": 0.4,
+    "value": 5.0,
+    "qoq": 0.6,
     "yoy": 0.6
    },
    {
     "quarter": "2025Q4",
     "value": 4.6,
-    "qoq": -0.3,
+    "qoq": -0.4,
     "yoy": 0.5
    },
    {
@@ -22823,126 +22853,132 @@
    },
    {
     "quarter": "2026Q2",
-    "value": 5.2,
-    "qoq": 0.0,
+    "value": 5.1,
+    "qoq": -0.1,
     "yoy": 0.7
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 4.8,
+    "qoq": -0.3,
+    "yoy": -0.2
    }
   ]
  },
  "sector_change": {
-  "quarter": "2026Q2",
+  "quarter": "2026Q3",
   "sectors": [
    {
-    "sector": "Accommodation and food service activities (I)",
-    "prev": 176.2,
-    "latest": 189.9,
-    "change": 13.7,
-    "min5": -10.4,
-    "max5": 53.0
-   },
-   {
-    "sector": "Administrative and support service activities (N)",
-    "prev": 98.5,
-    "latest": 106.8,
-    "change": 8.3,
-    "min5": -7.1,
-    "max5": 8.3
-   },
-   {
-    "sector": "Human health and social work activities (Q)",
-    "prev": 385.2,
-    "latest": 392.2,
-    "change": 7.0,
-    "min5": -9.8,
-    "max5": 17.7
+    "sector": "Education (P)",
+    "prev": 257.4,
+    "latest": 272.2,
+    "change": 14.8,
+    "min5": -7.0,
+    "max5": 15.1
    },
    {
     "sector": "Other NACE activities (R to U)",
-    "prev": 118.2,
-    "latest": 124.8,
-    "change": 6.6,
-    "min5": -8.4,
-    "max5": 17.2
+    "prev": 125.9,
+    "latest": 136.2,
+    "change": 10.3,
+    "min5": -7.7,
+    "max5": 10.3
    },
    {
-    "sector": "Information and communication (J)",
-    "prev": 172.4,
-    "latest": 174.7,
-    "change": 2.3,
-    "min5": -15.4,
-    "max5": 27.1
+    "sector": "Wholesale and retail trade, repair of motor vehicles and motorcycles (G)",
+    "prev": 317.0,
+    "latest": 324.2,
+    "change": 7.2,
+    "min5": -24.7,
+    "max5": 22.7
+   },
+   {
+    "sector": "Construction (F)",
+    "prev": 189.8,
+    "latest": 195.9,
+    "change": 6.1,
+    "min5": -17.7,
+    "max5": 19.2
    },
    {
     "sector": "Public administration and defence, compulsory social security (O)",
-    "prev": 147.1,
-    "latest": 149.2,
-    "change": 2.1,
-    "min5": -8.3,
-    "max5": 9.0
-   },
-   {
-    "sector": "Agriculture, forestry and fishing (A)",
-    "prev": 107.0,
-    "latest": 107.0,
-    "change": 0.0,
-    "min5": -14.8,
-    "max5": 8.1
-   },
-   {
-    "sector": "Transportation and storage (H)",
-    "prev": 133.2,
-    "latest": 133.0,
-    "change": -0.2,
-    "min5": -9.4,
-    "max5": 12.0
-   },
-   {
-    "sector": "Education (P)",
-    "prev": 257.1,
-    "latest": 256.7,
-    "change": -0.4,
-    "min5": -7.7,
-    "max5": 14.8
+    "prev": 149.7,
+    "latest": 152.9,
+    "change": 3.2,
+    "min5": -8.2,
+    "max5": 8.7
    },
    {
     "sector": "Financial, insurance and real estate activities (K,L)",
-    "prev": 148.7,
-    "latest": 148.2,
-    "change": -0.5,
-    "min5": -8.5,
-    "max5": 10.4
-   },
-   {
-    "sector": "Professional, scientific and technical activities (M)",
-    "prev": 188.3,
-    "latest": 186.5,
-    "change": -1.8,
-    "min5": -9.5,
-    "max5": 14.6
+    "prev": 148.3,
+    "latest": 151.4,
+    "change": 3.1,
+    "min5": -8.3,
+    "max5": 9.6
    },
    {
     "sector": "Industry (B to E)",
-    "prev": 355.5,
-    "latest": 352.9,
-    "change": -2.6,
+    "prev": 353.0,
+    "latest": 355.8,
+    "change": 2.8,
     "min5": -19.3,
     "max5": 13.0
    },
    {
-    "sector": "Wholesale and retail trade, repair of motor vehicles and motorcycles (G)",
-    "prev": 322.7,
-    "latest": 316.3,
-    "change": -6.4,
-    "min5": -24.2,
-    "max5": 22.4
+    "sector": "Human health and social work activities (Q)",
+    "prev": 392.3,
+    "latest": 394.2,
+    "change": 1.9,
+    "min5": -9.7,
+    "max5": 17.6
    },
    {
-    "sector": "Construction (F)",
-    "prev": 198.3,
-    "latest": 188.9,
-    "change": -9.4,
-    "min5": -16.7,
-    "max5": 19.4
+    "sector": "Transportation and storage (H)",
+    "prev": 132.3,
+    "latest": 130.7,
+    "change": -1.6,
+    "min5": -9.6,
+    "max5": 13.3
+   },
+   {
+    "sector": "Agriculture, forestry and fishing (A)",
+    "prev": 106.2,
+    "latest": 103.3,
+    "change": -2.9,
+    "min5": -14.2,
+    "max5": 9.2
+   },
+   {
+    "sector": "Professional, scientific and technical activities (M)",
+    "prev": 185.6,
+    "latest": 182.3,
+    "change": -3.3,
+    "min5": -9.4,
+    "max5": 14.3
+   },
+   {
+    "sector": "Information and communication (J)",
+    "prev": 174.4,
+    "latest": 170.0,
+    "change": -4.4,
+    "min5": -15.3,
+    "max5": 27.2
+   },
+   {
+    "sector": "Administrative and support service activities (N)",
+    "prev": 106.2,
+    "latest": 100.5,
+    "change": -5.7,
+    "min5": -6.4,
+    "max5": 7.9
+   },
+   {
+    "sector": "Accommodation and food service activities (I)",
+    "prev": 188.9,
+    "latest": 181.9,
+    "change": -7.0,
+    "min5": -11.5,
+    "max5": 12.2
    }
   ]
  },
@@ -23086,7 +23122,7 @@
    },
    {
     "quarter": "2006Q3",
-    "value": 2136.6
+    "value": 2136.5
    },
    {
     "quarter": "2006Q4",
@@ -23130,7 +23166,7 @@
    },
    {
     "quarter": "2009Q2",
-    "value": 2027.7
+    "value": 2027.8
    },
    {
     "quarter": "2009Q3",
@@ -23138,7 +23174,7 @@
    },
    {
     "quarter": "2009Q4",
-    "value": 1972.0
+    "value": 1971.9
    },
    {
     "quarter": "2010Q1",
@@ -23174,7 +23210,7 @@
    },
    {
     "quarter": "2012Q1",
-    "value": 1877.2
+    "value": 1877.3
    },
    {
     "quarter": "2012Q2",
@@ -23194,7 +23230,7 @@
    },
    {
     "quarter": "2013Q2",
-    "value": 1926.1
+    "value": 1926.2
    },
    {
     "quarter": "2013Q3",
@@ -23266,15 +23302,15 @@
    },
    {
     "quarter": "2017Q4",
-    "value": 2227.4
+    "value": 2227.3
    },
    {
     "quarter": "2018Q1",
-    "value": 2241.3
+    "value": 2241.2
    },
    {
     "quarter": "2018Q2",
-    "value": 2260.2
+    "value": 2260.3
    },
    {
     "quarter": "2018Q3",
@@ -23282,39 +23318,39 @@
    },
    {
     "quarter": "2018Q4",
-    "value": 2282.7
+    "value": 2282.6
    },
    {
     "quarter": "2019Q1",
-    "value": 2327.7
+    "value": 2327.6
    },
    {
     "quarter": "2019Q2",
-    "value": 2308.4
+    "value": 2308.7
    },
    {
     "quarter": "2019Q3",
-    "value": 2338.7
+    "value": 2338.6
    },
    {
     "quarter": "2019Q4",
-    "value": 2369.9
+    "value": 2369.8
    },
    {
     "quarter": "2020Q1",
-    "value": 2383.2
+    "value": 2383.0
    },
    {
     "quarter": "2020Q2",
-    "value": 2156.3
+    "value": 2156.8
    },
    {
     "quarter": "2020Q3",
-    "value": 2273.2
+    "value": 2273.0
    },
    {
     "quarter": "2020Q4",
-    "value": 2300.9
+    "value": 2300.8
    },
    {
     "quarter": "2021Q1",
@@ -23322,87 +23358,91 @@
    },
    {
     "quarter": "2021Q2",
-    "value": 2375.1
+    "value": 2375.5
    },
    {
     "quarter": "2021Q3",
-    "value": 2514.0
+    "value": 2513.6
    },
    {
     "quarter": "2021Q4",
-    "value": 2549.6
+    "value": 2549.4
    },
    {
     "quarter": "2022Q1",
-    "value": 2570.4
+    "value": 2570.7
    },
    {
     "quarter": "2022Q2",
-    "value": 2592.7
+    "value": 2593.2
    },
    {
     "quarter": "2022Q3",
-    "value": 2600.1
+    "value": 2598.9
    },
    {
     "quarter": "2022Q4",
-    "value": 2618.4
+    "value": 2618.6
    },
    {
     "quarter": "2023Q1",
-    "value": 2662.1
+    "value": 2662.8
    },
    {
     "quarter": "2023Q2",
-    "value": 2675.0
+    "value": 2675.7
    },
    {
     "quarter": "2023Q3",
-    "value": 2692.0
+    "value": 2689.5
    },
    {
     "quarter": "2023Q4",
-    "value": 2707.7
+    "value": 2708.2
    },
    {
     "quarter": "2024Q1",
-    "value": 2715.9
+    "value": 2717.2
    },
    {
     "quarter": "2024Q2",
-    "value": 2746.9
+    "value": 2748.9
    },
    {
     "quarter": "2024Q3",
-    "value": 2788.2
+    "value": 2782.9
    },
    {
     "quarter": "2024Q4",
-    "value": 2777.2
+    "value": 2778.5
    },
    {
     "quarter": "2025Q1",
-    "value": 2808.1
+    "value": 2810.1
    },
    {
     "quarter": "2025Q2",
-    "value": 2810.9
+    "value": 2814.4
    },
    {
     "quarter": "2025Q3",
-    "value": 2818.3
+    "value": 2810.6
    },
    {
     "quarter": "2025Q4",
-    "value": 2831.1
+    "value": 2832.6
    },
    {
     "quarter": "2026Q1",
-    "value": 2811.6
+    "value": 2814.3
    },
    {
     "quarter": "2026Q2",
-    "value": 2831.1
+    "value": 2836.5
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 2866.4
    }
   ],
   "male": [
@@ -23576,7 +23616,7 @@
    },
    {
     "quarter": "2008Q3",
-    "value": 1227.0
+    "value": 1227.1
    },
    {
     "quarter": "2008Q4",
@@ -23708,7 +23748,7 @@
    },
    {
     "quarter": "2016Q4",
-    "value": 1170.6
+    "value": 1170.5
    },
    {
     "quarter": "2017Q1",
@@ -23744,7 +23784,7 @@
    },
    {
     "quarter": "2019Q1",
-    "value": 1253.0
+    "value": 1253.1
    },
    {
     "quarter": "2019Q2",
@@ -23752,7 +23792,7 @@
    },
    {
     "quarter": "2019Q3",
-    "value": 1261.3
+    "value": 1261.2
    },
    {
     "quarter": "2019Q4",
@@ -23760,15 +23800,15 @@
    },
    {
     "quarter": "2020Q1",
-    "value": 1289.5
+    "value": 1289.6
    },
    {
     "quarter": "2020Q2",
-    "value": 1188.8
+    "value": 1188.9
    },
    {
     "quarter": "2020Q3",
-    "value": 1232.4
+    "value": 1232.3
    },
    {
     "quarter": "2020Q4",
@@ -23776,15 +23816,15 @@
    },
    {
     "quarter": "2021Q1",
-    "value": 1227.7
+    "value": 1227.8
    },
    {
     "quarter": "2021Q2",
-    "value": 1282.6
+    "value": 1282.7
    },
    {
     "quarter": "2021Q3",
-    "value": 1330.9
+    "value": 1330.7
    },
    {
     "quarter": "2021Q4",
@@ -23792,75 +23832,79 @@
    },
    {
     "quarter": "2022Q1",
-    "value": 1371.9
+    "value": 1372.1
    },
    {
     "quarter": "2022Q2",
-    "value": 1388.2
+    "value": 1388.3
    },
    {
     "quarter": "2022Q3",
-    "value": 1390.1
+    "value": 1389.7
    },
    {
     "quarter": "2022Q4",
-    "value": 1392.5
+    "value": 1392.7
    },
    {
     "quarter": "2023Q1",
-    "value": 1421.8
+    "value": 1422.0
    },
    {
     "quarter": "2023Q2",
-    "value": 1408.0
+    "value": 1408.2
    },
    {
     "quarter": "2023Q3",
-    "value": 1416.4
+    "value": 1415.5
    },
    {
     "quarter": "2023Q4",
-    "value": 1433.2
+    "value": 1433.7
    },
    {
     "quarter": "2024Q1",
-    "value": 1443.1
+    "value": 1443.3
    },
    {
     "quarter": "2024Q2",
-    "value": 1447.7
+    "value": 1448.5
    },
    {
     "quarter": "2024Q3",
-    "value": 1467.8
+    "value": 1465.9
    },
    {
     "quarter": "2024Q4",
-    "value": 1465.1
+    "value": 1465.9
    },
    {
     "quarter": "2025Q1",
-    "value": 1481.6
+    "value": 1481.7
    },
    {
     "quarter": "2025Q2",
-    "value": 1490.9
+    "value": 1492.5
    },
    {
     "quarter": "2025Q3",
-    "value": 1485.7
+    "value": 1482.9
    },
    {
     "quarter": "2025Q4",
-    "value": 1503.4
+    "value": 1504.4
    },
    {
     "quarter": "2026Q1",
-    "value": 1498.7
+    "value": 1498.8
    },
    {
     "quarter": "2026Q2",
-    "value": 1502.3
+    "value": 1504.6
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 1519.1
    }
   ],
   "female": [
@@ -24186,11 +24230,11 @@
    },
    {
     "quarter": "2018Q1",
-    "value": 1024.7
+    "value": 1024.6
    },
    {
     "quarter": "2018Q2",
-    "value": 1038.1
+    "value": 1038.2
    },
    {
     "quarter": "2018Q3",
@@ -24202,11 +24246,11 @@
    },
    {
     "quarter": "2019Q1",
-    "value": 1078.4
+    "value": 1078.3
    },
    {
     "quarter": "2019Q2",
-    "value": 1058.8
+    "value": 1058.9
    },
    {
     "quarter": "2019Q3",
@@ -24214,15 +24258,15 @@
    },
    {
     "quarter": "2019Q4",
-    "value": 1087.7
+    "value": 1087.6
    },
    {
     "quarter": "2020Q1",
-    "value": 1097.3
+    "value": 1097.2
    },
    {
     "quarter": "2020Q2",
-    "value": 969.7
+    "value": 969.8
    },
    {
     "quarter": "2020Q3",
@@ -24230,7 +24274,7 @@
    },
    {
     "quarter": "2020Q4",
-    "value": 1050.2
+    "value": 1050.1
    },
    {
     "quarter": "2021Q1",
@@ -24238,87 +24282,91 @@
    },
    {
     "quarter": "2021Q2",
-    "value": 1094.5
+    "value": 1094.6
    },
    {
     "quarter": "2021Q3",
-    "value": 1178.4
+    "value": 1178.3
    },
    {
     "quarter": "2021Q4",
-    "value": 1194.1
+    "value": 1194.0
    },
    {
     "quarter": "2022Q1",
-    "value": 1205.1
+    "value": 1205.2
    },
    {
     "quarter": "2022Q2",
-    "value": 1205.7
+    "value": 1205.9
    },
    {
     "quarter": "2022Q3",
-    "value": 1205.1
+    "value": 1204.8
    },
    {
     "quarter": "2022Q4",
-    "value": 1221.9
+    "value": 1221.8
    },
    {
     "quarter": "2023Q1",
-    "value": 1250.0
+    "value": 1250.1
    },
    {
     "quarter": "2023Q2",
-    "value": 1266.0
+    "value": 1266.4
    },
    {
     "quarter": "2023Q3",
-    "value": 1269.8
+    "value": 1269.4
    },
    {
     "quarter": "2023Q4",
-    "value": 1271.9
+    "value": 1271.8
    },
    {
     "quarter": "2024Q1",
-    "value": 1283.0
+    "value": 1283.2
    },
    {
     "quarter": "2024Q2",
-    "value": 1297.6
+    "value": 1298.5
    },
    {
     "quarter": "2024Q3",
-    "value": 1313.7
+    "value": 1312.7
    },
    {
     "quarter": "2024Q4",
-    "value": 1309.5
+    "value": 1309.2
    },
    {
     "quarter": "2025Q1",
-    "value": 1338.1
+    "value": 1338.3
    },
    {
     "quarter": "2025Q2",
-    "value": 1318.1
+    "value": 1319.8
    },
    {
     "quarter": "2025Q3",
-    "value": 1324.7
+    "value": 1322.9
    },
    {
     "quarter": "2025Q4",
-    "value": 1326.5
+    "value": 1326.0
    },
    {
     "quarter": "2026Q1",
-    "value": 1323.8
+    "value": 1324.2
    },
    {
     "quarter": "2026Q2",
-    "value": 1327.7
+    "value": 1330.3
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 1342.7
    }
   ]
  },
@@ -24779,6 +24827,10 @@
    {
     "quarter": "2026Q2",
     "value": 35.4
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 35.6
    }
   ],
   "male": [
@@ -25237,6 +25289,10 @@
    {
     "quarter": "2026Q2",
     "value": 38.5
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 38.7
    }
   ],
   "female": [
@@ -25695,6 +25751,10 @@
    {
     "quarter": "2026Q2",
     "value": 31.9
+   },
+   {
+    "quarter": "2026Q3",
+    "value": 32.2
    }
   ]
  },
@@ -26966,40 +27026,40 @@
  },
  "demographics": {
   "sex": {
-   "quarter": "2026Q2",
+   "quarter": "2026Q3",
    "groups": [
     {
      "group": "Male",
      "rate": 4.7,
      "min5": 4.0,
-     "max5": 5.5
+     "max5": 5.2
     },
     {
      "group": "Female",
-     "rate": 5.2,
+     "rate": 4.8,
      "min5": 3.9,
-     "max5": 5.3
+     "max5": 5.2
     }
    ]
   },
   "age": {
-   "quarter": "2026Q2",
+   "quarter": "2026Q3",
    "groups": [
     {
      "group": "15 - 24 years",
-     "rate": 13.2,
+     "rate": 12.6,
      "min5": 7.4,
      "max5": 14.1
     },
     {
      "group": "25 - 34 years",
-     "rate": 5.4,
+     "rate": 5.2,
      "min5": 4.5,
      "max5": 6.5
     },
     {
      "group": "35 - 44 years",
-     "rate": 3.8,
+     "rate": 4.1,
      "min5": 2.7,
      "max5": 4.2
     },
@@ -27007,66 +27067,66 @@
      "group": "45 - 54 years",
      "rate": 3.1,
      "min5": 2.2,
-     "max5": 4.1
+     "max5": 3.8
     },
     {
      "group": "55 - 59 years",
-     "rate": 4.7,
+     "rate": 4.2,
      "min5": 2.3,
-     "max5": 4.8
+     "max5": 4.7
     },
     {
      "group": "60 - 64 years",
-     "rate": 3.4,
+     "rate": 3.2,
      "min5": 2.9,
      "max5": 5.6
     },
     {
      "group": "65 years and over",
-     "rate": 1.3,
+     "rate": 0.9,
      "min5": 0.6,
      "max5": 2.3
     }
    ]
   },
   "education": {
-   "quarter": "2026Q2",
+   "quarter": "2026Q3",
    "groups": [
     {
      "group": "Primary or below",
-     "rate": 9.2,
+     "rate": 8.6,
      "min5": 6.0,
      "max5": 16.7
     },
     {
      "group": "Lower secondary",
-     "rate": 12.9,
+     "rate": 11.7,
      "min5": 6.6,
      "max5": 12.9
     },
     {
      "group": "Higher secondary",
-     "rate": 6.7,
+     "rate": 6.4,
      "min5": 4.9,
      "max5": 8.0
     },
     {
      "group": "Post-secondary non-tertiary",
-     "rate": 5.1,
+     "rate": 4.9,
      "min5": 2.9,
      "max5": 6.7
     },
     {
      "group": "Third level non-honours degree",
-     "rate": 4.9,
+     "rate": 4.8,
      "min5": 2.4,
      "max5": 4.9
     },
     {
      "group": "Third level honours degree or higher",
-     "rate": 3.5,
+     "rate": 3.7,
      "min5": 2.7,
-     "max5": 4.5
+     "max5": 3.7
     }
    ]
   }
